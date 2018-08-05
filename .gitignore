@@ -9,8 +9,9 @@
 *.exe
 *.out
 
-# Build path
+# Paths
 Build/
+.vscode
 
 # CMake unnecessary files
 CMake*
