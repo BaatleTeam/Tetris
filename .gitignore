@@ -8,3 +8,12 @@
 # Executables
 *.exe
 *.out
+
+# Build path
+Build/
+
+# CMake unnecessary files
+CMake*
+Makefile
+!cmake
+!CMakeLists.txt
