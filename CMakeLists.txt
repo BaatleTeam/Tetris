@@ -13,10 +13,7 @@ file(GLOB src Source/*.cpp)
 find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	link_libraries(${OPENGL_LIBRARIES})
-find_package(GLEW REQUIRED)
-	include_directories(${GLEW_INCLUDE_DIRS})
-	link_libraries(${GLEW_LIBRARIES})
-find_package(SFML REQUIRED window graphics)
+find_package(SFML 2.5 REQUIRED window graphics)
 
 # Compiling
 add_executable(Tetris ${src})
