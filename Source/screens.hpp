@@ -7,7 +7,7 @@ const std::string RESOURCES_PATH_PREFIX =  "../Resources/Fonts/";
 #include "cScreen.hpp"
 
 //Including each screen of application
-#include "screen_menu.hpp"
-#include "screen_game.hpp"
+#include "screenMenu.hpp"
+#include "screenGame.hpp"
 
 #endif // SCREENS_HPP_INCLUDED

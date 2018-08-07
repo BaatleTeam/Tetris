@@ -1,9 +1,8 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "cScreen.hpp"
 
-#include <SFML/Graphics.hpp>
-
-class screen_game : public cScreen
+class screenGame : public cScreen
 {
 private:
 	float movement_step;
@@ -11,11 +10,11 @@ private:
 	float posy;
 	sf::RectangleShape Rectangle;
 public:
-	screen_game(void);
+	screenGame(void);
 	virtual int Run(sf::RenderWindow &App);
 };
 
-screen_game::screen_game(void)
+screenGame::screenGame(void)
 {
 	movement_step = 5;
 	posx = 320;
@@ -25,7 +24,7 @@ screen_game::screen_game(void)
 	Rectangle.setSize({ 10.f, 10.f });
 }
 
-int screen_game::Run(sf::RenderWindow &App)
+int screenGame::Run(sf::RenderWindow &App)
 {
 	sf::Event Event;
 	bool Running = true;

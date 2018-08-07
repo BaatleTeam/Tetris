@@ -1,20 +1,21 @@
 #include <iostream>
-#include "cScreen.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include "cScreen.hpp"
 
-class screen_menu : public cScreen
+
+class screenMenu : public cScreen
 {
 private:
 	bool playing;
 	sf::Font font;
 	
 public:
-	screen_menu(void);
+	screenMenu(void);
 	virtual int Run(sf::RenderWindow &App);
 };
 
-screen_menu::screen_menu(void)
+screenMenu::screenMenu(void)
 {
 	playing = false;
 
@@ -27,7 +28,7 @@ screen_menu::screen_menu(void)
 	
 }
 
-int screen_menu::Run(sf::RenderWindow &App)
+int screenMenu::Run(sf::RenderWindow &App)
 {
 	sf::Text text;
 

@@ -6,6 +6,7 @@ int main()
 {
 	//Applications variables
 	std::vector<cScreen*> Screens;
+	Screens.reserve(2);
 	int screen = 0;
 
 	//Window creation
@@ -22,8 +23,8 @@ int main()
 	//Screens preparations
 	// TODO
 	// Нужно как-то красиво обернуть try-catch'ем, так как в конструкторе меню может вылететь исключение
-	screen_menu s_menu;
-	screen_game s_game;
+	screenMenu s_menu;
+	screenGame s_game;
 	
 	Screens.push_back(&s_menu);
 	Screens.push_back(&s_game);
