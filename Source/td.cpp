@@ -1,38 +1,38 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "screens.hpp"
 
-int main(int argc, char** argv)
+int main()
 {
-  // std::cout << "Hello, World!" << std::endl;
+	//Applications variables
+	std::vector<cScreen*> Screens;
+	int screen = 0;
 
-  // Creating window:
-  sf::ContextSettings settings;
-  settings.depthBits = 24;
-  settings.stencilBits = 8;
-  settings.antialiasingLevel = 2; // Optional
-  // Doesn't work on Linux without this?
-  settings.majorVersion = 3;
-  settings.minorVersion = 3;
-  settings.attributeFlags = sf::ContextSettings::Core;
-  sf::RenderWindow window(sf::VideoMode(800, 600), "Hi, SFML!", sf::Style::Close, settings);
-  settings = window.getSettings();
-  std::cout << "OpenGL version: " << settings.majorVersion << "." << settings.minorVersion << std::endl;
+	//Window creation
+	// TODO
+	// Нужно как-то управляться с разным расширением, а не только с жалкими 640 на 480
+	// The style parameter can be a combination of the sf::Style flags, which are None, Titlebar,
+	// Resize, Close and Fullscreen.
+	// The default style is Resize | Close.
+	sf::RenderWindow App(sf::VideoMode(640, 480, 32), "Super Mega SIRTET", sf::Style::Titlebar | sf::Style::Close);
 
-  bool running = true;
+	//Mouse cursor no more visible
+	App.setMouseCursorVisible(false);
 
-  sf::Event event;
-  
-  while (running) {
-    while(window.pollEvent(event)) {
-      switch(event.type) {
-      case sf::Event::Closed:
-	running = false;
-	break;
-      default:
-	break;
-      }
-    }
-  }
-  
-  return 0;
+	//Screens preparations
+	// TODO
+	// Нужно как-то красиво обернуть try-catch'ем, так как в конструкторе меню может вылететь исключение
+	screen_menu s_menu;
+	screen_game s_game;
+	
+	Screens.push_back(&s_menu);
+	Screens.push_back(&s_game);
+
+	//Main loop
+	while (screen >= 0)
+	{
+		screen = Screens[screen]->Run(App);
+	}
+
+	return EXIT_SUCCESS;
 }
