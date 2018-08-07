@@ -2,15 +2,16 @@
 Project "Tetis" is a classic game with GUI written in **C++** with graphic library **SFML**.
 
 ## Compiling
-Project has CMake files so that use this tool for building.
+Project has **CMake** files so that use this tool for building.
 Default compiler used by team - GCC (form MinGW and MSYS2) supporing C++11 and C++17.
 
 ### Dependencies
-- SFML (v. 2.5)
+- SFML 2.5.0 (last version you can find [there](https://www.sfml-dev.org/download/sfml/2.5.0/)
 
 ## Contributing
+Spec inforation for the team-members [here](https://github.com/BaatleTeam/Tetris/blob/master/contribution.md)
 
-## Team:
+## Team-members:
  _____                                _   _   _                           _     _                  
 |_   _|  _ __    __ _   _ __    ___  | | (_) | |_    ___   _ __    __ _  | |_  (_)   ___    _ __   
   | |   | '__|  / _` | | '_ \  / __| | | | | | __|  / _ \ | '__|  / _` | | __| | |  / _ \  | '_ \  
