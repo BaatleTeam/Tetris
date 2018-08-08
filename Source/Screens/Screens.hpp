@@ -1,5 +1,5 @@
 #include <iostream>
-const std::string RESOURCES_PATH_PREFIX =  "../Resources/Fonts/";
+const std::string RESOURCES_PATH_PREFIX =  "Resources/Fonts/";
 
 #ifndef SCREENS_HPP_INCLUDED
 #define SCREENS_HPP_INCLUDED

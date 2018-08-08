@@ -1,0 +1,14 @@
+SRC=Source
+LIB=-LSFML/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -g
+INC=-ISFML/SFML/include
+BLD=Build
+
+all: $(BLD)/td.o $(BLD)/ScreenMenu.o $(BLD)/ScreenGame.o 
+	g++ $(BLD)/td.o $(BLD)/ScreenMenu.o $(BLD)/ScreenGame.o -o tetris.exe $(LIB)
+
+$(BLD)/td.o: $(SRC)/td.cpp $(SRC)/Screens/Screens.hpp
+	gcc -c $(SRC)/td.cpp -o $(BLD)/td.o $(INC)
+$(BLD)/ScreenGame.o: $(SRC)/Screens/ScreenGame.cpp $(SRC)/Screens/Screens.hpp $(SRC)/Screens/ScreenGame.hpp 
+	gcc -c $(SRC)/Screens/ScreenGame.cpp -o $(BLD)/ScreenGame.o $(INC)
+$(BLD)/ScreenMenu.o: $(SRC)/Screens/ScreenMenu.cpp $(SRC)/Screens/Screens.hpp $(SRC)/Screens/ScreenMenu.hpp 
+	gcc -c $(SRC)/Screens/ScreenMenu.cpp -o $(BLD)/ScreenMenu.o $(INC)
