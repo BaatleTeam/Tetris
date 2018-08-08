@@ -1,15 +1,26 @@
 # Tetris
-Project "Tetis" is a classic game with GUI written in **C++** with graphic library **SFML**.
+Project "Tetris" is a classic game with GUI written in **C++** with **SFML** graphics library.
 
 ## Compiling
-Project has **CMake** files so that use this tool for building.
-Default compiler used by team - GCC (form MinGW and MSYS2) supporing C++11 and C++17.
 
 ### Dependencies
-- SFML 2.5.0 (last version you can find [there](https://www.sfml-dev.org/download/sfml/2.5.0/)
+| Dependency | Version |
+|------------|---------|
+| GCC        | 7.3+    |
+| CMake      | 3.3+    |
+| SFML       | 2.5+    |
+
+
+### Build
+Build while in root of project directory:
+   cmake .
+   make
+Run compiled application:
+   ./Build/Tetris.exe
+
 
 ## Contributing
-Spec inforation for the team-members [here](https://github.com/BaatleTeam/Tetris/blob/master/contribution.md)
+Spec information for the team members is in [contibution.md](https://github.com/BaatleTeam/Tetris/blob/master/contribution.md).
 
 ## Team-members:
  _____                                _   _   _                           _     _                  
