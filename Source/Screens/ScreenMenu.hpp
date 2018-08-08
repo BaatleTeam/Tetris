@@ -1,15 +1,15 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "cScreen.hpp"
+#include "ScreenBase.hpp"
 
 
-class screenMenu : public cScreen {
+class ScreenMenu : public ScreenBase {
 private:
 	bool playing;
 	sf::Font font;
 	
 public:
-	screenMenu();
-	int Run(sf::RenderWindow &App);
+	ScreenMenu();
+	int run(sf::RenderWindow &App);
 };

@@ -1,11 +1,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "screens.hpp"
+#include "Screens/Screens.hpp"
 
 int main()
 {
 	//Applications variables
-	std::vector<cScreen*> Screens;
+	std::vector<ScreenBase*> Screens;
+
+	// Сомнительное резервирование памяти (зочем?)
 	Screens.reserve(2);
 	int screen = 0;
 
@@ -23,22 +25,24 @@ int main()
 	//Screens preparations
 	// TODO
 	// Нужно как-то красиво обернуть try-catch'ем, так как в конструкторе меню может вылететь исключение
-	screenMenu s_menu;
-	screenGame s_game;
+	ScreenMenu s_menu;
+	ScreenGame s_game;
 	
+
+	// Не понял зачем здесь try-catch, необработанное исключение же в конструкторе
 	try {
 		Screens.push_back(&s_menu);
 		Screens.push_back(&s_game);
 	}
 	catch(...){
-		std::cout << "Programm has beem terminated.";
+		std::cout << "Program has been terminated.";
 		exit(-1);
 	}
 
 	//Main loop
 	while (screen >= 0)
 	{
-		screen = Screens[screen]->Run(App);
+		screen = Screens[screen]->run(App);
 	}
 
 	return EXIT_SUCCESS;

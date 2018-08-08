@@ -1,6 +1,6 @@
-#include "screens.hpp" // из-за Resourses_path
+#include "Screens.hpp" // из-за Resourses_path
 
-screenMenu::screenMenu() : playing(false) 
+ScreenMenu::ScreenMenu() : playing(false) 
 {
 	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "coopbl.ttf"))
 	{
@@ -10,7 +10,7 @@ screenMenu::screenMenu() : playing(false)
 	
 }
 
-int screenMenu::Run(sf::RenderWindow &App)
+int ScreenMenu::run(sf::RenderWindow &App)
 {
 	sf::Text text;
 

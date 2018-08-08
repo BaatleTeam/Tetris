@@ -1,6 +1,6 @@
-#include "screenGame.hpp"
+#include "ScreenGame.hpp"
 
-screenGame::screenGame()
+ScreenGame::ScreenGame()
 {
 	movement_step = 5;
 	posx = 320;
@@ -10,7 +10,7 @@ screenGame::screenGame()
 	Rectangle.setSize({ 10.f, 10.f });
 }
 
-int screenGame::Run(sf::RenderWindow &App)
+int ScreenGame::run(sf::RenderWindow &App)
 {
 	sf::Event Event;
 	bool Running = true;
