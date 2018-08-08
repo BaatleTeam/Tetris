@@ -26,8 +26,14 @@ int main()
 	screenMenu s_menu;
 	screenGame s_game;
 	
-	Screens.push_back(&s_menu);
-	Screens.push_back(&s_game);
+	try {
+		Screens.push_back(&s_menu);
+		Screens.push_back(&s_game);
+	}
+	catch(...){
+		std::cout << "Programm has beem terminated.";
+		exit(-1);
+	}
 
 	//Main loop
 	while (screen >= 0)
