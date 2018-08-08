@@ -7,7 +7,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall")
 project(Tetris)
    
 # Adding source files
-file(GLOB src Source/*.cpp)
+file(GLOB src_main Source/*.cpp)
+file(GLOB src_screens Source/Screens/*.cpp)
    
 # Adding dependencies
 find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
@@ -16,6 +17,6 @@ find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
 find_package(SFML 2.5 REQUIRED window graphics)
 
 # Compiling
-add_executable(Tetris ${src})
+add_executable(Tetris ${src_main} ${src_screens})
 target_link_libraries(Tetris sfml-window sfml-graphics)
 

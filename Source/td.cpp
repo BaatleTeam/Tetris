@@ -1,38 +1,39 @@
 #include <iostream>
+#include <memory>
 #include <SFML/Graphics.hpp>
+#include "Screens/Screens.hpp"
 
-int main(int argc, char** argv)
+int main()
 {
-  // std::cout << "Hello, World!" << std::endl;
+	//Applications variables
+	std::vector<std::unique_ptr<ScreenBase>> Screens;
 
-  // Creating window:
-  sf::ContextSettings settings;
-  settings.depthBits = 24;
-  settings.stencilBits = 8;
-  settings.antialiasingLevel = 2; // Optional
-  // Doesn't work on Linux without this?
-  settings.majorVersion = 3;
-  settings.minorVersion = 3;
-  settings.attributeFlags = sf::ContextSettings::Core;
-  sf::RenderWindow window(sf::VideoMode(800, 600), "Hi, SFML!", sf::Style::Close, settings);
-  settings = window.getSettings();
-  std::cout << "OpenGL version: " << settings.majorVersion << "." << settings.minorVersion << std::endl;
+	// Сомнительное резервирование памяти (зочем?)
+	Screens.reserve(2);
+	int screen = 0;
 
-  bool running = true;
+	//Window creation
+	// TODO
+	// Нужно как-то управляться с разным расширением, а не только с жалкими 640 на 480
+	// The style parameter can be a combination of the sf::Style flags, which are None, Titlebar,
+	// Resize, Close and Fullscreen.
+	// The default style is Resize | Close.
+	sf::RenderWindow App(sf::VideoMode(640, 480, 32), "Super Mega SIRTET", sf::Style::Titlebar | sf::Style::Close);
+	
+	try {
+		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
+	}
+	catch(...){
+		std::cout << "Program has been terminated.";
+		exit(-1);
+	}
 
-  sf::Event event;
-  
-  while (running) {
-    while(window.pollEvent(event)) {
-      switch(event.type) {
-      case sf::Event::Closed:
-	running = false;
-	break;
-      default:
-	break;
-      }
-    }
-  }
-  
-  return 0;
+	//Main loop
+	while (screen >= 0)
+	{
+		screen = Screens[screen]->run(App);
+	}
+
+	return EXIT_SUCCESS;
 }
