@@ -12,6 +12,9 @@ ScreenGame::ScreenGame()
 
 int ScreenGame::run(sf::RenderWindow &App)
 {
+	//Mouse cursor no more visible
+	App.setMouseCursorVisible(true);
+
 	sf::Event Event;
 	bool Running = true;
 
