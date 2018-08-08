@@ -20,6 +20,8 @@ int main()
 	// The default style is Resize | Close.
 	sf::RenderWindow App(sf::VideoMode(640, 480, 32), "Super Mega SIRTET", sf::Style::Titlebar | sf::Style::Close);
 	
+	std::cout << std::endl;
+
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
