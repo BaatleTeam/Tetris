@@ -13,11 +13,14 @@ Project "Tetris" is a classic game with GUI written in **C++** with **SFML** gra
 
 ### Build
 Build while in root of project directory:
-   cmake .
-   make
+```
+cmake .
+make
+```
 Run compiled application:
-   ./Build/Tetris.exe
-
+```
+./Build/Tetris.exe
+```
 
 ## Contributing
 Spec information for the team members is in [contibution.md](https://github.com/BaatleTeam/Tetris/blob/master/contribution.md).
