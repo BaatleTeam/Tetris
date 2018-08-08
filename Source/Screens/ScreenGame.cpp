@@ -16,9 +16,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 	App.setMouseCursorVisible(true);
 
 	sf::Event Event;
-	bool Running = true;
+	bool isRunning = true;
 
-	while (Running)
+	while (isRunning)
 	{
 		//Verifying events
 		while (App.pollEvent(Event))

@@ -6,7 +6,7 @@
 
 class ScreenMenu : public ScreenBase {
 private:
-	bool playing;
+	// bool playing;
 	sf::Font font;
 	
 public:

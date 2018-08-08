@@ -1,6 +1,6 @@
 #include "Screens.hpp" // из-за Resourses_path
 
-ScreenMenu::ScreenMenu() : playing(false) 
+ScreenMenu::ScreenMenu()
 {
 	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/coopbl.ttf"))
 	{
@@ -36,9 +36,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	text.setPosition(sf::Vector2f(App.getSize().x/2.0f,App.getSize().y/2.0f));
 
 	sf::Event Event;
-	bool Running = true;
+	bool isRunning = true;
 
-	while (Running)
+	while (isRunning)
 	{
 		//Verifying events
 		while (App.pollEvent(Event))
