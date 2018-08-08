@@ -1,0 +1,10 @@
+SRC=Source
+LIB=-LSFML/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -g
+INC=-ISFML/SFML/include
+BLD=Build
+
+all: $(BLD)/test.o
+	g++ $(BLD)/test.o -o tetris.exe $(LIB)
+
+$(BLD)/test.o: $(SRC)/test.cpp
+	g++ -c $(SRC)/test.cpp -o $(BLD)/test.o $(INC)
