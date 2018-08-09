@@ -1,5 +1,6 @@
 #include "Screens.hpp" // из-за Resourses_path
 #include "../Buttons/Buttons.hpp" // сомнительный путь, хз как поменять
+#include "../Buttons/ButtonsList.hpp"
 
 ScreenMenu::ScreenMenu()
 {
@@ -15,9 +16,11 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 
-	Button buttonNewGame((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5)), "New game", font);
-	Button buttonSettings((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6)), "Settings", font);
-	Button buttonRecords((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7)), "Score", font);
+	ButtonList buttonList;
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font);
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font);
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font);
+
 
 	sf::Event Event;
 	bool isRunning = true;
@@ -44,6 +47,8 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					case sf::Keyboard::Escape:
 						return -1;
 						break;
+					case sf::Keyboard::Down:
+
 					default:
 						break;
 				}
@@ -54,9 +59,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 		App.clear();
 
 		//Drawing
-		App.draw(buttonNewGame);
-		App.draw(buttonSettings);
-		App.draw(buttonRecords);
+		App.draw(buttonList);
 		
 		App.display();
 	}
