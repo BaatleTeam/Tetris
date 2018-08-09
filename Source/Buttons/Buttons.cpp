@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Buttons.hpp"
 
-Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font)
+Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function)
+: function(function)
 {
     text.setFont(font);
     text.setFillColor(sf::Color::Blue);

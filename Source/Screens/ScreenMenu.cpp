@@ -13,17 +13,22 @@ ScreenMenu::ScreenMenu()
 
 int ScreenMenu::run(sf::RenderWindow &App)
 {
+	sf::Event Event;
+	bool isRunning = true;
+	ButtonList buttonList;
+
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 
-	ButtonList buttonList;
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font);
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font);
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font);
+	/* auto callNewGame = 	[]() -> int { return 1; };
+	auto callSettings = []() -> int { return 2; };
+	auto callScore = 	[]() -> int { return 3; }; */
+	
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font, 	[]() -> int { return 1; });
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, []() -> int { return 2; });
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font, []() -> int { return 3; });
 
 
-	sf::Event Event;
-	bool isRunning = true;
 
 	while (isRunning)
 	{
@@ -42,7 +47,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 				switch (Event.key.code)
 				{
 					case sf::Keyboard::Enter:
-						return 1;
+						return buttonList.current_function();
 						break;
 					case sf::Keyboard::Escape:
 						return -1;

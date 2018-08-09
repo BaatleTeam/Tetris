@@ -8,9 +8,9 @@ public:
     : currentButtonNumber(0)
     {}
 
-    void add_button(sf::Vector2f pos, std::string message, sf::Font &font)
+    void add_button(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function)
     {
-        buttonList.push_back(std::unique_ptr<Button>(new Button(pos, message, font)));
+        buttonList.push_back(std::unique_ptr<Button>(new Button(pos, message, font, function)));
         if(buttonList.size() == 1) // set first button as highlighted
         {
             buttonList[0].get()->setHighlighted(true);
@@ -56,6 +56,11 @@ public:
     {
         unsigned int nextButtonNumber = (currentButtonNumber + 1) % buttonList.size();
         update_highlighted_button(nextButtonNumber);
+    }
+
+    int current_function()
+    {
+        return buttonList[currentButtonNumber].get()->call_function();
     }
     
 private:

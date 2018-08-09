@@ -8,8 +8,8 @@ int main()
 	//Applications variables
 	std::vector<std::unique_ptr<ScreenBase>> Screens;
 
-	// Сомнительное резервирование памяти (зочем?)
-	Screens.reserve(2);
+	// Сомнительное резервирование памяти (зочем?)`
+	Screens.reserve(4);
 	int screen = 0;
 
 	//Window creation
@@ -24,6 +24,8 @@ int main()
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
 	}
 	catch(...){

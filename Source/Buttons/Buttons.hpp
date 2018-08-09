@@ -1,11 +1,12 @@
 #include <SFML/Graphics.hpp>
+#include <functional>
 
 #define CHARACTER_SIZE 12 // Зависит от шрифта
 
 class Button : public sf::Drawable, public sf::Transformable
 {
 public:
-    Button(sf::Vector2f &pos, std::string &message, sf::Font &font);
+    Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -30,9 +31,15 @@ public:
             //rectangle.setOutlineThickness(2);
         }
     }
+
+    int call_function()
+    {
+        return function();
+    }
+    
 private:
     sf::RectangleShape rectangle;
     sf::Text text;
-
+    std::function<int()> function;
 };
 
