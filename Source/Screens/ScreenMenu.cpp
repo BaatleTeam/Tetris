@@ -1,8 +1,9 @@
 #include "Screens.hpp" // из-за Resourses_path
+#include "../Buttons.hpp" // сомнительный путь, хз как поменять
 
 ScreenMenu::ScreenMenu()
 {
-	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/coopbl.ttf"))
+	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/SIMPLIFICA Typeface.ttf"))
 	{
 		std::cout << "Font didn't load!" << std::endl;
 		throw;
@@ -12,28 +13,11 @@ ScreenMenu::ScreenMenu()
 int ScreenMenu::run(sf::RenderWindow &App)
 {
 	//Mouse cursor no more visible
-	App.setMouseCursorVisible(false);
+	App.setMouseCursorVisible(true);
 
-	sf::Text text;
-
-	// select the font
-	text.setFont(font); // font is a sf::Font
-
-	// set the string to display
-	text.setString("Hello world 1111111111");
-
-	// set the character size
-	text.setCharacterSize(24); // in pixels, not points! 
-	
-	std::cout << App.getSize().x << " " << App.getSize().y << std::endl;
-
-	// TODO
-	// Сделать нормальное выравнивание по центру экрана не через константы
-	// DONE но не совсем нормальное
-	sf::FloatRect textRect = text.getLocalBounds();
-	text.setOrigin(textRect.left + textRect.width/2.0f,
-				textRect.top  + textRect.height/2.0f);
-	text.setPosition(sf::Vector2f(App.getSize().x/2.0f,App.getSize().y/2.0f));
+	Button buttonNewGame((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5)), "New game", font);
+	Button buttonSettings((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6)), "Settings", font);
+	Button buttonRecords((sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7)), "Score", font);
 
 	sf::Event Event;
 	bool isRunning = true;
@@ -70,7 +54,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 		App.clear();
 
 		//Drawing
-		App.draw(text);
+		App.draw(buttonNewGame);
+		App.draw(buttonSettings);
+		App.draw(buttonRecords);
 		
 		App.display();
 	}
