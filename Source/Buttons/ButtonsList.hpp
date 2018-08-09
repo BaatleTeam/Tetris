@@ -32,14 +32,30 @@ public:
         }
     }
 
-    void next_button()
+    void update_highlighted_button(unsigned int nextButtonNumber)
     {
-
+        if (nextButtonNumber != currentButtonNumber)
+        {
+            buttonList[currentButtonNumber].get()->setHighlighted(false);
+            buttonList[nextButtonNumber].get()->setHighlighted(true);
+            currentButtonNumber = nextButtonNumber;
+        }
     }
 
     void prev_button()
     {
-        
+        unsigned int nextButtonNumber = 0;
+        if (currentButtonNumber == 0)
+            nextButtonNumber = buttonList.size() - 1;
+        else
+            nextButtonNumber = (currentButtonNumber - 1) % buttonList.size();
+        update_highlighted_button(nextButtonNumber);
+    }
+
+    void next_button()
+    {
+        unsigned int nextButtonNumber = (currentButtonNumber + 1) % buttonList.size();
+        update_highlighted_button(nextButtonNumber);
     }
     
 private:

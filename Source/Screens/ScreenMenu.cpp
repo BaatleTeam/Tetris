@@ -48,7 +48,11 @@ int ScreenMenu::run(sf::RenderWindow &App)
 						return -1;
 						break;
 					case sf::Keyboard::Down:
-
+						buttonList.next_button();
+						break;
+					case sf::Keyboard::Up:
+						buttonList.prev_button();
+						break;
 					default:
 						break;
 				}
