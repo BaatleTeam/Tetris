@@ -13,7 +13,7 @@ public:
     {
         if(isHighlighted)
         {
-            text.setColor(sf::Color::Red);
+            text.setFillColor(sf::Color::Red);
             //text.setCharacterSize(24); // in pixels, not points! 
 
             rectangle.setOutlineColor(sf::Color::Red);
@@ -22,7 +22,7 @@ public:
         } 
         else
         {
-            text.setColor(sf::Color::Blue);
+            text.setFillColor(sf::Color::Blue);
             //text.setCharacterSize(24); // in pixels, not points! 
 
             rectangle.setOutlineColor(sf::Color::Cyan);

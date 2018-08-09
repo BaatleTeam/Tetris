@@ -4,9 +4,9 @@
 Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font)
 {
     text.setFont(font);
-    text.setColor(sf::Color::Blue);
+    text.setFillColor(sf::Color::Blue);
     text.setString(message);
-    text.setCharacterSize(24); // in pixels, not points! 
+    text.setCharacterSize(26); // in pixels, not points! 
     text.setStyle(sf::Text::Bold);
 
     rectangle.setSize(sf::Vector2f((float)(message.size() * CHARACTER_SIZE + 10), 30));
