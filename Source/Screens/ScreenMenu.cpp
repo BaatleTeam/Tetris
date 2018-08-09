@@ -1,6 +1,9 @@
 #include "Screens.hpp" // из-за Resourses_path
-#include "../Buttons/Buttons.hpp" // сомнительный путь, хз как поменять
-#include "../Buttons/ButtonsList.hpp"
+#ifndef BUTTON_HPP_INCLUDED
+#define BUTTON_HPP_INCLUDED
+#include "../Buttons/Button.hpp"
+#endif
+#include "../Buttons/ButtonList.hpp"
 
 ScreenMenu::ScreenMenu()
 {
@@ -16,19 +19,21 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList;
+	int screenNumberToReturn = 0;
+	static int NumOfcurrentHighlightedButton = 0;
 
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 
-	/* auto callNewGame = 	[]() -> int { return 1; };
-	auto callSettings = []() -> int { return 2; };
-	auto callScore = 	[]() -> int { return 3; }; */
+	auto callNewGame = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 1; };
+	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
+	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
 	
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font, 	[]() -> int { return 1; });
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, []() -> int { return 2; });
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font, []() -> int { return 3; });
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*4), "New game", font, 	callNewGame);
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, 	callSettings);
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*8), "Score", 	 font, 	callScore);
 
-
+	buttonList.update_highlighted_button(NumOfcurrentHighlightedButton);
 
 	while (isRunning)
 	{
@@ -47,7 +52,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 				switch (Event.key.code)
 				{
 					case sf::Keyboard::Enter:
-						return buttonList.current_function();
+						buttonList.current_function();
+						NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
+						return screenNumberToReturn;
 						break;
 					case sf::Keyboard::Escape:
 						return -1;
