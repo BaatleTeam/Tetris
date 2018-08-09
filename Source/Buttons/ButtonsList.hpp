@@ -8,7 +8,7 @@ public:
     : currentButtonNumber(0)
     {}
 
-    void addButton(sf::Vector2f pos, std::string message, sf::Font &font)
+    void add_button(sf::Vector2f pos, std::string message, sf::Font &font)
     {
         buttonList.push_back(std::unique_ptr<Button>(new Button(pos, message, font)));
         if(buttonList.size() == 1) // set first button as highlighted
@@ -30,6 +30,16 @@ public:
         {
             target.draw(*(buttonList[i].get()));
         }
+    }
+
+    void next_button()
+    {
+
+    }
+
+    void prev_button()
+    {
+        
     }
     
 private:

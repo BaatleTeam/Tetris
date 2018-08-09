@@ -17,9 +17,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	App.setMouseCursorVisible(true);
 
 	ButtonList buttonList;
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font);
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font);
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font);
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*5), "New game", font);
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font);
+	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*7), "Score", font);
 
 
 	sf::Event Event;
