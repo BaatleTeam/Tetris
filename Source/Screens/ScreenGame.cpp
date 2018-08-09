@@ -1,13 +1,17 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame()
+ScreenGame::ScreenGame(Settings *s) : screenBackground(s, "Resources/Pictures/background1.png")
 {
+									//   gameBackground(s, "Resources/Pictures/background.png")
+	std::cout << "COnstructor of ScreenGame begin" << std::endl;
 	movement_step = 5;
 	posx = 320;
 	posy = 240;
 	//Setting sprite
 	Rectangle.setFillColor(sf::Color(255, 255, 255, 150));
 	Rectangle.setSize({ 10.f, 10.f });
+
+	std::cout << "COnstructor of ScreenGame end" << std::endl;
 }
 
 int ScreenGame::run(sf::RenderWindow &App)
@@ -69,9 +73,15 @@ int ScreenGame::run(sf::RenderWindow &App)
 		App.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
 		App.draw(Rectangle);
+		drawBackground(App);
 		App.display();
 	}
 
 	//Never reaching this point normally, but just in case, exit the application
 	return -1;
+}
+
+void ScreenGame::drawBackground(sf::RenderWindow &WIN){
+	screenBackground.Draw(WIN);
+	// gameBackground.Draw(WIN);
 }
