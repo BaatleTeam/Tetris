@@ -1,5 +1,5 @@
 #include "Screens.hpp" // из-за Resourses_path
-#include "../Buttons.hpp" // сомнительный путь, хз как поменять
+#include "../Buttons/Buttons.hpp" // сомнительный путь, хз как поменять
 
 ScreenMenu::ScreenMenu()
 {
