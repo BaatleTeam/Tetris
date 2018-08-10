@@ -10,7 +10,7 @@ private:
 	float posx;
 	float posy;
 	sf::RectangleShape Rectangle;
-	Background screenBackground;
+	// Background screenBackground;
 	// Background gameBackground;
 public:
 	ScreenGame(Settings*);

@@ -1,8 +1,7 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(Settings *s) : screenBackground(s, "Resources/Pictures/background1.png")
+ScreenGame::ScreenGame(Settings *s)
 {
-									//   gameBackground(s, "Resources/Pictures/background.png")
 	std::cout << "COnstructor of ScreenGame begin" << std::endl;
 	movement_step = 5;
 	posx = 320;
@@ -82,6 +81,6 @@ int ScreenGame::run(sf::RenderWindow &App)
 }
 
 void ScreenGame::drawBackground(sf::RenderWindow &WIN){
-	screenBackground.Draw(WIN);
+	// screenBackground.Draw(WIN);
 	// gameBackground.Draw(WIN);
 }
