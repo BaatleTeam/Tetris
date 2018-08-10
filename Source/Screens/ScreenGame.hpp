@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
-#include "Backgrounds.hpp"
+#include "Settings.hpp"
 
 
 class ScreenGame : public ScreenBase {
@@ -10,10 +10,8 @@ private:
 	float posx;
 	float posy;
 	sf::RectangleShape Rectangle;
-	// Background screenBackground;
-	// Background gameBackground;
 public:
-	ScreenGame(Settings*);
+	ScreenGame(const Settings*);
 	int run(sf::RenderWindow &App) override;
 	void drawBackground(sf::RenderWindow &WIN);
 };
