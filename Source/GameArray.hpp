@@ -3,25 +3,7 @@
 #include <iomanip>
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
-
-class GameArray;
-
-class ActiveShape {
-private:
-    std::vector <sf::Vector2u> coordinates;
-    bool isActive_m;
-
-public:
-    ActiveShape(std::vector<sf::Vector2u> &&coord);
-    ActiveShape();
-    void moveDown();
-    bool isActive() const;
-    unsigned int getCellsNum() const;
-    std::vector <sf::Vector2u> getCurCoordinates() const;
-    void setInactive();
-    void setActive();
-    // bool canDoNextStep(const GameArray &field) const;
-};
+#include "ActiveShape.hpp"
 
 class GameArray {
 private:
@@ -34,7 +16,7 @@ private:
 public:
     GameArray(const Settings&);
     ~GameArray();
-    void doStep(); // перемещает активную фигуру на этаж ниже
+    void doStep(); // перемещает активную фигуру на этаж ниже или генерит новую
     bool checkShapeMoving() const;
     bool isPainted(sf::Vector2u coord) const;
     void displayActiveShapeOnArray();
