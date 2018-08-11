@@ -11,7 +11,7 @@ Settings::Settings(){
                 sf::Vector2u(5, 10)};
     
     indexScreenSize = 0;
-    indexFieldSize = 0;
+    indexFieldSize = 1;
 }
 
 sf::Vector2u Settings::getScreenSize() const {
@@ -19,7 +19,7 @@ sf::Vector2u Settings::getScreenSize() const {
 }
 
 sf::Vector2u Settings::getFieldSize() const {
-    return screenSizes[indexFieldSize];
+    return fieldSizes[indexFieldSize];
 }
 
 void Settings::setScreenSize(unsigned int new_index){

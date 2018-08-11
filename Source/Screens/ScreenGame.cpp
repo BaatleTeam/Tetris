@@ -21,6 +21,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 	sf::Event Event;
 	bool isRunning = true;
 
+	sf::Clock clockStep;
+	clockStep.restart();
+
 	while (isRunning)
 	{
 		//Verifying events
@@ -67,6 +70,14 @@ int ScreenGame::run(sf::RenderWindow &App)
 		if (posy<0)
 			posy = 0;
 		Rectangle.setPosition({ posx, posy });
+
+		sf::Time elapsedTime = clockStep.getElapsedTime();
+		if (elapsedTime >= sf::seconds(2)){
+			std::cout << elapsedTime.asSeconds() << std::endl;
+			std::cout << field;
+			clockStep.restart();
+		}
+		
 
 		//Clearing screen
 		App.clear(sf::Color(0, 0, 0, 0));

@@ -2,8 +2,8 @@
 
 GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y), width(s.getFieldSize().x) {
     ptrArray = new ArrayCell*[height];
-    for (int i = 0; i < width; i++)
-        ptrArray[i] = new ArrayCell[width];
+    for (int i = 0; i < height; i++)
+        ptrArray[i] = new ArrayCell[width]();
 }
 
 GameArray::~GameArray(){
@@ -43,7 +43,26 @@ void GameArray::moveActiveShapeToArray(){
 
 inline
 bool GameArray::isPainted(sf::Vector2u coord) const {
-    // return ptrArray[coord.x][coord.y].ArrayCell::isPainted();
+    return ptrArray[coord.x][coord.y].isPainted();
+}
+
+std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
+    for (int i = 0; i < gmr.height; i++){
+        out << std::setw(3) << gmr.height - i << "| ";
+        for (int j = 0; j < gmr.width; j++)
+            out << gmr.ptrArray[i][j].isPainted() << " ";
+        out << "\n";
+    }
+    out << std::setw(4);
+    out << (char)192;
+    for (int i = 0; i < gmr.width; i++)
+        out  <<  "--";
+    out << "\n";
+    out << std::setw(6);
+    for (int i = 0; i < gmr.width; i++)
+        out  << i << " ";
+    out << "\n\n" << std::endl;
+    return out;
 }
 
 // ------------------------------------------------------------------------------

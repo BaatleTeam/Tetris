@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
 
@@ -37,6 +39,7 @@ public:
     bool isPainted(sf::Vector2u coord) const;
     void moveActiveShapeToArray();    
     
+    friend std::ostream& operator<<(std::ostream &out, const GameArray &gmr);
 
 private:
     void freeArray();
