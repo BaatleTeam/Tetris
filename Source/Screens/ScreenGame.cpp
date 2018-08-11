@@ -1,6 +1,6 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings *s)
+ScreenGame::ScreenGame(const Settings &s) : field(s)
 {
 	std::cout << "COnstructor of ScreenGame begin" << std::endl;
 	movement_step = 5;

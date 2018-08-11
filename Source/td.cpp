@@ -2,6 +2,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "Screens/Screens.hpp"
+#include "Screens/ScreenGame.hpp"
 
 int main()
 {
@@ -25,7 +26,7 @@ int main()
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(&settings)));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
 	}
 	catch(...){
 		std::cout << "Program has been terminated.";
