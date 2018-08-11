@@ -7,13 +7,13 @@ Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::fun
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
     text.setString(message);
-    text.setCharacterSize(26); // in pixels, not points! 
+    text.setCharacterSize(52); // in pixels, not points! 
     text.setStyle(sf::Text::Bold);
     text.setOutlineColor(sf::Color(255, 255, 255, 200));
 
-    rectangle.setSize(sf::Vector2f((float)(message.size() * CHARACTER_SIZE + 10), 30));
+    rectangle.setSize(sf::Vector2f((float)(message.size() * CHARACTER_SIZE + 20), 60));
     rectangle.setOutlineColor(sf::Color(255, 255, 255, 96));
-    rectangle.setOutlineThickness(2);
+    rectangle.setOutlineThickness(4);
     rectangle.setPosition(pos);
     rectangle.setFillColor(sf::Color(255, 255, 255, 64));
     
@@ -69,7 +69,7 @@ void Button::setHighlight(bool isHighlighted)
             textRect.top  + textRect.height/2.0f);
 }
 
-int Button::call_function() // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
+int Button::callHBFunction() // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
 {
     return function();
 }

@@ -5,7 +5,7 @@ ButtonList::ButtonList()
 : currentButtonNumber(0)
 {}
 
-void ButtonList::add_button(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function)
+void ButtonList::addButton(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function)
 {
     buttonList.push_back(std::unique_ptr<Button>(new Button(pos, message, font, function)));
     if(buttonList.size() == 1) // set first button as highlighted
@@ -29,7 +29,7 @@ void ButtonList::draw(sf::RenderTarget& target, sf::RenderStates states) const
     }
 }
 
-void ButtonList::update_highlighted_button(unsigned int nextButtonNumber)
+void ButtonList::updateHighlightedButton(unsigned int nextButtonNumber)
 {
     if (nextButtonNumber != currentButtonNumber)
     {
@@ -39,25 +39,25 @@ void ButtonList::update_highlighted_button(unsigned int nextButtonNumber)
     }
 }
 
-void ButtonList::prev_button()
+void ButtonList::prevButton()
 {
     unsigned int nextButtonNumber = 0;
     if (currentButtonNumber == 0)
         nextButtonNumber = buttonList.size() - 1;
     else
         nextButtonNumber = (currentButtonNumber - 1) % buttonList.size();
-    update_highlighted_button(nextButtonNumber);
+    updateHighlightedButton(nextButtonNumber);
 }
 
-void ButtonList::next_button()
+void ButtonList::nextButton()
 {
     unsigned int nextButtonNumber = (currentButtonNumber + 1) % buttonList.size();
-    update_highlighted_button(nextButtonNumber);
+    updateHighlightedButton(nextButtonNumber);
 }
 
-int ButtonList::current_function()
+int ButtonList::callCBFunction()
 {
-    return buttonList[currentButtonNumber].get()->call_function();
+    return buttonList[currentButtonNumber].get()->callHBFunction();
 }
 
 int ButtonList::getCurrentButtonNumber()

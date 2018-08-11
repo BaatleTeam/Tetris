@@ -10,17 +10,17 @@ class ButtonList : public sf::Drawable, public sf::Transformable
 public:
     ButtonList();
 
-    void add_button(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function);
+    void addButton(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-    void update_highlighted_button(unsigned int nextButtonNumber);
+    void updateHighlightedButton(unsigned int nextButtonNumber);
 
-    void prev_button();
+    void prevButton();
 
-    void next_button();
+    void nextButton();
 
-    int current_function();
+    int callCBFunction();
 
     int getCurrentButtonNumber();
     

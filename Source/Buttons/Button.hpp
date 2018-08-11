@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 
-#define CHARACTER_SIZE 12 // Зависит от шрифта и хотелки программера
+#define CHARACTER_SIZE 24 // Зависит от шрифта и хотелки программера
 
 class Button : public sf::Drawable, public sf::Transformable
 {
@@ -12,7 +12,7 @@ public:
 
     void setHighlight(bool isHighlighted);
 
-    int call_function(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
+    int callHBFunction(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
     
 private:
     sf::RectangleShape rectangle;

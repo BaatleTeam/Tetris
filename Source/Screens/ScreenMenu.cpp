@@ -29,11 +29,11 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
 	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
 	
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*4), "New game", font, 	callNewGame);
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, 	callSettings);
-	buttonList.add_button(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*8), "Score", 	 font, 	callScore);
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*4), "New game", font, 	callNewGame);
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, 	callSettings);
+	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*8), "Score", 	 font, 	callScore);
 
-	buttonList.update_highlighted_button(NumOfcurrentHighlightedButton);
+	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 
 	while (isRunning)
 	{
@@ -52,7 +52,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 				switch (Event.key.code)
 				{
 					case sf::Keyboard::Enter:
-						buttonList.current_function();
+						buttonList.callCBFunction();
 						NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
 						return screenNumberToReturn;
 						break;
@@ -60,10 +60,10 @@ int ScreenMenu::run(sf::RenderWindow &App)
 						return -1;
 						break;
 					case sf::Keyboard::Down:
-						buttonList.next_button();
+						buttonList.nextButton();
 						break;
 					case sf::Keyboard::Up:
-						buttonList.prev_button();
+						buttonList.prevButton();
 						break;
 					default:
 						break;
