@@ -1,9 +1,18 @@
 #include "GameArray.hpp"
 
-GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y), width(s.getFieldSize().x) {
+GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 3), width(s.getFieldSize().x + 2), activeShape({{1,5}, {2,5}, {3,5}}) {
     ptrArray = new ArrayCell*[height];
     for (int i = 0; i < height; i++)
         ptrArray[i] = new ArrayCell[width]();
+    for (int i = 0; i < width; i++)
+        ptrArray[0][i].makePainted();
+    for (int i = 1; i < height; i++){
+        ptrArray[i][0].makePainted();
+        ptrArray[i][width-1].makePainted();
+    }
+
+    // высота увеличивается на 3, т.к. 0-уровень и первые два выделяются по буфер
+    // ширина на 2 по той же причине
 }
 
 GameArray::~GameArray(){
@@ -18,12 +27,15 @@ void GameArray::freeArray(){
 }
 
 void GameArray::doStep(){
-    if (!activeShape.isActive()){
-        moveActiveShapeToArray();
-        // shapeGenerator->generateNewShape(activeShape);
-    }
-    if (checkShapeMoving())
+    // if (!activeShape.isActive()){
+    //     displayActiveShapeOnArray();
+    //     // shapeGenerator->generateNewShape(activeShape);
+    // }
+    if (checkShapeMoving()){
+        removeActiveShapeFromArray();
         activeShape.moveDown();
+        displayActiveShapeOnArray();
+    }
     else {
         activeShape.setInactive();
     }
@@ -31,26 +43,31 @@ void GameArray::doStep(){
 
 bool GameArray::checkShapeMoving() const {
     for (const auto &curShapeCoord : activeShape.getCurCoordinates())
-        if (ptrArray[curShapeCoord.x][curShapeCoord.y-1].isPainted())
+        if (ptrArray[curShapeCoord.y-1][curShapeCoord.x].isPainted())
             return false;
     return true;
 }
 
-void GameArray::moveActiveShapeToArray(){
+void GameArray::displayActiveShapeOnArray(){
     for (auto const &curShapeCoord : activeShape.getCurCoordinates())
-        ptrArray[curShapeCoord.x][curShapeCoord.y].makePainted();
+        ptrArray[curShapeCoord.y][curShapeCoord.x].makePainted();
+}
+
+void GameArray::removeActiveShapeFromArray(){
+    for (auto const &curShapeCoord : activeShape.getCurCoordinates())
+        ptrArray[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
 }
 
 inline
 bool GameArray::isPainted(sf::Vector2u coord) const {
-    return ptrArray[coord.x][coord.y].isPainted();
+    return ptrArray[coord.y][coord.x].isPainted();
 }
 
 std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
     for (int i = 0; i < gmr.height; i++){
-        out << std::setw(3) << gmr.height - i << "| ";
+        out << std::setw(3) << gmr.height -1 - i << "| ";
         for (int j = 0; j < gmr.width; j++)
-            out << gmr.ptrArray[i][j].isPainted() << " ";
+            out << gmr.ptrArray[gmr.height -1 - i][j].isPainted() << " ";
         out << "\n";
     }
     out << std::setw(4);
@@ -61,6 +78,9 @@ std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
     out << std::setw(6);
     for (int i = 0; i < gmr.width; i++)
         out  << i << " ";
+    out << "\n";
+    for (const auto &elem : gmr.activeShape.getCurCoordinates())
+        out << "x = " << elem.x << " y = " <<  elem.y << "\n";
     out << "\n\n" << std::endl;
     return out;
 }

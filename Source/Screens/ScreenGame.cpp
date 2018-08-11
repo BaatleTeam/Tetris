@@ -72,8 +72,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 		Rectangle.setPosition({ posx, posy });
 
 		sf::Time elapsedTime = clockStep.getElapsedTime();
-		if (elapsedTime >= sf::seconds(2)){
+		if (elapsedTime >= sf::seconds(1)){
 			std::cout << elapsedTime.asSeconds() << std::endl;
+			field.doStep();
 			std::cout << field;
 			clockStep.restart();
 		}

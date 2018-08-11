@@ -37,7 +37,8 @@ public:
     void doStep(); // перемещает активную фигуру на этаж ниже
     bool checkShapeMoving() const;
     bool isPainted(sf::Vector2u coord) const;
-    void moveActiveShapeToArray();    
+    void displayActiveShapeOnArray();
+    void removeActiveShapeFromArray();
     
     friend std::ostream& operator<<(std::ostream &out, const GameArray &gmr);
 
