@@ -12,7 +12,7 @@ Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::fun
     text.setStyle(sf::Text::Bold);
     text.setOutlineColor(sf::Color(255, 255, 255, 200));
 
-    rectangle.setSize(sf::Vector2f((float)(message.size() * CHARACTER_SIZE + 20), 60));
+    rectangle.setSize(sf::Vector2f((float)(text.getLocalBounds().width + 20), 60));
     rectangle.setOutlineColor(sf::Color(255, 255, 255, 96));
     rectangle.setOutlineThickness(4);
     rectangle.setFillColor(sf::Color(255, 255, 255, 64));

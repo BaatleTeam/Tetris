@@ -27,8 +27,9 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
-	auto callChangeResolution = [&App]() -> int { return 0; };
-	auto callChangeFieldSize  = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
+	auto callChangeResolution = []() -> int { return 0; };
+	auto callChangeFieldSize  = []() -> int { return 0; };
+	
 	auto callToggleFullScreen = [&App]() -> int {
 		static int windowStyle = sf::Style::Titlebar | sf::Style::Close;
 		windowStyle ^= sf::Style::Fullscreen;
@@ -39,9 +40,9 @@ int ScreenSettings::run(sf::RenderWindow &App)
 		return 0;
 	};
 	
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution", font, 	callChangeResolution);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", font, 	callChangeFieldSize);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", font, 	callToggleFullScreen);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	 		font, 	callChangeResolution);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", 		font, 	callChangeFieldSize);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Toggle fullscreen", 	font, 	callToggleFullScreen);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 
