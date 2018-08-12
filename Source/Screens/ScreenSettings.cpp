@@ -10,7 +10,7 @@
 #include "../Buttons/ButtonList.hpp"
 #endif
 
-ScreenMenu::ScreenMenu()
+ScreenSettings::ScreenSettings() // Нужно брать шрифт из настроек, а не грузить его постоянно
 {
 	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/SIMPLIFICA Typeface.ttf"))
 	{
@@ -19,25 +19,29 @@ ScreenMenu::ScreenMenu()
 	}
 }
 
-int ScreenMenu::run(sf::RenderWindow &App)
+int ScreenSettings::run(sf::RenderWindow &App)
 {
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList(App.getSize());
-	//std::cout << App.getSize().x << App.getSize().y << std::endl;
 	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
-	//Mouse cursor no more visible
-	App.setMouseCursorVisible(true);
+	auto callChangeResolution = [&App]() -> int { return 0; };
+	auto callChangeFieldSize  = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
+	auto callToggleFullScreen = [&App]() -> int {
+		static int windowStyle = sf::Style::Titlebar | sf::Style::Close;
+		windowStyle ^= sf::Style::Fullscreen;
 
-	auto callNewGame = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 1; };
-	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
-	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
+		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32),
+			"Super Mega SIRTET",
+			windowStyle);
+		return 0;
+	};
 	
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, 	callNewGame);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, 	callSettings);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution", font, 	callChangeResolution);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", font, 	callChangeFieldSize);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", font, 	callToggleFullScreen);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 
@@ -68,11 +72,10 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					{
 						case sf::Keyboard::Enter:
 							buttonList.callCBFunction();
-							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
-							return screenNumberToReturn;
 							break;
 						case sf::Keyboard::Escape:
-							return -1;
+							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
+							return 0;
 							break;
 						case sf::Keyboard::Down:
 							buttonList.nextButton();

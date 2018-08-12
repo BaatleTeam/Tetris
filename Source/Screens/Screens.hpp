@@ -10,5 +10,6 @@ const std::string RESOURCES_PATH_PREFIX =  "Resources/";
 //Including each screen of application
 #include "ScreenMenu.hpp"
 #include "ScreenGame.hpp"
+#include "ScreenSettings.hpp"
 
 #endif // SCREENS_HPP_INCLUDED
