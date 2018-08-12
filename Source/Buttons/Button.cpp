@@ -15,18 +15,20 @@ Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::fun
     rectangle.setSize(sf::Vector2f((float)(message.size() * CHARACTER_SIZE + 20), 60));
     rectangle.setOutlineColor(sf::Color(255, 255, 255, 96));
     rectangle.setOutlineThickness(4);
-    rectangle.setPosition(pos);
     rectangle.setFillColor(sf::Color(255, 255, 255, 64));
     
-    sf::FloatRect textRect = rectangle.getLocalBounds();
-    rectangle.setOrigin(textRect.left + textRect.width/2.0f,
-            textRect.top  + textRect.height/2.0f);
+    setOriginToCenter();
+}
 
-    text.setPosition(pos);
+void Button::setOriginToCenter()
+{
+    sf::FloatRect newOrigin = rectangle.getLocalBounds();
+    rectangle.setOrigin(newOrigin.left + newOrigin.width/2.0f,
+            newOrigin.top  + newOrigin.height/2.0f);
 
-    textRect = text.getLocalBounds();
-    text.setOrigin(textRect.left + textRect.width/2.0f,
-            textRect.top  + textRect.height/2.0f); 
+    newOrigin = text.getLocalBounds();
+    text.setOrigin(newOrigin.left + newOrigin.width/2.0f,
+            newOrigin.top  + newOrigin.height/2.0f); 
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const

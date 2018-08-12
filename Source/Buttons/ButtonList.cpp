@@ -11,6 +11,7 @@ void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, s
 {
     buttonList.push_back(std::unique_ptr<Button>(new Button(relativePosition, message, font, function)));
     buttonList.back()->setRealPosition(currentResolution);
+    
     if(buttonList.size() == 1) // set first button as highlighted
     {
         buttonList[0].get()->setHighlight(true);

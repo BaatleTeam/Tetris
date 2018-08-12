@@ -15,6 +15,8 @@ public:
     int callHBFunction(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
 
     void setRealPosition(sf::Vector2u currentResolution);
+
+    void setOriginToCenter();
     
 private:
     sf::RectangleShape rectangle;
