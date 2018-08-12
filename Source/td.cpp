@@ -8,8 +8,8 @@ int main()
 	//Applications variables
 	std::vector<std::unique_ptr<ScreenBase>> Screens;
 
-	// Сомнительное резервирование памяти (зочем?)
-	Screens.reserve(2);
+	// Сомнительное резервирование памяти (зочем?)`
+	Screens.reserve(4);
 	int screen = 0;
 
 	//Window creation
@@ -18,12 +18,14 @@ int main()
 	// The style parameter can be a combination of the sf::Style flags, which are None, Titlebar,
 	// Resize, Close and Fullscreen.
 	// The default style is Resize | Close.
-	sf::RenderWindow App(sf::VideoMode(640, 480, 32), "Super Mega SIRTET", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow App(sf::VideoMode(1366, 768, 32), "Super Mega SIRTET", sf::Style::Resize);
 	
 	std::cout << std::endl;
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
 	}
 	catch(...){
