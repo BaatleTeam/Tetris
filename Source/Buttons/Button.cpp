@@ -3,6 +3,7 @@
 
 Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function)
 : function(function)
+, relativePosition(pos)
 {
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
@@ -72,4 +73,14 @@ void Button::setHighlight(bool isHighlighted)
 int Button::callHBFunction() // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
 {
     return function();
+}
+
+void Button::setRealPosition(sf::Vector2u currentResolution)
+{
+    sf::Vector2f newPosition;
+    newPosition.x = relativePosition.x*currentResolution.x;
+    newPosition.y = relativePosition.y*currentResolution.y;
+
+    rectangle.setPosition(newPosition);
+    text.setPosition(newPosition);
 }

@@ -13,10 +13,13 @@ public:
     void setHighlight(bool isHighlighted);
 
     int callHBFunction(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
+
+    void setRealPosition(sf::Vector2u currentResolution);
     
 private:
     sf::RectangleShape rectangle;
     sf::Text text;
+    sf::Vector2f relativePosition;
     std::function<int()> function;
 };
 

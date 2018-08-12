@@ -18,7 +18,8 @@ int ScreenMenu::run(sf::RenderWindow &App)
 {
 	sf::Event Event;
 	bool isRunning = true;
-	ButtonList buttonList;
+	ButtonList buttonList(App.getSize());
+	//std::cout << App.getSize().x << App.getSize().y << std::endl;
 	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
@@ -29,9 +30,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
 	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
 	
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*4), "New game", font, 	callNewGame);
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*6), "Settings", font, 	callSettings);
-	buttonList.addButton(sf::Vector2f(App.getSize().x/2, App.getSize().y/12*8), "Score", 	 font, 	callScore);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, 	callNewGame);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, 	callSettings);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 
@@ -40,33 +41,43 @@ int ScreenMenu::run(sf::RenderWindow &App)
 		//Verifying events
 		while (App.pollEvent(Event))
 		{
-			// Window closed
-			if (Event.type == sf::Event::Closed)
+			switch(Event.type)
 			{
-				return -1;
-			}
+				// Window closed
+				case sf::Event::Closed:
+					return -1;
+					break;
 
-			//Key pressed
-			if (Event.type == sf::Event::KeyPressed)
-			{
-				switch (Event.key.code)
+				case sf::Event::Resized:
+                    std::cout << "Resize catched! New size [ " << Event.size.width << ", " << Event.size.height << "]" << std::endl;
+                    
+                    //sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+                    App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
+					buttonList.updateResolution(App.getSize());
+                    break;
+
+				//Key pressed
+				case sf::Event::KeyPressed:
 				{
-					case sf::Keyboard::Enter:
-						buttonList.callCBFunction();
-						NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
-						return screenNumberToReturn;
-						break;
-					case sf::Keyboard::Escape:
-						return -1;
-						break;
-					case sf::Keyboard::Down:
-						buttonList.nextButton();
-						break;
-					case sf::Keyboard::Up:
-						buttonList.prevButton();
-						break;
-					default:
-						break;
+					switch (Event.key.code)
+					{
+						case sf::Keyboard::Enter:
+							buttonList.callCBFunction();
+							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
+							return screenNumberToReturn;
+							break;
+						case sf::Keyboard::Escape:
+							return -1;
+							break;
+						case sf::Keyboard::Down:
+							buttonList.nextButton();
+							break;
+						case sf::Keyboard::Up:
+							buttonList.prevButton();
+							break;
+						default:
+							break;
+					}
 				}
 			}
 		}

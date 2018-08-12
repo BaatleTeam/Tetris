@@ -18,7 +18,7 @@ int main()
 	// The style parameter can be a combination of the sf::Style flags, which are None, Titlebar,
 	// Resize, Close and Fullscreen.
 	// The default style is Resize | Close.
-	sf::RenderWindow App(sf::VideoMode(1366, 768, 32), "Super Mega SIRTET", sf::Style::Fullscreen);
+	sf::RenderWindow App(sf::VideoMode(1366, 768, 32), "Super Mega SIRTET", sf::Style::Resize);
 	
 	std::cout << std::endl;
 

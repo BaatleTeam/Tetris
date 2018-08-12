@@ -1,13 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include "ButtonList.hpp"
+#include <iostream>
 
-ButtonList::ButtonList()
+ButtonList::ButtonList(sf::Vector2u resolution)
 : currentButtonNumber(0)
+, currentResolution(resolution)
 {}
 
-void ButtonList::addButton(sf::Vector2f pos, std::string message, sf::Font &font, std::function<int()> function)
+void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function)
 {
-    buttonList.push_back(std::unique_ptr<Button>(new Button(pos, message, font, function)));
+    buttonList.push_back(std::unique_ptr<Button>(new Button(relativePosition, message, font, function)));
+    buttonList.back()->setRealPosition(currentResolution);
     if(buttonList.size() == 1) // set first button as highlighted
     {
         buttonList[0].get()->setHighlight(true);
@@ -63,4 +66,12 @@ int ButtonList::callCBFunction()
 int ButtonList::getCurrentButtonNumber()
 {
     return currentButtonNumber;
+}
+
+void ButtonList::updateResolution(sf::Vector2u newResolution)
+{
+    for(auto &button : buttonList)
+    {
+        button->setRealPosition(newResolution);
+    }
 }
