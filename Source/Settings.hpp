@@ -4,6 +4,10 @@
 
 typedef unsigned int uint;
 
+// В Settings хрянятся все настраиваемые парметры, их возможные значения и ихтекущее значение
+// можно инициализироватьь с файла.dat, пока что в консстукторе
+// на основе настроек конфигурируются размеры спрайтов, сложность игры, поля и т.д.
+
 class Settings {
 private:
     std::vector<sf::Vector2u> screenSizes;
@@ -11,13 +15,13 @@ private:
     // сложность
     // цвет - ?
     
-    int indexScreenSize;
-    int indexFieldSize;
+    mutable int indexScreenSize;
+    mutable int indexFieldSize;
 
 public:
     Settings();
     ~Settings() = default;
-    static const int StandartWidth = 1280;
+    static const int StandartWidth = 1280; // затем умножается на коэфициенты
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
