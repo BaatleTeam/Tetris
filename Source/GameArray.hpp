@@ -10,7 +10,7 @@ private:
     unsigned int width; 
     unsigned int height;
     std::vector <std::vector <ArrayCell> > ptrArray;
-    ActiveShape activeShape; 
+    ActiveShape *activeShape; // далее переделать в std::unique_ptr();
     
 
 public:

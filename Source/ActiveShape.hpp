@@ -20,27 +20,24 @@ public:
     void setInactive();
     void setActive();
 
-    // virtual void rotate(const GameArray&) = 0;
+    virtual void rotate(const GameArray&) = 0;
 };
 
-// квадрат
+ //          **
+// квадрат   ** 
+class Type0 : public ActiveShape {
+public:
+    Type0(unsigned int arrayWidth, unsigned int arrayHeight);
+
+    void rotate(const GameArray&) override;
+
+};
+
+//
+// палка ****  
 class Type1 : public ActiveShape {
 public:
-    Type1();
-    Type1(std::vector<sf::Vector2u> &&coord);
+    Type1(unsigned int arrayWidth, unsigned int arrayHeight);
 
-
-};
-//          **
-// квдрат   **
-class Type2 : public ActiveShape {
-    private:
-        int position; // todo
-public:
-    Type2();
-    Type2(std::vector<sf::Vector2u> &&coord);
-
-    // void rotate(const GameArray&) override;
-
-
+    void rotate(const GameArray&) override;
 };

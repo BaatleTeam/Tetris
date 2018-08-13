@@ -1,18 +1,16 @@
 #include "GameArray.hpp"
 
-GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 2), width(s.getFieldSize().x), activeShape({{1,5}, {2,5}, {3,5}}) {
+GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 2), width(s.getFieldSize().x) {
     ptrArray.reserve(height);
     for (int i = 0; i < height; i++)
         ptrArray.push_back(std::vector<ArrayCell>(width));
-    // char *buffer = new char[sizeof(ActiveShape)];
-    // activeShape = new (buffer) ActiveShape();    
-    // }
-
     // высота увеличивается на 2, т.к. первые двe строки выделяются по буфер
+    
+    activeShape = new Type0(height, width);
 }
 
 GameArray::~GameArray(){
-
+    delete activeShape;
 }
 
 void GameArray::doStep(){
@@ -20,19 +18,19 @@ void GameArray::doStep(){
     //     displayActiveShapeOnArray();
     //     // shapeGenerator->generateNewShape(activeShape);
     // }
+    removeActiveShapeFromArray();
     if (checkShapeMoving()){
-        removeActiveShapeFromArray();
-        activeShape.moveDown();
-        displayActiveShapeOnArray();
+        activeShape->moveDown();
     }
     else {
         // shapeGenerator->generateNewShape(activeShape);
     }
+        displayActiveShapeOnArray();
 }
 
 bool GameArray::checkShapeMoving() const {
     try {
-        for (const auto &curShapeCoord : activeShape.getCurCoordinates())
+        for (const auto &curShapeCoord : activeShape->getCurCoordinates())
             if (ptrArray.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
                 return false;
         return true;
@@ -44,12 +42,12 @@ bool GameArray::checkShapeMoving() const {
 }
 
 void GameArray::displayActiveShapeOnArray(){
-    for (auto const &curShapeCoord : activeShape.getCurCoordinates())
+    for (auto const &curShapeCoord : activeShape->getCurCoordinates())
         ptrArray[curShapeCoord.y][curShapeCoord.x].makePainted();
 }
 
 void GameArray::removeActiveShapeFromArray(){
-    for (auto const &curShapeCoord : activeShape.getCurCoordinates())
+    for (auto const &curShapeCoord : activeShape->getCurCoordinates())
         ptrArray[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
 }
 
@@ -74,7 +72,7 @@ std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
     for (int i = 0; i < gmr.width; i++)
         out  << i << " ";
     out << "\n";
-    for (const auto &elem : gmr.activeShape.getCurCoordinates())
+    for (const auto &elem : gmr.activeShape->getCurCoordinates())
         out << "x = " << elem.x << " y = " <<  elem.y << "\n";
     out << "\n\n" << std::endl;
     return out;

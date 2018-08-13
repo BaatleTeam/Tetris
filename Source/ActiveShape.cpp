@@ -33,3 +33,18 @@ void ActiveShape::setActive(){
 unsigned int ActiveShape::getCellsNum() const {
     return coordinates.size();
 }
+
+Type0::Type0(unsigned int height, unsigned int width)
+    : ActiveShape({
+        { width/2,   height-1 },
+        { width/2+1, height-1 },
+        { width/2,   height-2 },
+        { width/2+1, height-2 }
+     }) 
+{ 
+
+}
+
+void Type0::rotate(const GameArray& array) {
+    // nothihg
+}
