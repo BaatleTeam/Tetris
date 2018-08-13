@@ -2,11 +2,13 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "Screens/Screens.hpp"
+#include "Settings.hpp"
 
 int main()
 {
 	//Applications variables
 	std::vector<std::unique_ptr<ScreenBase>> Screens;
+	Settings settings;
 
 	// Сомнительное резервирование памяти (зочем?)`
 	Screens.reserve(4);
@@ -23,10 +25,10 @@ int main()
 	std::cout << std::endl;
 
 	try {
-		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
-		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame));
+		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings)));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
+		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings)));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
 	}
 	catch(...){
 		std::cout << "Program has been terminated.";

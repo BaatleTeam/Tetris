@@ -1,4 +1,5 @@
 #include "Settings.hpp"
+#include <iostream>
 
 Settings::Settings(){
     screenSizes = {
@@ -12,6 +13,26 @@ Settings::Settings(){
     
     indexScreenSize = 0;
     indexFieldSize = 1;
+    isFullScreenToggled = 0;
+
+    if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf"))
+	{
+		std::cout << "Font didn't load!" << std::endl;
+		throw;
+	}
+
+    vars.emplace("isFullScreenToggled", isFullScreenToggled);
+}
+
+void Settings::printVars()
+{
+    for (auto const& x : vars)
+    {
+        std::cout << x.first 
+                << ':' 
+                << x.second 
+                << std::endl;
+    }
 }
 
 sf::Vector2u Settings::getScreenSize() const {
@@ -20,6 +41,10 @@ sf::Vector2u Settings::getScreenSize() const {
 
 sf::Vector2u Settings::getFieldSize() const {
     return fieldSizes[indexFieldSize];
+}
+
+sf::Font Settings::getFont() const {
+    return font;
 }
 
 void Settings::setScreenSize(unsigned int new_index){

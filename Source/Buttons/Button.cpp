@@ -48,7 +48,6 @@ void Button::setHighlight(bool isHighlighted)
 {
     if(isHighlighted)
     {
-       
         text.setOutlineThickness(1.0f);
         //text.setCharacterSize(28); // in pixels, not points! 
 

@@ -10,17 +10,13 @@
 #include "../Buttons/ButtonList.hpp"
 #endif
 
-ScreenMenu::ScreenMenu()
-{
-	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/SIMPLIFICA Typeface.ttf"))
-	{
-		std::cout << "Font didn't load!" << std::endl;
-		throw;
-	}
-}
+ScreenMenu::ScreenMenu(Settings &settings)
+: settings(settings)
+{}
 
 int ScreenMenu::run(sf::RenderWindow &App)
 {
+	settings.printVars();
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList(App.getSize());
@@ -34,13 +30,15 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	auto callNewGame = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 1; };
 	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
 	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
+	sf::Font font = settings.getFont();
 	
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, 	callNewGame);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, 	callSettings);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, callSettings);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
-
+	
+	
 	while (isRunning)
 	{
 		//Verifying events

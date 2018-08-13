@@ -1,6 +1,3 @@
-#include <iostream>
-const std::string RESOURCES_PATH_PREFIX =  "Resources/";
-
 #ifndef SCREENS_HPP_INCLUDED
 #define SCREENS_HPP_INCLUDED
 
@@ -11,5 +8,9 @@ const std::string RESOURCES_PATH_PREFIX =  "Resources/";
 #include "ScreenMenu.hpp"
 #include "ScreenGame.hpp"
 #include "ScreenSettings.hpp"
+#include "../Settings.hpp"
+
+#include <iostream>
+const std::string RESOURCES_PATH_PREFIX =  "Resources/";
 
 #endif // SCREENS_HPP_INCLUDED

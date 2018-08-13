@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
+#include "../Settings.hpp"
 
 class ScreenGame : public ScreenBase {
 private:
@@ -9,6 +10,8 @@ private:
 	float posy;
 	sf::RectangleShape Rectangle;
 public:
-	ScreenGame();
+	ScreenGame(Settings &settings);
 	int run(sf::RenderWindow &App) override;
+protected:
+    Settings &settings;
 };

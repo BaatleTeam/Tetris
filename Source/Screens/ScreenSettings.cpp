@@ -1,6 +1,7 @@
 #include "Screens.hpp" // из-за Resourses_path
+#include "../Settings.hpp"
 
-#ifndef BUTTON_HPP_INCLUDED
+#ifndef BUTTON_HPP_INCLUDED 
 #define BUTTON_HPP_INCLUDED
 #include "../Buttons/Button.hpp"
 #endif
@@ -10,17 +11,13 @@
 #include "../Buttons/ButtonList.hpp"
 #endif
 
-ScreenSettings::ScreenSettings() // Нужно брать шрифт из настроек, а не грузить его постоянно
-{
-	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/SIMPLIFICA Typeface.ttf"))
-	{
-		std::cout << "Font didn't load!" << std::endl;
-		throw;
-	}
-}
+ScreenSettings::ScreenSettings(Settings &settings)
+: settings(settings) // Нужно брать шрифт из настроек, а не грузить его постоянно
+{}
 
 int ScreenSettings::run(sf::RenderWindow &App)
 {
+	settings.printVars();
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList(App.getSize());
@@ -30,19 +27,22 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	auto callChangeResolution = []() -> int { return 0; };
 	auto callChangeFieldSize  = []() -> int { return 0; };
 	
-	auto callToggleFullScreen = [&App]() -> int {
+	auto callToggleFullScreen = [&App, this]() -> int {
 		static int windowStyle = sf::Style::Titlebar | sf::Style::Close;
 		windowStyle ^= sf::Style::Fullscreen;
+		settings.vars.find("isFullScreenToggled")->second ^= 1;
 
 		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32),
 			"Super Mega SIRTET",
 			windowStyle);
 		return 0;
 	};
-	
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	 		font, 	callChangeResolution);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", 		font, 	callChangeFieldSize);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Toggle fullscreen", 	font, 	callToggleFullScreen);
+
+	sf::Font font = settings.getFont();
+
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	 	font, 	callChangeResolution);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", 	font, 	callChangeFieldSize);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", 	font, 	callToggleFullScreen);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 

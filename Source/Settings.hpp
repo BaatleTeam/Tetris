@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <map>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 typedef unsigned int uint;
 
@@ -18,14 +20,22 @@ private:
     mutable int indexScreenSize;
     mutable int indexFieldSize;
 
+    int isFullScreenToggled;
+
+    sf::Font font;
+
 public:
     Settings();
     ~Settings() = default;
     static const int StandartWidth = 1280; // затем умножается на коэфициенты
+    std::map<std::string, int&> vars;
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
+    sf::Font getFont() const;
+    void printVars();
 
     void setScreenSize(unsigned int index);
     void setFieldSize(unsigned int index);
+    
 };

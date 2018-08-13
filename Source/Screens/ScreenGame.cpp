@@ -1,6 +1,7 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame()
+ScreenGame::ScreenGame(Settings &settings)
+: settings(settings)
 {
 	movement_step = 5;
 	posx = 320;
@@ -12,6 +13,7 @@ ScreenGame::ScreenGame()
 
 int ScreenGame::run(sf::RenderWindow &App)
 {
+	settings.printVars();
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 

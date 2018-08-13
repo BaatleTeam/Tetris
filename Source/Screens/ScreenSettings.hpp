@@ -1,15 +1,15 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "ScreenBase.hpp"
+#include "Screens.hpp"
 
 
 class ScreenSettings : public ScreenBase {
 private:
-	// bool playing;
-	sf::Font font;
 	
 public:
-	ScreenSettings();
+	ScreenSettings(Settings &settings);
 	int run(sf::RenderWindow &App);
+protected:
+    Settings &settings;
 };
