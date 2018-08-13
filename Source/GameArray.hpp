@@ -7,10 +7,10 @@
 
 class GameArray {
 private:
-    unsigned int width;
+    unsigned int width; 
     unsigned int height;
-    ArrayCell **ptrArray;
-    ActiveShape activeShape;
+    std::vector <std::vector <ArrayCell> > ptrArray;
+    ActiveShape activeShape; 
     
 
 public:
@@ -18,12 +18,9 @@ public:
     ~GameArray();
     void doStep(); // перемещает активную фигуру на этаж ниже или генерит новую
     bool checkShapeMoving() const;
-    bool isPainted(sf::Vector2u coord) const;
+    bool isPainted(sf::Vector2u imCoord) const;
     void displayActiveShapeOnArray();
     void removeActiveShapeFromArray();
     
     friend std::ostream& operator<<(std::ostream &out, const GameArray &gmr);
-
-private:
-    void freeArray();
 };

@@ -1,29 +1,18 @@
 #include "GameArray.hpp"
 
-GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 3), width(s.getFieldSize().x + 2), activeShape({{1,5}, {2,5}, {3,5}}) {
-    ptrArray = new ArrayCell*[height];
+GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 2), width(s.getFieldSize().x), activeShape({{1,5}, {2,5}, {3,5}}) {
+    ptrArray.reserve(height);
     for (int i = 0; i < height; i++)
-        ptrArray[i] = new ArrayCell[width]();
-    for (int i = 0; i < width; i++)
-        ptrArray[0][i].makePainted();
-    for (int i = 1; i < height; i++){
-        ptrArray[i][0].makePainted();
-        ptrArray[i][width-1].makePainted();
-    }
+        ptrArray.push_back(std::vector<ArrayCell>(width));
+    // char *buffer = new char[sizeof(ActiveShape)];
+    // activeShape = new (buffer) ActiveShape();    
+    // }
 
-    // высота увеличивается на 3, т.к. 0-уровень и первые два выделяются по буфер
-    // ширина на 2 по той же причине
+    // высота увеличивается на 2, т.к. первые двe строки выделяются по буфер
 }
 
 GameArray::~GameArray(){
-    freeArray();
-}
 
-void GameArray::freeArray(){
-    for (int i = 0; i < width; i++)
-        delete[] ptrArray[i];
-    delete ptrArray;
-    ptrArray = nullptr;
 }
 
 void GameArray::doStep(){
@@ -42,10 +31,16 @@ void GameArray::doStep(){
 }
 
 bool GameArray::checkShapeMoving() const {
-    for (const auto &curShapeCoord : activeShape.getCurCoordinates())
-        if (ptrArray[curShapeCoord.y-1][curShapeCoord.x].isPainted())
-            return false;
-    return true;
+    try {
+        for (const auto &curShapeCoord : activeShape.getCurCoordinates())
+            if (ptrArray.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
+                return false;
+        return true;
+    }
+    catch (std::out_of_range){
+        std::cout << "Ura, raboraet!" << std::endl;
+        return false;
+    }
 }
 
 void GameArray::displayActiveShapeOnArray(){
