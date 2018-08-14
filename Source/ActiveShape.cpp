@@ -48,3 +48,18 @@ Type0::Type0(unsigned int height, unsigned int width)
 void Type0::rotate(const GameArray& array) {
     // nothihg
 }
+
+Type1::Type1(unsigned int height, unsigned int width)
+    : ActiveShape({
+        { width/2,   height-1 },
+        { width/2+1, height-1 },
+        { width/2,   height-2 },
+        { width/2+1, height-2 }
+     }) 
+{ 
+
+}
+
+void Type1::rotate(const GameArray& array) {
+    // nothihg
+}

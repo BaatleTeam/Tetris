@@ -4,15 +4,18 @@
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
 #include "ActiveShape.hpp"
+#include "ShapeGenerator.hpp"
 
 class GameArray {
 private:
     unsigned int width; 
     unsigned int height;
     std::vector <std::vector <ArrayCell> > ptrArray;
-    ActiveShape *activeShape; // далее переделать в std::unique_ptr();
-    
 
+    ActiveShape *activeShape; // далее переделать в std::unique_ptr();
+    char* bufferForActiveShape;
+    ShapeGenerator shapeGenerator;
+    
 public:
     GameArray(const Settings&);
     ~GameArray();

@@ -1,31 +1,39 @@
 #include "GameArray.hpp"
 
-GameArray::GameArray(const Settings &s) : height(s.getFieldSize().y + 2), width(s.getFieldSize().x) {
+GameArray::GameArray(const Settings &s) 
+    : height(s.getFieldSize().y + 2)
+    , width(s.getFieldSize().x)
+    , shapeGenerator(height, width) 
+{
     ptrArray.reserve(height);
     for (int i = 0; i < height; i++)
         ptrArray.push_back(std::vector<ArrayCell>(width));
     // высота увеличивается на 2, т.к. первые двe строки выделяются по буфер
-    
-    activeShape = new Type0(height, width);
+
+    bufferForActiveShape = new char[sizeof(ActiveShape)];
+    shapeGenerator.generateNewShape(activeShape, bufferForActiveShape);
 }
 
 GameArray::~GameArray(){
-    delete activeShape;
+    activeShape->~ActiveShape(); // вызываем деструктор текущей фигуры на буфере
+    delete[] bufferForActiveShape; // теперь можно и сам буфер очистить
 }
 
 void GameArray::doStep(){
-    // if (!activeShape.isActive()){
+    shapeGenerator.generateNewShape(activeShape, bufferForActiveShape);
+    // // if (!activeShape.isActive()){
+    // //     displayActiveShapeOnArray();
+    // //     // shapeGenerator->generateNewShape(activeShape);
+    // // }
+    // removeActiveShapeFromArray();
+    // if (checkShapeMoving()){
+    //     activeShape->moveDown();
     //     displayActiveShapeOnArray();
+    // }
+    // else {
+    //     // displayActiveShapeOnArray();
     //     // shapeGenerator->generateNewShape(activeShape);
     // }
-    removeActiveShapeFromArray();
-    if (checkShapeMoving()){
-        activeShape->moveDown();
-    }
-    else {
-        // shapeGenerator->generateNewShape(activeShape);
-    }
-        displayActiveShapeOnArray();
 }
 
 bool GameArray::checkShapeMoving() const {
