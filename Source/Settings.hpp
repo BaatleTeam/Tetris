@@ -1,5 +1,6 @@
-#pragma once
-//#include <vector>
+#ifndef SETTINGS_HPP_INCLUDED
+#define SETTINGS_HPP_INCLUDED
+
 #include <map>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
@@ -46,3 +47,5 @@ public:
     void nextFieldSize();
     
 };
+
+#endif

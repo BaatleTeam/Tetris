@@ -1,14 +1,5 @@
-#include "Screens.hpp" // из-за Resourses_path
-
-#ifndef BUTTON_HPP_INCLUDED
-#define BUTTON_HPP_INCLUDED
-#include "../Buttons/Button.hpp"
-#endif
-
-#ifndef BUTTON_LIST_HPP_INCLUDED
-#define BUTTON_LIST_HPP_INCLUDED
+#include "Screens.hpp"
 #include "../Buttons/ButtonList.hpp"
-#endif
 
 ScreenMenu::ScreenMenu(Settings &settings)
 : settings(settings)

@@ -1,9 +1,8 @@
+#ifndef BUTTON_LIST_HPP_INCLUDED
+#define BUTTON_LIST_HPP_INCLUDED
+
 #include <SFML/Graphics.hpp>
-#ifndef BUTTON_HPP_INCLUDED
-#define BUTTON_HPP_INCLUDED
 #include "Button.hpp"
-#endif
-//#include <memory>
 
 class ButtonList : public sf::Drawable, public sf::Transformable
 {
@@ -30,6 +29,6 @@ private:
     std::vector<std::unique_ptr<Button>> buttonList;
     unsigned int currentButtonNumber;
     sf::Vector2u currentResolution;
-    
-    
 };
+
+#endif

@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "Button.hpp"
 
 Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function)

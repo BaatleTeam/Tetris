@@ -1,3 +1,6 @@
+#ifndef BUTTON_HPP_INCLUDED
+#define BUTTON_HPP_INCLUDED
+
 #include <SFML/Graphics.hpp>
 #include <functional>
 
@@ -25,3 +28,4 @@ private:
     std::function<int()> function;
 };
 
+#endif

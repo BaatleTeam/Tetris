@@ -24,22 +24,20 @@ Settings::Settings(){
 
     strings.emplace("windowName", windowName);
 
-    if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf"))
-	{
+    if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf")) {
 		std::cout << "Font didn't load!" << std::endl;
 		throw;
 	}
 }
 
-void Settings::printVars()
-{
-    for (auto const& x : vars)
-    {
-        std::cout << x.first 
-                << ':' 
-                << x.second 
-                << std::endl;
-    }
+void Settings::printVars() {
+    for (auto const& x : vars) 
+        std::cout << x.first << ':' << x.second << std::endl;
+    
+    for (auto const& x : strings) 
+        std::cout << x.first << ':' << x.second << std::endl;
+
+    std::cout << std::endl;
 }
 
 sf::Vector2u Settings::getScreenSize() const {
@@ -54,28 +52,27 @@ sf::Font Settings::getFont() const {
     return font;
 }
 
-void Settings::setScreenSize(unsigned int new_index){
-    if(new_index >= screenSizes.size()) 
-    {
-        std::cout << "There is no such resolution index" << std::endl;
+void Settings::setScreenSize(unsigned int new_index) {
+    if(new_index >= screenSizes.size()) {
+        std::cout << "There is no such resolution index. Index set to default (0)" << std::endl;
+        indexScreenSize = 0;
         return;
     }
     indexScreenSize = new_index;
 }
 
-void Settings::setFieldSize(unsigned int new_index){
+void Settings::setFieldSize(unsigned int new_index) {
+    if(new_index >= fieldSizes.size()) {
+        std::cout << "There is no such field size index. Index set to default (0)" << std::endl;
+        indexFieldSize = 0;
+        return;
+    }
     indexFieldSize = new_index;
 }
 
-void Settings::nextScreenSize()
-{
-    if(indexScreenSize + 1 == screenSizes.size())
-        indexScreenSize = 0;
-    else indexScreenSize++;
+void Settings::nextScreenSize() {
+    setScreenSize(indexScreenSize + 1);
 }
-void Settings::nextFieldSize()
-{
-    if(indexFieldSize + 1 == fieldSizes.size())
-        indexFieldSize = 0;
-    else indexFieldSize++;
+void Settings::nextFieldSize() {
+    setFieldSize(indexFieldSize + 1);
 }

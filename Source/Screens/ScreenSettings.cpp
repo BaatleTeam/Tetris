@@ -1,13 +1,9 @@
-#include "Screens.hpp" // из-за Resourses_path
+#include "Screens.hpp"
 #include "../Settings.hpp"
-
-#ifndef BUTTON_LIST_HPP_INCLUDED
-#define BUTTON_LIST_HPP_INCLUDED
 #include "../Buttons/ButtonList.hpp"
-#endif 
 
 ScreenSettings::ScreenSettings(Settings &settings)
-: settings(settings) // Нужно брать шрифт из настроек, а не грузить его постоянно
+: settings(settings)
 {}
 
 int ScreenSettings::run(sf::RenderWindow &App)
@@ -40,7 +36,6 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	};
 
 	auto callToggleFullScreen = [&App, this]() -> int {
-		std::cout << settings.vars.find("windowStyle")->second << std::endl;
 		settings.vars.find("windowStyle")->second ^= sf::Style::Fullscreen;
 
 		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32),
