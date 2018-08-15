@@ -10,7 +10,7 @@ class string;
 
 typedef unsigned int uint;
 
-// В Settings хрянятся все настраиваемые парметры, их возможные значения и ихтекущее значение
+// В Settings хрянятся все настраиваемые парметры, их возможные значения и их текущее значение
 // можно инициализироватьь с файла.dat, пока что в консстукторе
 // на основе настроек конфигурируются размеры спрайтов, сложность игры, поля и т.д.
 
@@ -26,12 +26,12 @@ private:
 
     int windowStyle;
     std::string windowName;
-
     sf::Font font;
 
 public:
     Settings();
     ~Settings() = default;
+
     static const int StandartWidth = 1280; // затем умножается на коэфициенты
     std::map<std::string, int&> vars;
     std::map<std::string, std::string&> strings;
@@ -39,13 +39,12 @@ public:
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
     sf::Font getFont() const;
-    void printVars();
+    void printVars() const;
 
     void setScreenSize(unsigned int index);
     void setFieldSize(unsigned int index);
     void nextScreenSize();
     void nextFieldSize();
-    
 };
 
 #endif

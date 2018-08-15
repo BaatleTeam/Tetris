@@ -55,7 +55,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					{
 						case sf::Keyboard::Enter:
 							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
-							return buttonList.callCBFunction();;
+							return buttonList.callCBFunction();
 							break;
 						case sf::Keyboard::Escape:
 							return -1;

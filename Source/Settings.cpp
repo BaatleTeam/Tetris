@@ -4,13 +4,12 @@
 Settings::Settings(){
     screenSizes = {
                 sf::Vector2u(1366, 768),
-                sf::Vector2u(1280, 960),
-                sf::Vector2u(960, 640),
-                sf::Vector2u(640, 480) };
+                sf::Vector2u(1280, 768),
+                sf::Vector2u(1280, 720) };
     
     fieldSizes = { 
                 sf::Vector2u(10, 20),
-                sf::Vector2u(5, 10)};
+                sf::Vector2u(5, 10)    };
     
     indexScreenSize = 0;
     indexFieldSize = 1;
@@ -30,7 +29,7 @@ Settings::Settings(){
 	}
 }
 
-void Settings::printVars() {
+void Settings::printVars() const {
     for (auto const& x : vars) 
         std::cout << x.first << ':' << x.second << std::endl;
     

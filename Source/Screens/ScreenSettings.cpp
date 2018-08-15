@@ -14,7 +14,7 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	ButtonList buttonList(App.getSize());
 	static int NumOfcurrentHighlightedButton = 0;
 
-	auto callChangeResolution = [&App, &buttonList,this]() -> int {
+	auto callChangeResolution = [&App, &buttonList, this]() -> int {
 		settings.nextScreenSize(); 
 		float screenWidth = settings.getScreenSize().x;
 		float screenHeigth = settings.getScreenSize().y;
@@ -22,7 +22,8 @@ int ScreenSettings::run(sf::RenderWindow &App)
 		App.create(sf::VideoMode(screenWidth, screenHeigth, 32)
 				, settings.strings.find("windowName")->second
 				, settings.vars.find("windowStyle")->second);
-		buttonList.updateResolution(App.getSize());
+		buttonList.updateResolution(App.getSize()); 
+
 		return 0;
 	};
 

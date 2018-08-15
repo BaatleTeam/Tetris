@@ -4,20 +4,16 @@
 
 ButtonList::ButtonList(sf::Vector2u resolution)
 : currentButtonNumber(0)
-, currentResolution(resolution)
 {
     updateScale(resolution);
 }
 
 void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function)
 {
-    buttonList.push_back(std::unique_ptr<Button>(new Button(relativePosition, message, font, function, scale)));
-    buttonList.back()->setRealPosition(currentResolution);
+    buttonList.push_back(std::unique_ptr<Button>(new Button(relativePosition, message, font, function, scale)));    
+    buttonList.back()->setRealPosition(sf::Vector2u(B_DEF_RESOLUTION_WIDTH, B_DEF_RESOLUTION_HEIGHT));
     
-    if(buttonList.size() == 1) // set first button as highlighted
-    {
-        buttonList[0].get()->setHighlight(true);
-    } 
+    if(buttonList.size() == 1) buttonList[0].get()->setHighlight(true); // set first button as highlighted
 }
 
 void ButtonList::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -30,9 +26,7 @@ void ButtonList::draw(sf::RenderTarget& target, sf::RenderStates states) const
     unsigned int listSize = buttonList.size();
 
     for(unsigned int i = 0; i < listSize; i++)
-    {
         target.draw(*(buttonList[i].get()));
-    }
 }
 
 void ButtonList::updateHighlightedButton(unsigned int nextButtonNumber)
@@ -71,10 +65,10 @@ int ButtonList::getCurrentButtonNumber()
     return currentButtonNumber;
 }
 
-void ButtonList::updateScale(sf::Vector2u newResolution)
+void ButtonList::updateScale(sf::Vector2u resolution)
 {
-    scale.x = (float)newResolution.x/B_DEF_RESOLUTION_WIDTH;
-    scale.y = (float)newResolution.y/B_DEF_RESOLUTION_HEIGHT;
+    scale.x = (float)resolution.x/B_DEF_RESOLUTION_WIDTH;
+    scale.y = (float)resolution.y/B_DEF_RESOLUTION_HEIGHT;
 }
 
 void ButtonList::updateResolution(sf::Vector2u newResolution)
@@ -82,9 +76,7 @@ void ButtonList::updateResolution(sf::Vector2u newResolution)
     updateScale(newResolution);
 
     for(auto &button : buttonList)
-    {
         button->setRealPosition(newResolution);
-    }
 
     buttonList[currentButtonNumber].get()->setHighlight(true);
 }

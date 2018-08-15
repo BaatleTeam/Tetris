@@ -35,6 +35,8 @@ int main()
 		exit(-1);
 	}
 
+	App.requestFocus();
+
 	//Main loop
 	while (screen >= 0)
 	{
