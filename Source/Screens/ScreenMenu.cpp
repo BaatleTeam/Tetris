@@ -11,16 +11,14 @@ int ScreenMenu::run(sf::RenderWindow &App)
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList(App.getSize());
-	//std::cout << App.getSize().x << App.getSize().y << std::endl;
-	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 
-	auto callNewGame = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 1; };
-	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
-	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
+	auto callNewGame = 	[]() -> int { return 1; };
+	auto callSettings = []() -> int { return 2; };
+	auto callScore = 	[]() -> int { return 3; };
 	sf::Font font = settings.getFont();
 	
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
@@ -56,9 +54,8 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					switch (Event.key.code)
 					{
 						case sf::Keyboard::Enter:
-							buttonList.callCBFunction();
 							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
-							return screenNumberToReturn;
+							return buttonList.callCBFunction();;
 							break;
 						case sf::Keyboard::Escape:
 							return -1;
@@ -73,6 +70,8 @@ int ScreenMenu::run(sf::RenderWindow &App)
 							break;
 					}
 				}
+				default:
+				break;
 			}
 		}
 

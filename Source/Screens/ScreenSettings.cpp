@@ -29,8 +29,8 @@ int ScreenSettings::run(sf::RenderWindow &App)
 
 	auto callChangeFieldSize  = [&App, this]() -> int { 
 		settings.nextFieldSize();
-		float width = settings.getFieldSize().x;
-		float heigth = settings.getFieldSize().y;
+		//float width = settings.getFieldSize().x;
+		//float heigth = settings.getFieldSize().y;
 		// ???
 		return 0;
 	};
@@ -94,6 +94,8 @@ int ScreenSettings::run(sf::RenderWindow &App)
 							break;
 					}
 				}
+				default:
+					break;
 			}
 		}
 
