@@ -1,15 +1,10 @@
 #include "Screens.hpp" // из-за Resourses_path
 #include "../Settings.hpp"
 
-#ifndef BUTTON_HPP_INCLUDED 
-#define BUTTON_HPP_INCLUDED
-#include "../Buttons/Button.hpp"
-#endif
-
 #ifndef BUTTON_LIST_HPP_INCLUDED
 #define BUTTON_LIST_HPP_INCLUDED
 #include "../Buttons/ButtonList.hpp"
-#endif
+#endif 
 
 ScreenSettings::ScreenSettings(Settings &settings)
 : settings(settings) // Нужно брать шрифт из настроек, а не грузить его постоянно
@@ -24,25 +19,41 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
-	auto callChangeResolution = []() -> int { return 0; };
-	auto callChangeFieldSize  = []() -> int { return 0; };
-	
+	auto callChangeResolution = [&App, &buttonList,this]() -> int {
+		settings.nextScreenSize(); 
+		float screenWidth = settings.getScreenSize().x;
+		float screenHeigth = settings.getScreenSize().y;
+
+		App.create(sf::VideoMode(screenWidth, screenHeigth, 32)
+				, settings.strings.find("windowName")->second
+				, settings.vars.find("windowStyle")->second);
+		buttonList.updateResolution(App.getSize());
+		return 0;
+	};
+
+	auto callChangeFieldSize  = [&App, this]() -> int { 
+		settings.nextFieldSize();
+		float width = settings.getFieldSize().x;
+		float heigth = settings.getFieldSize().y;
+		// ???
+		return 0;
+	};
+
 	auto callToggleFullScreen = [&App, this]() -> int {
-		static int windowStyle = sf::Style::Titlebar | sf::Style::Close;
-		windowStyle ^= sf::Style::Fullscreen;
-		settings.vars.find("isFullScreenToggled")->second ^= 1;
+		std::cout << settings.vars.find("windowStyle")->second << std::endl;
+		settings.vars.find("windowStyle")->second ^= sf::Style::Fullscreen;
 
 		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32),
 			"Super Mega SIRTET",
-			windowStyle);
+			settings.vars.find("windowStyle")->second);
 		return 0;
 	};
 
 	sf::Font font = settings.getFont();
 
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	 	font, 	callChangeResolution);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", 	font, 	callChangeFieldSize);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", 	font, 	callToggleFullScreen);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	font, 	callChangeResolution);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", font, 	callChangeFieldSize);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", font, 	callToggleFullScreen);
 
 	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 

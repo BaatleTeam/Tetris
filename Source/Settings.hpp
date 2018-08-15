@@ -1,8 +1,11 @@
 #pragma once
-#include <vector>
+//#include <vector>
 #include <map>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
+
+class vector;
+class string;
 
 typedef unsigned int uint;
 
@@ -20,7 +23,8 @@ private:
     mutable int indexScreenSize;
     mutable int indexFieldSize;
 
-    int isFullScreenToggled;
+    int windowStyle;
+    std::string windowName;
 
     sf::Font font;
 
@@ -29,6 +33,7 @@ public:
     ~Settings() = default;
     static const int StandartWidth = 1280; // затем умножается на коэфициенты
     std::map<std::string, int&> vars;
+    std::map<std::string, std::string&> strings;
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
@@ -37,5 +42,7 @@ public:
 
     void setScreenSize(unsigned int index);
     void setFieldSize(unsigned int index);
+    void nextScreenSize();
+    void nextFieldSize();
     
 };

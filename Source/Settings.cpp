@@ -3,6 +3,7 @@
 
 Settings::Settings(){
     screenSizes = {
+                sf::Vector2u(1366, 768),
                 sf::Vector2u(1280, 960),
                 sf::Vector2u(960, 640),
                 sf::Vector2u(640, 480) };
@@ -13,15 +14,21 @@ Settings::Settings(){
     
     indexScreenSize = 0;
     indexFieldSize = 1;
-    isFullScreenToggled = 0;
+
+    windowName = "!!Mega Tetris!!";
+    windowStyle = 1 | 4; // 1 - sf::Style::Titlebar, 4 - sf::Style::Close, 8 sf::Style::Fullscreen
+
+    vars.emplace("indexScreenSize", indexScreenSize);
+    vars.emplace("indexFieldSize", indexFieldSize);
+    vars.emplace("windowStyle", windowStyle);
+
+    strings.emplace("windowName", windowName);
 
     if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf"))
 	{
 		std::cout << "Font didn't load!" << std::endl;
 		throw;
 	}
-
-    vars.emplace("isFullScreenToggled", isFullScreenToggled);
 }
 
 void Settings::printVars()
@@ -48,10 +55,27 @@ sf::Font Settings::getFont() const {
 }
 
 void Settings::setScreenSize(unsigned int new_index){
-    // todo check value
+    if(new_index >= screenSizes.size()) 
+    {
+        std::cout << "There is no such resolution index" << std::endl;
+        return;
+    }
     indexScreenSize = new_index;
 }
 
 void Settings::setFieldSize(unsigned int new_index){
     indexFieldSize = new_index;
+}
+
+void Settings::nextScreenSize()
+{
+    if(indexScreenSize + 1 == screenSizes.size())
+        indexScreenSize = 0;
+    else indexScreenSize++;
+}
+void Settings::nextFieldSize()
+{
+    if(indexFieldSize + 1 == fieldSizes.size())
+        indexFieldSize = 0;
+    else indexFieldSize++;
 }
