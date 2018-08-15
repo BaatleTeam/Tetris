@@ -1,39 +1,38 @@
 #include "GameArray.hpp"
 
 GameArray::GameArray(const Settings &s) 
-    : height(s.getFieldSize().y + 2)
+    : height(s.getFieldSize().y + 4)
     , width(s.getFieldSize().x)
     , shapeGenerator(height, width) 
 {
     ptrArray.reserve(height);
     for (int i = 0; i < height; i++)
         ptrArray.push_back(std::vector<ArrayCell>(width));
-    // высота увеличивается на 2, т.к. первые двe строки выделяются по буфер
-
-    bufferForActiveShape = new char[sizeof(ActiveShape)];
-    shapeGenerator.generateNewShape(activeShape, bufferForActiveShape);
+    // высота увеличивается на 4, т.к. эти первые 4 строки выделяются по буфер
+    // в буфере выделяются генерируются фигуры
+    shapeGenerator.generateNewShape(activeShape);
 }
 
 GameArray::~GameArray(){
-    activeShape->~ActiveShape(); // вызываем деструктор текущей фигуры на буфере
-    delete[] bufferForActiveShape; // теперь можно и сам буфер очистить
 }
 
 void GameArray::doStep(){
-    shapeGenerator.generateNewShape(activeShape, bufferForActiveShape);
-    // // if (!activeShape.isActive()){
-    // //     displayActiveShapeOnArray();
-    // //     // shapeGenerator->generateNewShape(activeShape);
-    // // }
-    // removeActiveShapeFromArray();
-    // if (checkShapeMoving()){
-    //     activeShape->moveDown();
-    //     displayActiveShapeOnArray();
-    // }
-    // else {
-    //     // displayActiveShapeOnArray();
-    //     // shapeGenerator->generateNewShape(activeShape);
-    // }
+    removeActiveShapeFromArray();
+    if (checkShapeMoving()){
+        activeShape->moveDown();
+        displayActiveShapeOnArray();
+    }
+    else {
+        displayActiveShapeOnArray();
+        shapeGenerator.generateNewShape(activeShape);
+        if (checkShapeMoving()){
+            activeShape->moveDown();
+            displayActiveShapeOnArray();
+        }
+        else {
+            // game over
+        }
+    }
 }
 
 bool GameArray::checkShapeMoving() const {
@@ -55,8 +54,9 @@ void GameArray::displayActiveShapeOnArray(){
 }
 
 void GameArray::removeActiveShapeFromArray(){
-    for (auto const &curShapeCoord : activeShape->getCurCoordinates())
+    for (auto const &curShapeCoord : activeShape->getCurCoordinates()){
         ptrArray[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
+    }
 }
 
 inline

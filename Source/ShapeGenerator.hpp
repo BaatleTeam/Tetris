@@ -17,7 +17,7 @@ public:
     ShapeGenerator(unsigned h, unsigned w);
     ~ShapeGenerator() = default;
 
-    void generateNewShape(ActiveShape *activeShape, char* const buf);
+    void generateNewShape(std::unique_ptr<ActiveShape> &activeShape);
 
     
 private:

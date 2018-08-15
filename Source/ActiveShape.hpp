@@ -2,24 +2,23 @@
 #include <vector>
 #include <iostream>
 #include <SFML/System/Vector2.hpp>
+#include "GameArray.hpp"
 
 class GameArray;
 
 class ActiveShape {
 protected:
     std::vector <sf::Vector2u> coordinates; // may be private
-    bool isActive_m;
+    int rotateVariants;
+    int currentRotate;
 
 public:
-    ActiveShape(std::vector<sf::Vector2u> &&coord);
+    ActiveShape(std::vector<sf::Vector2u> &&coord, int r_Variants);
     ActiveShape();
     virtual ~ActiveShape() = default;
     void moveDown();
     unsigned int getCellsNum() const;
     std::vector <sf::Vector2u> getCurCoordinates() const;
-    bool isActive() const;
-    void setInactive();
-    void setActive();
 
     virtual void rotate(const GameArray&) = 0;
     // c такой сигнатурой можно перенести метод checkShapeMoving из GameArray
@@ -32,9 +31,6 @@ class Type0 : public ActiveShape {
 public:
     Type0(unsigned int arrayHeight, unsigned int arrayWidth);
     void rotate(const GameArray&) override;
-    virtual ~Type0(){
-        std::cout << "Destr type0" << std::endl;
-    }
 };
 
 //

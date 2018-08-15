@@ -1,12 +1,15 @@
 #include "ActiveShape.hpp"
 
-ActiveShape::ActiveShape(){
-    isActive_m = false;
+ActiveShape::ActiveShape()
+    : rotateVariants(1)
+    , currentRotate(0) 
+{
 }
 
-ActiveShape::ActiveShape(std::vector<sf::Vector2u> &&coord){
+ActiveShape::ActiveShape(std::vector<sf::Vector2u> &&coord, int r_Variants){
     coordinates = coord;
-    isActive_m = true;
+    rotateVariants = r_Variants;
+    currentRotate = 0;
 }
 
 void ActiveShape::moveDown(){
@@ -18,48 +21,79 @@ std::vector <sf::Vector2u> ActiveShape::getCurCoordinates() const {
     return coordinates;
 }
 
-bool ActiveShape::isActive() const {
-    return isActive_m;
-}
-
-void ActiveShape::setInactive() {
-    isActive_m = false;
-}
-
-void ActiveShape::setActive(){
-    isActive_m = true;
-}
 
 unsigned int ActiveShape::getCellsNum() const {
     return coordinates.size();
 }
 
-Type0::Type0(unsigned int height, unsigned int width)
-    : ActiveShape({
-        { width/2,   height-1 },
-        { width/2+1, height-1 },
-        { width/2,   height-2 },
-        { width/2+1, height-2 }
-     }) 
-{ 
 
-}
+// СВЕРХУ ВНИЗ
+// СЛЕВА НАПРАВО
+
+Type0::Type0(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2,     height - 3},
+                   {width / 2 + 1, height - 3},
+                   {width / 2,     height - 4},
+                   {width / 2 + 1, height - 4}},
+                  1) {}
 
 void Type0::rotate(const GameArray& array) {
     // nothihg
 }
 
-Type1::Type1(unsigned int height, unsigned int width)
-    : ActiveShape({
-        { width/2,   height-1 },
-        { width/2+1, height-1 },
-        { width/2,   height-2 },
-        { width/2+1, height-2 }
-     }) 
-{ 
 
-}
+
+Type1::Type1(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2, height - 1},
+                   {width / 2, height - 2},
+                   {width / 2, height - 3},
+                   {width / 2, height - 4}},
+                  2) {}
 
 void Type1::rotate(const GameArray& array) {
-    // nothihg
+    currentRotate++;
+    currentRotate %= rotateVariants;
+    decltype(coordinates) newCoord;
+    switch (currentRotate){
+        case 0:
+            newCoord = {
+                { coordinates[3].x-1, coordinates[3].y },
+                { coordinates[3].x,   coordinates[3].y },
+                { coordinates[3].x+1, coordinates[3].y },
+                { coordinates[3].x+2, coordinates[3].y }
+                };
+            for (const auto elem : newCoord)
+                if (array.isPainted(elem))
+                    return;
+            coordinates.swap(newCoord);
+            break;
+        case 1:
+            newCoord = {
+                { coordinates[1].x, coordinates[1].y+3 },
+                { coordinates[1].x, coordinates[1].y+2 },
+                { coordinates[1].x, coordinates[1].y+1 },
+                { coordinates[1].x, coordinates[1].y   }
+                };
+            for (const auto elem : newCoord)
+                if (array.isPainted(elem))
+                    return;
+            coordinates.swap(newCoord);
+            break;
+        default:
+            throw "type 1 rotate error";
+    }
+}
+
+
+
+Type2::Type2(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2, height - 3},
+                   {width / 2, height - 4},
+                   {width / 2 + 1, height - 4},
+                   {width / 2 + 2, height - 4}},
+                  4) {}
+
+void Type2::rotate(const GameArray& array) {
+    // decltype(coordinates) newCoord = {{2,3}};
+    // array.isPainted();
 }

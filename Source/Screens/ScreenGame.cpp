@@ -75,7 +75,8 @@ int ScreenGame::run(sf::RenderWindow &App)
 		if (elapsedTime >= sf::seconds(1)){
 			std::cout << elapsedTime.asSeconds() << std::endl;
 			field.doStep();
-			// std::cout << field;
+			std::cout << "Step done" << std::endl;
+			std::cout << field;
 			clockStep.restart();
 		}
 		

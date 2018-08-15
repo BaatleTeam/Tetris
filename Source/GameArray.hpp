@@ -3,8 +3,9 @@
 #include <iomanip>
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
-#include "ActiveShape.hpp"
 #include "ShapeGenerator.hpp"
+// #include "ActiveShape.hpp"
+
 
 class GameArray {
 private:
@@ -12,8 +13,7 @@ private:
     unsigned int height;
     std::vector <std::vector <ArrayCell> > ptrArray;
 
-    ActiveShape *activeShape; // далее переделать в std::unique_ptr();
-    char* bufferForActiveShape;
+    std::unique_ptr<ActiveShape> activeShape;
     ShapeGenerator shapeGenerator;
     
 public:
@@ -21,7 +21,7 @@ public:
     ~GameArray();
     void doStep(); // перемещает активную фигуру на этаж ниже или генерит новую
     bool checkShapeMoving() const;
-    bool isPainted(sf::Vector2u imCoord) const;
+    bool isPainted(sf::Vector2u coord) const;
     void displayActiveShapeOnArray();
     void removeActiveShapeFromArray();
     
