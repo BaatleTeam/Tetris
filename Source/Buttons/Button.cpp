@@ -1,19 +1,22 @@
 #include "Button.hpp"
+#include <iostream>
 
-Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function)
+Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function, sf::Vector2f &scale)
 : relativePosition(pos)
 , function(function)
+, scale(scale)
 {
     text.setFont(font);
     text.setFillColor(sf::Color::Black);
     text.setString(message);
-    text.setCharacterSize(52); // in pixels, not points! 
+    text.setCharacterSize(B_DEF_CHAR_SIZE * scale.y); // in pixels, not points! 
     text.setStyle(sf::Text::Bold);
     text.setOutlineColor(sf::Color(255, 255, 255, 200));
 
-    rectangle.setSize(sf::Vector2f((float)(text.getLocalBounds().width + 20), 60));
+   rectangle.setSize(sf::Vector2f((float)(text.getLocalBounds().width +  B_DEF_SPACES_FROM_BUTTON_SIDES * scale.x) 
+                                                                        , B_DEF_BUTTON_HEIGHT * scale.y));
+    rectangle.setOutlineThickness(B_DEF_RECT_OUTLINE_THICKNESS * scale.y);
     rectangle.setOutlineColor(sf::Color(255, 255, 255, 96));
-    rectangle.setOutlineThickness(4);
     rectangle.setFillColor(sf::Color(255, 255, 255, 64));
     
     setOriginToCenter();
@@ -47,7 +50,7 @@ void Button::setHighlight(bool isHighlighted)
 {
     if(isHighlighted)
     {
-        text.setOutlineThickness(1.0f);
+        text.setOutlineThickness(2.0f * scale.y);
         //text.setCharacterSize(28); // in pixels, not points! 
 
         //rectangle.setOutlineColor(sf::Color(0, 64, 255));
@@ -56,21 +59,11 @@ void Button::setHighlight(bool isHighlighted)
     } 
     else
     {
-        //text.setOutlineColor(sf::Color::Black);
         text.setOutlineThickness(0.0f);
-        //text.setCharacterSize(26); // in pixels, not points! 
-
-        //rectangle.setOutlineColor(sf::Color::Cyan);
-        //rectangle.setFillColor(sf::Color::Black);
-        //rectangle.setOutlineThickness(2);
     }
-
-    sf::FloatRect textRect = text.getLocalBounds();
-    text.setOrigin(textRect.left + textRect.width/2.0f,
-            textRect.top  + textRect.height/2.0f);
 }
 
-int Button::callHBFunction() // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
+int Button::callHBFunction()
 {
     return function();
 }
@@ -81,6 +74,12 @@ void Button::setRealPosition(sf::Vector2u currentResolution)
     newPosition.x = relativePosition.x*currentResolution.x;
     newPosition.y = relativePosition.y*currentResolution.y;
 
+    text.setCharacterSize(B_DEF_CHAR_SIZE * scale.y);
+    rectangle.setSize(sf::Vector2f((float)(text.getLocalBounds().width +  B_DEF_SPACES_FROM_BUTTON_SIDES * scale.x) 
+                                                                        , B_DEF_BUTTON_HEIGHT * scale.y));
+    rectangle.setOutlineThickness(B_DEF_RECT_OUTLINE_THICKNESS * scale.y);
+
     rectangle.setPosition(newPosition);
     text.setPosition(newPosition);
+    setOriginToCenter();
 }

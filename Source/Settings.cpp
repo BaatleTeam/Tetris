@@ -16,7 +16,7 @@ Settings::Settings(){
     indexFieldSize = 1;
 
     windowName = "!!Mega Tetris!!";
-    windowStyle = 1 | 4; // 1 - sf::Style::Titlebar, 4 - sf::Style::Close, 8 sf::Style::Fullscreen
+    windowStyle = 1 | 2 | 4; // 1 - sf::Style::Titlebar, 4 - sf::Style::Close, 8 sf::Style::Fullscreen
 
     vars.emplace("indexScreenSize", indexScreenSize);
     vars.emplace("indexFieldSize", indexFieldSize);

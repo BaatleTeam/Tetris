@@ -24,11 +24,14 @@ public:
     int getCurrentButtonNumber();
 
     void updateResolution(sf::Vector2u newResolution);
+
+    void updateScale(sf::Vector2u newResolution);
     
 private:
     std::vector<std::unique_ptr<Button>> buttonList;
     unsigned int currentButtonNumber;
     sf::Vector2u currentResolution;
+    sf::Vector2f scale;
 };
 
 #endif

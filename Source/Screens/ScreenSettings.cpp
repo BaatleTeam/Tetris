@@ -12,7 +12,6 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	sf::Event Event;
 	bool isRunning = true;
 	ButtonList buttonList(App.getSize());
-	int screenNumberToReturn = 0;
 	static int NumOfcurrentHighlightedButton = 0;
 
 	auto callChangeResolution = [&App, &buttonList,this]() -> int {
@@ -67,7 +66,6 @@ int ScreenSettings::run(sf::RenderWindow &App)
 				case sf::Event::Resized:
                     std::cout << "Resize catched! New size [ " << Event.size.width << ", " << Event.size.height << "]" << std::endl;
                     
-                    //sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                     App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
 					buttonList.updateResolution(App.getSize());
                     break;
