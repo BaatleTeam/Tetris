@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
-#include "../Settings.hpp"
+#include "../Settings/Settings.hpp"
 
 class ScreenGame : public ScreenBase {
 private:

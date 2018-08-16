@@ -8,9 +8,8 @@
 #include "ScreenMenu.hpp"
 #include "ScreenGame.hpp"
 #include "ScreenSettings.hpp"
-#include "../Settings.hpp"
+#include "../Settings/Settings.hpp"
 
 #include <iostream>
 const std::string RESOURCES_PATH_PREFIX =  "Resources/";
-
-#endif // SCREENS_HPP_INCLUDED
+#endif

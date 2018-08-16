@@ -10,6 +10,7 @@ project(Tetris)
 file(GLOB srcMain Source/*.cpp)
 file(GLOB srcScreens Source/Screens/*.cpp)
 file(GLOB srcButtons Source/Buttons/*.cpp)
+file(GLOB srcSettings Source/Settings/*.cpp)
    
 # Adding dependencies
 find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
@@ -18,6 +19,6 @@ find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
 find_package(SFML 2.5 REQUIRED window graphics)
 
 # Compiling
-add_executable(Tetris ${srcMain} ${srcScreens} ${srcButtons})
+add_executable(Tetris ${srcMain} ${srcScreens} ${srcButtons} ${srcSettings})
 target_link_libraries(Tetris sfml-window sfml-graphics)
 

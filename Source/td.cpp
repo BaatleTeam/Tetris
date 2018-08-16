@@ -2,7 +2,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "Screens/Screens.hpp"
-#include "Settings.hpp"
+#include "Settings/Settings.hpp"
 
 int main()
 {
@@ -21,8 +21,8 @@ int main()
 	// Resize, Close and Fullscreen.
 	// The default style is Resize | Close.
 	sf::RenderWindow App(sf::VideoMode(1366, 768, 32)
-						, settings.strings.find("windowName")->second
-						, settings.vars.find("windowStyle")->second);
+		, settings.strings.find("windowName")->second
+		, settings.vars.find("windowStyle")->second);
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings)));

@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 
-// Predefined constants
+// Predefined constants for default resolution
 #define B_DEF_CHAR_SIZE 52
 #define B_DEF_SPACES_FROM_BUTTON_SIDES 20
 #define B_DEF_BUTTON_HEIGHT 60

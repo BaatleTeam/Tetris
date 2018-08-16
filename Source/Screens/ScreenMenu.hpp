@@ -1,9 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include "Screens.hpp"
-#include "../Settings.hpp"
-
+#include "../Settings/Settings.hpp"
 
 class ScreenMenu : public ScreenBase {
 private:

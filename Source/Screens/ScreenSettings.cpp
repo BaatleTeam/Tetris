@@ -1,5 +1,5 @@
 #include "Screens.hpp"
-#include "../Settings.hpp"
+#include "../Settings/Settings.hpp"
 #include "../Buttons/ButtonList.hpp"
 
 ScreenSettings::ScreenSettings(Settings &settings)
@@ -20,8 +20,8 @@ int ScreenSettings::run(sf::RenderWindow &App)
 		float screenHeigth = settings.getScreenSize().y;
 
 		App.create(sf::VideoMode(screenWidth, screenHeigth, 32)
-				, settings.strings.find("windowName")->second
-				, settings.vars.find("windowStyle")->second);
+			, settings.strings.find("windowName")->second
+			, settings.vars.find("windowStyle")->second);
 		buttonList.updateResolution(App.getSize()); 
 
 		return 0;
@@ -38,9 +38,9 @@ int ScreenSettings::run(sf::RenderWindow &App)
 	auto callToggleFullScreen = [&App, this]() -> int {
 		settings.vars.find("windowStyle")->second ^= sf::Style::Fullscreen;
 
-		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32),
-			"Super Mega SIRTET",
-			settings.vars.find("windowStyle")->second);
+		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32)
+			, settings.strings.find("windowName")->second
+			, settings.vars.find("windowStyle")->second);
 		return 0;
 	};
 
