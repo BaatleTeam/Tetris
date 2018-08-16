@@ -15,11 +15,6 @@ int main()
 	int screen = 0;
 
 	//Window creation
-	// TODO
-	// Нужно как-то управляться с разным расширением, а не только с жалкими 640 на 480
-	// The style parameter can be a combination of the sf::Style flags, which are None, Titlebar,
-	// Resize, Close and Fullscreen.
-	// The default style is Resize | Close.
 	sf::RenderWindow App(sf::VideoMode(1366, 768, 32)
 		, settings.strings.find("windowName")->second
 		, settings.vars.find("windowStyle")->second);
