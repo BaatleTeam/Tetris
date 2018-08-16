@@ -70,7 +70,7 @@ int Button::callHBFunction()
 
 void Button::setRealPosition(sf::Vector2u currentResolution)
 {
-    std::cout << "scale " << (float)scale.x << ":" << (float)scale.y << std::endl;
+    //std::cout << "scale " << (float)scale.x << ":" << (float)scale.y << std::endl;
 
     sf::Vector2f newPosition;
     newPosition.x = relativePosition.x*currentResolution.x;

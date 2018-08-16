@@ -4,6 +4,7 @@
 #include <map>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics.hpp>
 
 class vector;
 class string;
@@ -27,6 +28,7 @@ private:
     int windowStyle;
     std::string windowName;
     sf::Font font;
+    sf::RenderWindow App; 
 
 public:
     Settings();
@@ -38,11 +40,13 @@ public:
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
-    sf::Font getFont() const;
+    sf::Font &getFont();
+    sf::RenderWindow &getRenderWindow();
     void printVars() const;
 
     void setScreenSize(unsigned int index);
     void setFieldSize(unsigned int index);
+    
     void nextScreenSize();
     void nextFieldSize();
 };

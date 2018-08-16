@@ -6,10 +6,11 @@
 
 class ScreenSettings : public ScreenBase {
 private:
-	
+	ButtonList buttonList;
 public:
 	ScreenSettings(Settings &settings);
 	int run(sf::RenderWindow &App);
 protected:
     Settings &settings;
+
 };

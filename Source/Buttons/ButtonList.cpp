@@ -2,11 +2,9 @@
 #include "ButtonList.hpp"
 #include <iostream>
 
-ButtonList::ButtonList(sf::Vector2u resolution)
+ButtonList::ButtonList()
 : currentButtonNumber(0)
-{
-    updateScale(resolution);
-}
+{}
 
 void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function)
 {
@@ -65,18 +63,21 @@ int ButtonList::getCurrentButtonNumber()
     return currentButtonNumber;
 }
 
-void ButtonList::updateScale(sf::Vector2u resolution)
+void ButtonList::updateScale(sf::Vector2u &resolution)
 {
     scale.x = (float)resolution.x/B_DEF_RESOLUTION_WIDTH;
     scale.y = (float)resolution.y/B_DEF_RESOLUTION_HEIGHT;
 }
 
-void ButtonList::updateResolution(sf::Vector2u newResolution)
+void ButtonList::updateResolution(sf::Vector2u &resolution)
 {
-    updateScale(newResolution);
-
     for(auto &button : buttonList)
-        button->setRealPosition(newResolution);
+        button->setRealPosition(resolution);
+}
 
+void ButtonList::update(sf::Vector2u resolution)
+{
+    updateScale(resolution);
+    updateResolution(resolution);
     buttonList[currentButtonNumber].get()->setHighlight(true);
 }

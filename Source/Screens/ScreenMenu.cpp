@@ -1,33 +1,29 @@
 #include "Screens.hpp"
 #include "../Buttons/ButtonList.hpp"
 
-ScreenMenu::ScreenMenu(Settings &settings)
-: settings(settings)
-{}
+ScreenMenu::ScreenMenu(Settings &newSettings)
+: settings(newSettings)
+{
+	auto callNewGame = 	[]() -> int { return 1; };
+	auto callSettings = []() -> int { return 2; };
+	auto callScore = 	[]() -> int { return 3; };
+	
+	sf::Font &font = settings.getFont();
 
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, callSettings);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
+}
 int ScreenMenu::run(sf::RenderWindow &App)
 {
-	settings.printVars();
 	sf::Event Event;
 	bool isRunning = true;
-	ButtonList buttonList(App.getSize());
-	static int NumOfcurrentHighlightedButton = 0;
+	
+	buttonList.update(App.getSize());
 
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
 
-	auto callNewGame = 	[]() -> int { return 1; };
-	auto callSettings = []() -> int { return 2; };
-	auto callScore = 	[]() -> int { return 3; };
-	sf::Font font = settings.getFont();
-	
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, callSettings);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
-
-	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
-	
-	
 	while (isRunning)
 	{
 		//Verifying events
@@ -45,7 +41,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
                     
                     //sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                     App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
-					buttonList.updateResolution(App.getSize());
+					buttonList.update(App.getSize());
                     break;
 
 				//Key pressed
@@ -54,7 +50,6 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					switch (Event.key.code)
 					{
 						case sf::Keyboard::Enter:
-							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
 							return buttonList.callCBFunction();
 							break;
 						case sf::Keyboard::Escape:
@@ -76,7 +71,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 		}
 
 		//Clearing screen
-		App.clear();
+		App.clear(sf::Color(0, 191, 255, 128));
 
 		//Drawing
 		App.draw(buttonList);

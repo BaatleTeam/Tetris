@@ -9,9 +9,7 @@
 class ButtonList : public sf::Drawable, public sf::Transformable
 {
 public:
-    // Constructor with current resolution
-    // Need to preset scale
-    ButtonList(sf::Vector2u resolution);
+    ButtonList();
 
     // Add button in list 
     void addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function);
@@ -34,10 +32,13 @@ public:
     int getCurrentButtonNumber();
     
     // Update scale and change size of all buttons in list
-    void updateScale(sf::Vector2u resolution);
+    void updateScale(sf::Vector2u &resolution);
 
     // Update position of all buttons in list
-    void updateResolution(sf::Vector2u newResolution);
+    void updateResolution(sf::Vector2u &resolution);
+
+    // Update buttons positions, their scale and set current button highlighted but now with proper scale
+    void update(sf::Vector2u resolution);
 
 private:
     std::vector<std::unique_ptr<Button>> buttonList; // Container to save buttons

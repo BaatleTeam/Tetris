@@ -2,32 +2,24 @@
 #include "../Settings/Settings.hpp"
 #include "../Buttons/ButtonList.hpp"
 
-ScreenSettings::ScreenSettings(Settings &settings)
-: settings(settings)
-{}
-
-int ScreenSettings::run(sf::RenderWindow &App)
+ScreenSettings::ScreenSettings(Settings &newSettings)
+: settings(newSettings)
 {
-	settings.printVars();
-	sf::Event Event;
-	bool isRunning = true;
-	ButtonList buttonList(App.getSize());
-	static int NumOfcurrentHighlightedButton = 0;
-
-	auto callChangeResolution = [&App, &buttonList, this]() -> int {
+	auto callChangeResolution = [this]() -> int {
 		settings.nextScreenSize(); 
 		float screenWidth = settings.getScreenSize().x;
 		float screenHeigth = settings.getScreenSize().y;
 
-		App.create(sf::VideoMode(screenWidth, screenHeigth, 32)
+		settings.getRenderWindow().create(sf::VideoMode(screenWidth, screenHeigth, 32)
 			, settings.strings.find("windowName")->second
 			, settings.vars.find("windowStyle")->second);
-		buttonList.updateResolution(App.getSize()); 
+
+		buttonList.update(sf::Vector2u(screenWidth, screenHeigth));
 
 		return 0;
 	};
 
-	auto callChangeFieldSize  = [&App, this]() -> int { 
+	auto callChangeFieldSize  = [this]() -> int { 
 		settings.nextFieldSize();
 		//float width = settings.getFieldSize().x;
 		//float heigth = settings.getFieldSize().y;
@@ -35,22 +27,27 @@ int ScreenSettings::run(sf::RenderWindow &App)
 		return 0;
 	};
 
-	auto callToggleFullScreen = [&App, this]() -> int {
+	auto callToggleFullScreen = [this]() -> int {
 		settings.vars.find("windowStyle")->second ^= sf::Style::Fullscreen;
+		sf::Vector2u windowSize = settings.getRenderWindow().getSize();
 
-		App.create(sf::VideoMode(App.getSize().x, App.getSize().y, 32)
+		settings.getRenderWindow().create(sf::VideoMode(windowSize.x, windowSize.y, 32)
 			, settings.strings.find("windowName")->second
 			, settings.vars.find("windowStyle")->second);
 		return 0;
 	};
 
-	sf::Font font = settings.getFont();
-
+	sf::Font &font = settings.getFont();
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	font, 	callChangeResolution);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", font, 	callChangeFieldSize);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", font, 	callToggleFullScreen);
+	buttonList.update(settings.getRenderWindow().getSize());
+}
 
-	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
+int ScreenSettings::run(sf::RenderWindow &App)
+{
+	sf::Event Event;
+	bool isRunning = true;
 
 	while (isRunning)
 	{
@@ -68,7 +65,7 @@ int ScreenSettings::run(sf::RenderWindow &App)
                     std::cout << "Resize catched! New size [ " << Event.size.width << ", " << Event.size.height << "]" << std::endl;
                     
                     App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
-					buttonList.updateResolution(App.getSize());
+					buttonList.update(App.getSize());
                     break;
 
 				//Key pressed
@@ -80,7 +77,6 @@ int ScreenSettings::run(sf::RenderWindow &App)
 							buttonList.callCBFunction();
 							break;
 						case sf::Keyboard::Escape:
-							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
 							return 0;
 							break;
 						case sf::Keyboard::Down:

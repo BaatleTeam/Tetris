@@ -1,7 +1,11 @@
 #include "Settings.hpp"
 #include <iostream>
 
-Settings::Settings(){
+Settings::Settings()
+: App()
+{
+    App.requestFocus();
+
     screenSizes = {
                 sf::Vector2u(1920,1080),
                 sf::Vector2u(1366, 768),
@@ -14,22 +18,27 @@ Settings::Settings(){
                 sf::Vector2u(10, 20),
                 sf::Vector2u(5, 10)    };
     
-    indexScreenSize = 0;
+    indexScreenSize = 1;
     indexFieldSize = 1;
-
     windowName = "!!Mega Tetris!!";
-    windowStyle = 1 | 2 | 4; // 1 - sf::Style::Titlebar, 4 - sf::Style::Close, 8 sf::Style::Fullscreen
+    windowStyle = 1 | 2 | 4; // 1 - sf::Style::Titlebar, 2- sf::Style::Resize,
+                             //4 - sf::Style::Close, 8 sf::Style::Fullscreen
 
     vars.emplace("indexScreenSize", indexScreenSize);
     vars.emplace("indexFieldSize", indexFieldSize);
     vars.emplace("windowStyle", windowStyle);
-
     strings.emplace("windowName", windowName);
 
     if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf")) {
 		std::cout << "Font didn't load!" << std::endl;
 		throw;
 	}
+
+    App.create(sf::VideoMode(1366, 768, 32)
+        , strings.find("windowName")->second
+	    , vars.find("windowStyle")->second);
+
+    App.requestFocus();
 }
 
 void Settings::printVars() const {
@@ -50,8 +59,13 @@ sf::Vector2u Settings::getFieldSize() const {
     return fieldSizes[indexFieldSize];
 }
 
-sf::Font Settings::getFont() const {
+sf::Font &Settings::getFont(){
     return font;
+}
+
+sf::RenderWindow &Settings::getRenderWindow()
+{
+    return App;
 }
 
 void Settings::setScreenSize(unsigned int new_index) {
