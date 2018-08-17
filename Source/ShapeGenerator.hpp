@@ -2,7 +2,9 @@
 #include <ctime>
 #include <stdlib.h>
 #include <iostream>
-#include "ActiveShape.hpp"
+#include <memory>
+
+class ActiveShape;
 
 class ShapeGenerator {
 private:
@@ -23,3 +25,5 @@ public:
 private:
     int generateRandomNumber();
 };
+
+#include "ActiveShape.hpp"

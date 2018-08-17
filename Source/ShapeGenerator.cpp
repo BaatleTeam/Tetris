@@ -1,4 +1,4 @@
-#include "GameArray.hpp"
+#include "ShapeGenerator.hpp"
 
 ShapeGenerator::ShapeGenerator(unsigned int h, unsigned int w)
     : arrayHeight(h), arrayWidth(w), currentType(-1), nextType(-1) {}

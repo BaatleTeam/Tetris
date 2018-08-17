@@ -4,8 +4,10 @@
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
 #include "ShapeGenerator.hpp"
-// #include "ActiveShape.hpp"
+#include "ActiveShape.hpp"
 
+class ActiveShape;
+class ShapeGenerator;
 
 class GameArray {
 private:

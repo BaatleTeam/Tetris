@@ -59,7 +59,6 @@ void GameArray::removeActiveShapeFromArray(){
     }
 }
 
-inline
 bool GameArray::isPainted(sf::Vector2u coord) const {
     return ptrArray[coord.y][coord.x].isPainted();
 }
