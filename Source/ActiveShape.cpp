@@ -27,8 +27,8 @@ unsigned int ActiveShape::getCellsNum() const {
 }
 
 
-// СВЕРХУ ВНИЗ
 // СЛЕВА НАПРАВО
+// СВЕРХУ ВНИЗ
 
 Type0::Type0(unsigned int height, unsigned int width)
     : ActiveShape({{width / 2,     height - 3},
@@ -87,13 +87,59 @@ void Type1::rotate(const GameArray& array) {
 
 
 Type2::Type2(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2, height - 3},
-                   {width / 2, height - 4},
+    : ActiveShape({{width / 2,     height - 3},
+                   {width / 2,     height - 4},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 4}},
                   4) {}
 
 void Type2::rotate(const GameArray& array) {
-    // decltype(coordinates) newCoord = {{2,3}};
-    // array.isPainted();
+}
+
+
+
+Type3::Type3(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2,     height - 4},
+                   {width / 2 + 1, height - 3},
+                   {width / 2 + 1, height - 4},
+                   {width / 2 + 2, height - 4}},
+                  4) {}
+
+void Type3::rotate(const GameArray& array) {
+}
+
+
+
+Type4::Type4(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2,     height - 4},
+                   {width / 2 + 1, height - 4},
+                   {width / 2 + 2, height - 3},
+                   {width / 2 + 2, height - 4}},
+                  4) {}
+
+void Type4::rotate(const GameArray& array) {
+}
+
+
+
+Type5::Type5(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2,     height - 4},
+                   {width / 2 + 1, height - 3},
+                   {width / 2 + 1, height - 4},
+                   {width / 2 + 2, height - 3}},
+                  2) {}
+
+void Type5::rotate(const GameArray& array) {
+}
+
+
+
+Type6::Type6(unsigned int height, unsigned int width)
+    : ActiveShape({{width / 2,     height - 3},
+                   {width / 2 + 1, height - 3},
+                   {width / 2 + 1, height - 4},
+                   {width / 2 + 2, height - 4}},
+                  2) {}
+
+void Type6::rotate(const GameArray& array) {
 }
