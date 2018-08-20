@@ -8,7 +8,8 @@ class GameArray;
 
 class ActiveShape {
 protected:
-    std::vector <sf::Vector2u> coordinates; // may be private
+    std::vector <sf::Vector2u> coordinates;
+    sf::Color shapeColor;
     int rotateVariants;
     int currentRotate;
 
@@ -19,10 +20,14 @@ public:
     void moveDown();
     unsigned int getCellsNum() const;
     std::vector <sf::Vector2u> getCurCoordinates() const;
+    const sf::Color& getColor() const; 
 
     virtual void rotate(const GameArray&) = 0;
     // c такой сигнатурой можно перенести метод checkShapeMoving из GameArray
     // тоже чисто виртуальный но с реализацией по умолчанию (как сейчас)
+
+private:
+    sf::Color generateColor();
 };
 
 //          **

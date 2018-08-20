@@ -79,8 +79,12 @@ std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
     for (int i = 0; i < gmr.width; i++)
         out  << i << " ";
     out << "\n";
+    #define COLOR gmr.activeShape.get()->getColor()
+    std::cout << "Color (rgb): " << (int)COLOR.r << " " << (int)COLOR.g << " " << (int)COLOR.b << "\n";
     for (const auto &elem : gmr.activeShape->getCurCoordinates())
         out << "x = " << elem.x << " y = " <<  elem.y << "\n";
+    out << "Current type: " << gmr.shapeGenerator.getCurrType() << "\n";
+    out << "Next type: " << gmr.shapeGenerator.getNextType() << "\n";
     out << "\n\n" << std::endl;
     return out;
 }

@@ -8,6 +8,7 @@ ActiveShape::ActiveShape()
 
 ActiveShape::ActiveShape(std::vector<sf::Vector2u> &&coord, int r_Variants){
     coordinates = coord;
+    shapeColor = generateColor();
     rotateVariants = r_Variants;
     currentRotate = 0;
 }
@@ -21,9 +22,21 @@ std::vector <sf::Vector2u> ActiveShape::getCurCoordinates() const {
     return coordinates;
 }
 
-
 unsigned int ActiveShape::getCellsNum() const {
     return coordinates.size();
+}
+
+const sf::Color& ActiveShape::getColor() const {
+    return shapeColor;
+}
+
+sf::Color ActiveShape::generateColor(){
+    // check randomizze
+    // try to do universal reference
+    unsigned int r = rand() % 2;
+    unsigned int g = rand() % 2;
+    unsigned int b = rand() % 2;
+    return sf::Color(r * 255, g * 255, b * 255);
 }
 
 

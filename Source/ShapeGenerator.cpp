@@ -5,8 +5,13 @@ ShapeGenerator::ShapeGenerator(unsigned int h, unsigned int w)
 
 
 void ShapeGenerator::generateNewShape(std::unique_ptr<ActiveShape> &activeShape){
-    unsigned int type = generateRandomNumber();
-    switch(type){
+    if (nextType != -1)
+        currentType = nextType;
+    else
+        currentType = generateRandomNumber();
+    
+    nextType = generateRandomNumber();
+    switch(currentType){
         case 0:
             activeShape.reset(new Type0(arrayHeight, arrayWidth));
             break;
@@ -29,12 +34,19 @@ void ShapeGenerator::generateNewShape(std::unique_ptr<ActiveShape> &activeShape)
             activeShape.reset(new Type6(arrayHeight, arrayWidth));
             break;
         default:
-            throw "Generated non-registred shape type\n";
+            throw "Generated non-registred shape type!";
     }
-    currentType = type;
 }
 
 int ShapeGenerator::generateRandomNumber(){
     srand(time(NULL));
     return rand() % TypesNum;
+}
+
+int ShapeGenerator::getCurrType() const {
+    return currentType;
+}
+
+int ShapeGenerator::getNextType() const {
+    return nextType;
 }
