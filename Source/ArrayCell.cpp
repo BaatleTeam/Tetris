@@ -1,11 +1,16 @@
 #include "ArrayCell.hpp"
 
-inline
+// ArrayCell::defualtColor = sf::Color::Black;
+
 void ArrayCell::setColor(sf::Color color){
     this->color = color;
 }
 
-inline
+void ArrayCell::setDefaultColor(){
+    // this->color = defaultColor;
+    this->color = sf::Color::Black;
+}
+
 sf::Color ArrayCell::getColor() const {
     return color;
 }

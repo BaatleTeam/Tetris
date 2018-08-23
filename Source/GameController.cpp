@@ -3,31 +3,29 @@
 GameController::GameController(const Settings &s) 
     : height(s.getFieldSize().y + 4)
     , width(s.getFieldSize().x)
+    , gameField(height, width)
     , figureGenerator(height, width) 
 {
-    gameField.reserve(height);
-    for (int i = 0; i < height; i++)
-        gameField.push_back(std::vector<ArrayCell>(width));
     // высота увеличивается на 4, т.к. эти первые 4 строки выделяются по буфер
     // в буфере выделяются генерируются фигуры
-    figureGenerator.generateNewShape(activeShape);
+    figureGenerator.generateNew(activeShape);
 }
 
 GameController::~GameController(){
 }
 
 void GameController::doStep(){
-    removeActiveShapeFromArray();
-    if (checkShapeMoving()){
+    removeActiveFigure();
+    if (canMoveActiveFigureDown()){
         activeShape->moveDown();
-        displayActiveShapeOnArray();
+        displayActiveFigure();
     }
     else {
-        displayActiveShapeOnArray();
-        figureGenerator.generateNewShape(activeShape);
-        if (checkShapeMoving()){
+        displayActiveFigure();
+        generateNewActiveFigure();
+        if (canMoveActiveFigureDown()){
             activeShape->moveDown();
-            displayActiveShapeOnArray();
+            displayActiveFigure();
         }
         else {
             // game over
@@ -35,50 +33,24 @@ void GameController::doStep(){
     }
 }
 
-bool GameController::checkShapeMoving() const {
-    try {
-        for (const auto &curShapeCoord : activeShape->getCurCoordinates())
-            if (gameField.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
-                return false;
-        return true;
-    }
-    catch (std::out_of_range){
-        std::cout << "Catched array index out!" << std::endl;
-        return false;
-    }
+void GameController::generateNewActiveFigure(){
+    figureGenerator.generateNew(activeShape);
 }
 
-void GameController::displayActiveShapeOnArray(){
-    for (auto const &curShapeCoord : activeShape->getCurCoordinates())
-        gameField[curShapeCoord.y][curShapeCoord.x].makePainted();
+void GameController::displayActiveFigure(){
+    gameField.paintFigure(activeShape.get());
 }
 
-void GameController::removeActiveShapeFromArray(){
-    for (auto const &curShapeCoord : activeShape->getCurCoordinates()){
-        gameField[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
-    }
+void GameController::removeActiveFigure(){
+    gameField.unpaintFigure(activeShape.get());
 }
 
-bool GameController::isPainted(sf::Vector2u coord) const {
-    return gameField[coord.y][coord.x].isPainted();
+bool GameController::canMoveActiveFigureDown() const {
+    return gameField.checkFigureMoveDown(activeShape.get());
 }
 
 std::ostream& operator<<(std::ostream &out, const GameController &gmr){
-    for (int i = 0; i < gmr.height; i++){
-        out << std::setw(3) << gmr.height -1 - i << "| ";
-        for (int j = 0; j < gmr.width; j++)
-            out << gmr.gameField[gmr.height -1 - i][j].isPainted() << " ";
-        out << "\n";
-    }
-    out << std::setw(4);
-    out << (char)192;
-    for (int i = 0; i < gmr.width; i++)
-        out  <<  "--";
-    out << "\n";
-    out << std::setw(6);
-    for (int i = 0; i < gmr.width; i++)
-        out  << i << " ";
-    out << "\n";
+    out << gmr.gameField;
     #define COLOR gmr.activeShape.get()->getColor()
     std::cout << "Color (rgb): " << (int)COLOR.r << " " << (int)COLOR.g << " " << (int)COLOR.b << "\n";
     for (const auto &elem : gmr.activeShape->getCurCoordinates())

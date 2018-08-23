@@ -4,7 +4,7 @@ FigureGenerator::FigureGenerator(unsigned int h, unsigned int w)
     : arrayHeight(h), arrayWidth(w), currentType(-1), nextType(-1) {}
 
 
-void FigureGenerator::generateNewShape(std::unique_ptr<TetrisFigure> &activeShape){
+void FigureGenerator::generateNew(std::unique_ptr<TetrisFigure> &activeShape){
     if (nextType != -1)
         currentType = nextType;
     else

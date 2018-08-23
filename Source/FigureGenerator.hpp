@@ -22,7 +22,7 @@ public:
     FigureGenerator(unsigned h, unsigned w);
     ~FigureGenerator() = default;
 
-    void generateNewShape(std::unique_ptr<TetrisFigure> &activeShape);
+    void generateNew(std::unique_ptr<TetrisFigure> &activeShape);
     
     int getNextType() const; // возвращают информацию о типах текущей и след фигур
     int getCurrType() const ; // todo

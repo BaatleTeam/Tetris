@@ -50,7 +50,7 @@ Type0::Type0(unsigned int height, unsigned int width)
                    {width / 2 + 1, height - 4}},
                   1) {}
 
-void Type0::rotate(const GameController& array) {
+void Type0::rotate(const GameField& array) {
     // nothihg
 }
 
@@ -63,7 +63,7 @@ Type1::Type1(unsigned int height, unsigned int width)
                    {width / 2, height - 4}},
                   2) {}
 
-void Type1::rotate(const GameController& array) {
+void Type1::rotate(const GameField& array) {
     currentRotate++;
     currentRotate %= rotateVariants;
     decltype(coordinates) newCoord;
@@ -76,7 +76,7 @@ void Type1::rotate(const GameController& array) {
                 { coordinates[3].x+2, coordinates[3].y }
                 };
             for (const auto elem : newCoord)
-                if (array.isPainted(elem))
+                if (array.isCellPainted(elem))
                     return;
             coordinates.swap(newCoord);
             break;
@@ -88,7 +88,7 @@ void Type1::rotate(const GameController& array) {
                 { coordinates[1].x, coordinates[1].y   }
                 };
             for (const auto elem : newCoord)
-                if (array.isPainted(elem))
+                if (array.isCellPainted(elem))
                     return;
             coordinates.swap(newCoord);
             break;
@@ -106,7 +106,7 @@ Type2::Type2(unsigned int height, unsigned int width)
                    {width / 2 + 2, height - 4}},
                   4) {}
 
-void Type2::rotate(const GameController& array) {
+void Type2::rotate(const GameField& array) {
 }
 
 
@@ -118,7 +118,7 @@ Type3::Type3(unsigned int height, unsigned int width)
                    {width / 2 + 2, height - 4}},
                   4) {}
 
-void Type3::rotate(const GameController& array) {
+void Type3::rotate(const GameField& array) {
 }
 
 
@@ -130,7 +130,7 @@ Type4::Type4(unsigned int height, unsigned int width)
                    {width / 2 + 2, height - 4}},
                   4) {}
 
-void Type4::rotate(const GameController& array) {
+void Type4::rotate(const GameField& array) {
 }
 
 
@@ -142,7 +142,7 @@ Type5::Type5(unsigned int height, unsigned int width)
                    {width / 2 + 2, height - 3}},
                   2) {}
 
-void Type5::rotate(const GameController& array) {
+void Type5::rotate(const GameField& array) {
 }
 
 
@@ -154,5 +154,5 @@ Type6::Type6(unsigned int height, unsigned int width)
                    {width / 2 + 2, height - 4}},
                   2) {}
 
-void Type6::rotate(const GameController& array) {
+void Type6::rotate(const GameField& array) {
 }
