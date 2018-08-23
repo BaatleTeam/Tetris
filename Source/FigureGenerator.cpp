@@ -1,10 +1,10 @@
-#include "ShapeGenerator.hpp"
+#include "FigureGenerator.hpp"
 
-ShapeGenerator::ShapeGenerator(unsigned int h, unsigned int w)
+FigureGenerator::FigureGenerator(unsigned int h, unsigned int w)
     : arrayHeight(h), arrayWidth(w), currentType(-1), nextType(-1) {}
 
 
-void ShapeGenerator::generateNewShape(std::unique_ptr<TetrisFigure> &activeShape){
+void FigureGenerator::generateNewShape(std::unique_ptr<TetrisFigure> &activeShape){
     if (nextType != -1)
         currentType = nextType;
     else
@@ -38,15 +38,15 @@ void ShapeGenerator::generateNewShape(std::unique_ptr<TetrisFigure> &activeShape
     }
 }
 
-int ShapeGenerator::generateRandomNumber(){
+int FigureGenerator::generateRandomNumber(){
     srand(time(NULL));
     return rand() % TypesNum;
 }
 
-int ShapeGenerator::getCurrType() const {
+int FigureGenerator::getCurrType() const {
     return currentType;
 }
 
-int ShapeGenerator::getNextType() const {
+int FigureGenerator::getNextType() const {
     return nextType;
 }

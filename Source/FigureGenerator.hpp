@@ -6,7 +6,7 @@
 
 class TetrisFigure;
 
-class ShapeGenerator {
+class FigureGenerator {
 private:
     int currentType;
     int nextType;
@@ -16,8 +16,8 @@ private:
 public:
     static const int TypesNum = 7; //мб потом будет конфигурироваться из настроек, пока и так логично.
 
-    ShapeGenerator(unsigned h, unsigned w);
-    ~ShapeGenerator() = default;
+    FigureGenerator(unsigned h, unsigned w);
+    ~FigureGenerator() = default;
 
     void generateNewShape(std::unique_ptr<TetrisFigure> &activeShape);
     

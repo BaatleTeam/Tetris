@@ -3,11 +3,11 @@
 #include <iomanip>
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
-#include "ShapeGenerator.hpp"
+#include "FigureGenerator.hpp"
 #include "TetrisFigure.hpp"
 
 class ActiveShape;
-class ShapeGenerator;
+class FigureGenerator;
 
 class GameArray {
 private:
@@ -16,7 +16,7 @@ private:
     std::vector <std::vector <ArrayCell> > ptrArray;
 
     std::unique_ptr<TetrisFigure> activeShape;
-    ShapeGenerator shapeGenerator;
+    FigureGenerator figureGenerator;
     
 public:
     GameArray(const Settings&);

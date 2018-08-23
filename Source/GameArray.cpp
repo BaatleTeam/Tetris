@@ -3,14 +3,14 @@
 GameArray::GameArray(const Settings &s) 
     : height(s.getFieldSize().y + 4)
     , width(s.getFieldSize().x)
-    , shapeGenerator(height, width) 
+    , figureGenerator(height, width) 
 {
     ptrArray.reserve(height);
     for (int i = 0; i < height; i++)
         ptrArray.push_back(std::vector<ArrayCell>(width));
     // высота увеличивается на 4, т.к. эти первые 4 строки выделяются по буфер
     // в буфере выделяются генерируются фигуры
-    shapeGenerator.generateNewShape(activeShape);
+    figureGenerator.generateNewShape(activeShape);
 }
 
 GameArray::~GameArray(){
@@ -24,7 +24,7 @@ void GameArray::doStep(){
     }
     else {
         displayActiveShapeOnArray();
-        shapeGenerator.generateNewShape(activeShape);
+        figureGenerator.generateNewShape(activeShape);
         if (checkShapeMoving()){
             activeShape->moveDown();
             displayActiveShapeOnArray();
@@ -83,8 +83,8 @@ std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
     std::cout << "Color (rgb): " << (int)COLOR.r << " " << (int)COLOR.g << " " << (int)COLOR.b << "\n";
     for (const auto &elem : gmr.activeShape->getCurCoordinates())
         out << "x = " << elem.x << " y = " <<  elem.y << "\n";
-    out << "Current type: " << gmr.shapeGenerator.getCurrType() << "\n";
-    out << "Next type: " << gmr.shapeGenerator.getNextType() << "\n";
+    out << "Current type: " << gmr.figureGenerator.getCurrType() << "\n";
+    out << "Next type: " << gmr.figureGenerator.getNextType() << "\n";
     out << "\n\n" << std::endl;
     return out;
 }
