@@ -5,9 +5,9 @@ GameController::GameController(const Settings &s)
     , width(s.getFieldSize().x)
     , figureGenerator(height, width) 
 {
-    ptrArray.reserve(height);
+    gameField.reserve(height);
     for (int i = 0; i < height; i++)
-        ptrArray.push_back(std::vector<ArrayCell>(width));
+        gameField.push_back(std::vector<ArrayCell>(width));
     // высота увеличивается на 4, т.к. эти первые 4 строки выделяются по буфер
     // в буфере выделяются генерируются фигуры
     figureGenerator.generateNewShape(activeShape);
@@ -38,36 +38,36 @@ void GameController::doStep(){
 bool GameController::checkShapeMoving() const {
     try {
         for (const auto &curShapeCoord : activeShape->getCurCoordinates())
-            if (ptrArray.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
+            if (gameField.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
                 return false;
         return true;
     }
     catch (std::out_of_range){
-        std::cout << "Ura, raboraet!" << std::endl;
+        std::cout << "Catched array index out!" << std::endl;
         return false;
     }
 }
 
 void GameController::displayActiveShapeOnArray(){
     for (auto const &curShapeCoord : activeShape->getCurCoordinates())
-        ptrArray[curShapeCoord.y][curShapeCoord.x].makePainted();
+        gameField[curShapeCoord.y][curShapeCoord.x].makePainted();
 }
 
 void GameController::removeActiveShapeFromArray(){
     for (auto const &curShapeCoord : activeShape->getCurCoordinates()){
-        ptrArray[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
+        gameField[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
     }
 }
 
 bool GameController::isPainted(sf::Vector2u coord) const {
-    return ptrArray[coord.y][coord.x].isPainted();
+    return gameField[coord.y][coord.x].isPainted();
 }
 
 std::ostream& operator<<(std::ostream &out, const GameController &gmr){
     for (int i = 0; i < gmr.height; i++){
         out << std::setw(3) << gmr.height -1 - i << "| ";
         for (int j = 0; j < gmr.width; j++)
-            out << gmr.ptrArray[gmr.height -1 - i][j].isPainted() << " ";
+            out << gmr.gameField[gmr.height -1 - i][j].isPainted() << " ";
         out << "\n";
     }
     out << std::setw(4);

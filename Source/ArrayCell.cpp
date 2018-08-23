@@ -11,13 +11,13 @@ sf::Color ArrayCell::getColor() const {
 }
 
 bool ArrayCell::isPainted() const {
-    return isActive;
+    return _isPainted;
 }
 
 void ArrayCell::makePainted(){
-    this->isActive = true;
+    this->_isPainted = true;
 }
 
 void ArrayCell::makeUnpainted(){
-    this->isActive = false;
+    this->_isPainted = false;
 }

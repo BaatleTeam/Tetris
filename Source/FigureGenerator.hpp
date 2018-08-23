@@ -6,12 +6,15 @@
 
 class TetrisFigure;
 
+// Отвечает за генерацию разного типа фигур, тип фигуры рандомится
+// Знает тип текущей и следующей фигуры
+// todo разобраться с типом фигур
 class FigureGenerator {
 private:
     int currentType;
     int nextType;
-    unsigned int arrayWidth;
-    unsigned int arrayHeight;
+    unsigned arrayWidth;
+    unsigned arrayHeight;
 
 public:
     static const int TypesNum = 7; //мб потом будет конфигурироваться из настроек, пока и так логично.

@@ -6,6 +6,9 @@
 
 class GameController;
 
+// Базовый класс для различных типов фигур
+// Хранит координаты каждой клеточки фигуры и кол-во вариантов поворота
+
 class TetrisFigure {
 protected:
     std::vector <sf::Vector2u> coordinates;

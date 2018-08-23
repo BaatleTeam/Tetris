@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
 
+// Ячейка игрового массива
+
 class ArrayCell {
 private:
-    bool isActive;
+    bool _isPainted;
     sf::Color color;
 
 public:
