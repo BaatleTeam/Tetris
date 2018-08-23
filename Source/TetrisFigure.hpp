@@ -2,9 +2,9 @@
 #include <vector>
 #include <iostream>
 #include <SFML/System/Vector2.hpp>
-#include "GameArray.hpp"
+#include "GameController.hpp"
 
-class GameArray;
+class GameController;
 
 class TetrisFigure {
 protected:
@@ -22,8 +22,8 @@ public:
     std::vector <sf::Vector2u> getCurCoordinates() const;
     const sf::Color& getColor() const; 
 
-    virtual void rotate(const GameArray&) = 0;
-    // c такой сигнатурой можно перенести метод checkShapeMoving из GameArray
+    virtual void rotate(const GameController&) = 0;
+    // c такой сигнатурой можно перенести метод checkShapeMoving из GameController
     // тоже чисто виртуальный но с реализацией по умолчанию (как сейчас)
 
 private:
@@ -35,7 +35,7 @@ private:
 class Type0 : public TetrisFigure {
 public:
     Type0(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //
@@ -43,7 +43,7 @@ public:
 class Type1 : public TetrisFigure {
 public:
     Type1(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //                         * 
@@ -51,7 +51,7 @@ public:
 class Type2 : public TetrisFigure {
 public:
     Type2(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //                                *
@@ -59,7 +59,7 @@ public:
 class Type3 : public TetrisFigure {
 public:
     Type3(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //                            *
@@ -67,7 +67,7 @@ public:
 class Type4 : public TetrisFigure {
 public:
     Type4(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //                                 **
@@ -75,7 +75,7 @@ public:
 class Type5 : public TetrisFigure {
 public:
     Type5(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };
 
 //                                    **
@@ -83,5 +83,5 @@ public:
 class Type6 : public TetrisFigure {
 public:
     Type6(unsigned int arrayHeight, unsigned int arrayWidth);
-    void rotate(const GameArray&) override;
+    void rotate(const GameController&) override;
 };

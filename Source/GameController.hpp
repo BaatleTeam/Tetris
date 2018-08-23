@@ -9,7 +9,7 @@
 class ActiveShape;
 class FigureGenerator;
 
-class GameArray {
+class GameController {
 private:
     unsigned int width; 
     unsigned int height;
@@ -19,13 +19,13 @@ private:
     FigureGenerator figureGenerator;
     
 public:
-    GameArray(const Settings&);
-    ~GameArray();
+    GameController(const Settings&);
+    ~GameController();
     void doStep(); // перемещает активную фигуру на этаж ниже или генерит новую
     bool checkShapeMoving() const;
     bool isPainted(sf::Vector2u coord) const;
     void displayActiveShapeOnArray();
     void removeActiveShapeFromArray();
     
-    friend std::ostream& operator<<(std::ostream &out, const GameArray &gmr);
+    friend std::ostream& operator<<(std::ostream &out, const GameController &gmr);
 };

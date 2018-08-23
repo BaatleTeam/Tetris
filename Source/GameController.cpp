@@ -1,6 +1,6 @@
-#include "GameArray.hpp"
+#include "GameController.hpp"
 
-GameArray::GameArray(const Settings &s) 
+GameController::GameController(const Settings &s) 
     : height(s.getFieldSize().y + 4)
     , width(s.getFieldSize().x)
     , figureGenerator(height, width) 
@@ -13,10 +13,10 @@ GameArray::GameArray(const Settings &s)
     figureGenerator.generateNewShape(activeShape);
 }
 
-GameArray::~GameArray(){
+GameController::~GameController(){
 }
 
-void GameArray::doStep(){
+void GameController::doStep(){
     removeActiveShapeFromArray();
     if (checkShapeMoving()){
         activeShape->moveDown();
@@ -35,7 +35,7 @@ void GameArray::doStep(){
     }
 }
 
-bool GameArray::checkShapeMoving() const {
+bool GameController::checkShapeMoving() const {
     try {
         for (const auto &curShapeCoord : activeShape->getCurCoordinates())
             if (ptrArray.at(curShapeCoord.y-1).at(curShapeCoord.x).isPainted())
@@ -48,22 +48,22 @@ bool GameArray::checkShapeMoving() const {
     }
 }
 
-void GameArray::displayActiveShapeOnArray(){
+void GameController::displayActiveShapeOnArray(){
     for (auto const &curShapeCoord : activeShape->getCurCoordinates())
         ptrArray[curShapeCoord.y][curShapeCoord.x].makePainted();
 }
 
-void GameArray::removeActiveShapeFromArray(){
+void GameController::removeActiveShapeFromArray(){
     for (auto const &curShapeCoord : activeShape->getCurCoordinates()){
         ptrArray[curShapeCoord.y][curShapeCoord.x].makeUnpainted();  
     }
 }
 
-bool GameArray::isPainted(sf::Vector2u coord) const {
+bool GameController::isPainted(sf::Vector2u coord) const {
     return ptrArray[coord.y][coord.x].isPainted();
 }
 
-std::ostream& operator<<(std::ostream &out, const GameArray &gmr){
+std::ostream& operator<<(std::ostream &out, const GameController &gmr){
     for (int i = 0; i < gmr.height; i++){
         out << std::setw(3) << gmr.height -1 - i << "| ";
         for (int j = 0; j < gmr.width; j++)

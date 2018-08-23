@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
 #include "../Settings.hpp"
-#include "../GameArray.hpp"
+#include "../GameController.hpp"
 
 
 class ScreenGame : public ScreenBase {
@@ -12,7 +12,7 @@ private:
 	float posx;
 	float posy;
 	sf::RectangleShape Rectangle;
-	GameArray field;
+	GameController gameController;
 	
 public:
 	ScreenGame(const Settings&);
