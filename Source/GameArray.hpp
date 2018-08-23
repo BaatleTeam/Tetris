@@ -4,7 +4,7 @@
 #include "ArrayCell.hpp"
 #include "Settings.hpp"
 #include "ShapeGenerator.hpp"
-#include "ActiveShape.hpp"
+#include "TetrisFigure.hpp"
 
 class ActiveShape;
 class ShapeGenerator;
@@ -15,7 +15,7 @@ private:
     unsigned int height;
     std::vector <std::vector <ArrayCell> > ptrArray;
 
-    std::unique_ptr<ActiveShape> activeShape;
+    std::unique_ptr<TetrisFigure> activeShape;
     ShapeGenerator shapeGenerator;
     
 public:

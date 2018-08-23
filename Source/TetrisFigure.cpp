@@ -1,36 +1,36 @@
-#include "ActiveShape.hpp"
+#include "TetrisFigure.hpp"
 
-ActiveShape::ActiveShape()
+TetrisFigure::TetrisFigure()
     : rotateVariants(1)
     , currentRotate(0) 
 {
 }
 
-ActiveShape::ActiveShape(std::vector<sf::Vector2u> &&coord, int r_Variants){
+TetrisFigure::TetrisFigure(std::vector<sf::Vector2u> &&coord, int r_Variants){
     coordinates = coord;
     shapeColor = generateColor();
     rotateVariants = r_Variants;
     currentRotate = 0;
 }
 
-void ActiveShape::moveDown(){
+void TetrisFigure::moveDown(){
     for (auto &elem : coordinates)
         elem.y--;
 }
 
-std::vector <sf::Vector2u> ActiveShape::getCurCoordinates() const {
+std::vector <sf::Vector2u> TetrisFigure::getCurCoordinates() const {
     return coordinates;
 }
 
-unsigned int ActiveShape::getCellsNum() const {
+unsigned int TetrisFigure::getCellsNum() const {
     return coordinates.size();
 }
 
-const sf::Color& ActiveShape::getColor() const {
+const sf::Color& TetrisFigure::getColor() const {
     return shapeColor;
 }
 
-sf::Color ActiveShape::generateColor(){
+sf::Color TetrisFigure::generateColor(){
     // check randomizze
     // try to do universal reference
     unsigned int r = rand() % 2;
@@ -44,7 +44,7 @@ sf::Color ActiveShape::generateColor(){
 // СВЕРХУ ВНИЗ
 
 Type0::Type0(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 3},
+    : TetrisFigure({{width / 2,     height - 3},
                    {width / 2 + 1, height - 3},
                    {width / 2,     height - 4},
                    {width / 2 + 1, height - 4}},
@@ -57,7 +57,7 @@ void Type0::rotate(const GameArray& array) {
 
 
 Type1::Type1(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2, height - 1},
+    : TetrisFigure({{width / 2, height - 1},
                    {width / 2, height - 2},
                    {width / 2, height - 3},
                    {width / 2, height - 4}},
@@ -100,7 +100,7 @@ void Type1::rotate(const GameArray& array) {
 
 
 Type2::Type2(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 3},
+    : TetrisFigure({{width / 2,     height - 3},
                    {width / 2,     height - 4},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 4}},
@@ -112,7 +112,7 @@ void Type2::rotate(const GameArray& array) {
 
 
 Type3::Type3(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 4},
+    : TetrisFigure({{width / 2,     height - 4},
                    {width / 2 + 1, height - 3},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 4}},
@@ -124,7 +124,7 @@ void Type3::rotate(const GameArray& array) {
 
 
 Type4::Type4(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 4},
+    : TetrisFigure({{width / 2,     height - 4},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 3},
                    {width / 2 + 2, height - 4}},
@@ -136,7 +136,7 @@ void Type4::rotate(const GameArray& array) {
 
 
 Type5::Type5(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 4},
+    : TetrisFigure({{width / 2,     height - 4},
                    {width / 2 + 1, height - 3},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 3}},
@@ -148,7 +148,7 @@ void Type5::rotate(const GameArray& array) {
 
 
 Type6::Type6(unsigned int height, unsigned int width)
-    : ActiveShape({{width / 2,     height - 3},
+    : TetrisFigure({{width / 2,     height - 3},
                    {width / 2 + 1, height - 3},
                    {width / 2 + 1, height - 4},
                    {width / 2 + 2, height - 4}},

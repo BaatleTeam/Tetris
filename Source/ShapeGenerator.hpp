@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 
-class ActiveShape;
+class TetrisFigure;
 
 class ShapeGenerator {
 private:
@@ -19,7 +19,7 @@ public:
     ShapeGenerator(unsigned h, unsigned w);
     ~ShapeGenerator() = default;
 
-    void generateNewShape(std::unique_ptr<ActiveShape> &activeShape);
+    void generateNewShape(std::unique_ptr<TetrisFigure> &activeShape);
     
     int getNextType() const; // возвращают информацию о типах текущей и след фигур
     int getCurrType() const ; // todo
@@ -29,4 +29,4 @@ private:
     int generateRandomNumber();
 };
 
-#include "ActiveShape.hpp"
+#include "TetrisFigure.hpp"
