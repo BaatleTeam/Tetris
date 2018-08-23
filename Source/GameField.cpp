@@ -28,7 +28,33 @@ bool GameField::checkFigureMoveDown(const TetrisFigure *figure) const {
         return true;
     }
     catch (std::out_of_range){
-        std::cout << "Catched array index out!" << std::endl;
+        std::cout << "Catched array index out in gameArray.cpp!" << std::endl;
+        return false;
+    }
+}
+
+bool GameField::checkFigureMoveLeft(const TetrisFigure *figure) const {
+    try {
+        for (const auto &curShapeCoord : figure->getCurCoordinates())
+            if (gameField.at(curShapeCoord.y).at(curShapeCoord.x-1).isPainted())
+                return false;
+        return true;
+    }
+    catch (std::out_of_range){
+        std::cout << "Catched array index out in gameArray.cpp!" << std::endl;
+        return false;
+    }
+}
+
+bool GameField::checkFigureMoveRight(const TetrisFigure *figure) const {
+    try {
+        for (const auto &curShapeCoord : figure->getCurCoordinates())
+            if (gameField.at(curShapeCoord.y).at(curShapeCoord.x+1).isPainted())
+                return false;
+        return true;
+    }
+    catch (std::out_of_range){
+        std::cout << "Catched array index out in gameArray.cpp!" << std::endl;
         return false;
     }
 }

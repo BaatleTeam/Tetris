@@ -2,7 +2,7 @@
 
 TetrisFigure::TetrisFigure()
     : rotateVariants(1)
-    , currentRotate(0) 
+    , nextRotate(0+1) 
 {
 }
 
@@ -10,12 +10,22 @@ TetrisFigure::TetrisFigure(std::vector<sf::Vector2u> &&coord, int r_Variants){
     coordinates = coord;
     shapeColor = generateColor();
     rotateVariants = r_Variants;
-    currentRotate = 0;
+    nextRotate = 1;
 }
 
 void TetrisFigure::moveDown(){
     for (auto &elem : coordinates)
         elem.y--;
+}
+
+void TetrisFigure::moveLeft(){
+    for (auto &elem : coordinates)
+        elem.x--;
+}
+
+void TetrisFigure::moveRight(){
+    for (auto &elem : coordinates)
+        elem.x++;
 }
 
 std::vector <sf::Vector2u> TetrisFigure::getCurCoordinates() const {
@@ -64,10 +74,8 @@ Type1::Type1(unsigned int height, unsigned int width)
                   2) {}
 
 void Type1::rotate(const GameField& array) {
-    currentRotate++;
-    currentRotate %= rotateVariants;
     decltype(coordinates) newCoord;
-    switch (currentRotate){
+    switch (nextRotate){
         case 0:
             newCoord = {
                 { coordinates[3].x-1, coordinates[3].y },
@@ -95,6 +103,8 @@ void Type1::rotate(const GameField& array) {
         default:
             throw "type 1 rotate error";
     }
+    nextRotate++;
+    nextRotate %= rotateVariants;
 }
 
 

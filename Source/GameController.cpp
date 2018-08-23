@@ -12,7 +12,8 @@ GameController::GameController(const Settings &s)
 }
 
 GameController::~GameController(){
-}
+
+};
 
 void GameController::doStep(){
     removeActiveFigure();
@@ -33,6 +34,29 @@ void GameController::doStep(){
     }
 }
 
+void GameController::moveFigureLeft(){
+    removeActiveFigure();
+    if (gameField.checkFigureMoveLeft(activeShape.get()))
+        activeShape->moveLeft();
+    displayActiveFigure();
+}
+
+void GameController::moveFigureRight(){
+    removeActiveFigure();
+    if (gameField.checkFigureMoveRight(activeShape.get()))
+        activeShape->moveRight();
+    displayActiveFigure();
+}
+
+void GameController::rotateFigure(){
+    removeActiveFigure();
+    activeShape->rotate(gameField);
+    displayActiveFigure();
+}
+
+
+
+
 void GameController::generateNewActiveFigure(){
     figureGenerator.generateNew(activeShape);
 }
@@ -49,14 +73,14 @@ bool GameController::canMoveActiveFigureDown() const {
     return gameField.checkFigureMoveDown(activeShape.get());
 }
 
-std::ostream& operator<<(std::ostream &out, const GameController &gmr){
-    out << gmr.gameField;
-    #define COLOR gmr.activeShape.get()->getColor()
+std::ostream& operator<<(std::ostream &out, const GameController &gc){
+    out << gc.gameField;
+    #define COLOR gc.activeShape.get()->getColor()
     std::cout << "Color (rgb): " << (int)COLOR.r << " " << (int)COLOR.g << " " << (int)COLOR.b << "\n";
-    for (const auto &elem : gmr.activeShape->getCurCoordinates())
+    for (const auto &elem : gc.activeShape->getCurCoordinates())
         out << "x = " << elem.x << " y = " <<  elem.y << "\n";
-    out << "Current type: " << gmr.figureGenerator.getCurrType() << "\n";
-    out << "Next type: " << gmr.figureGenerator.getNextType() << "\n";
+    out << "Current type: " << gc.figureGenerator.getCurrType() << "\n";
+    out << "Next type: " << gc.figureGenerator.getNextType() << "\n";
     out << "\n\n" << std::endl;
     return out;
 }

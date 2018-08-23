@@ -14,20 +14,22 @@ protected:
     std::vector <sf::Vector2u> coordinates;
     sf::Color shapeColor;
     int rotateVariants;
-    int currentRotate;
+    int nextRotate;
 
 public:
     TetrisFigure(std::vector<sf::Vector2u> &&coord, int r_Variants);
     TetrisFigure();
     virtual ~TetrisFigure() = default;
+
     void moveDown();
+    void moveLeft();
+    void moveRight();
+    
     unsigned int getCellsNum() const;
     std::vector <sf::Vector2u> getCurCoordinates() const;
     const sf::Color& getColor() const; 
 
     virtual void rotate(const GameField&) = 0;
-    // c такой сигнатурой можно перенести метод checkShapeMoving из GameField
-    // тоже чисто виртуальный но с реализацией по умолчанию (как сейчас)
 
 private:
     sf::Color generateColor();

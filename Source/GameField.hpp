@@ -19,7 +19,10 @@ public:
 
     void paintFigure(const TetrisFigure *figure);
     void unpaintFigure(const TetrisFigure *figure);
+
     bool checkFigureMoveDown(const TetrisFigure *figure) const;
+    bool checkFigureMoveLeft(const TetrisFigure *figure) const;
+    bool checkFigureMoveRight(const TetrisFigure *figure) const;
     bool isCellPainted(sf::Vector2u coord) const;
 
 
