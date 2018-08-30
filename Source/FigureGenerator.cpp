@@ -1,36 +1,41 @@
 #include "FigureGenerator.hpp"
 
 FigureGenerator::FigureGenerator(unsigned int h, unsigned int w)
-    : arrayHeight(h), arrayWidth(w), currentType(-1), nextType(-1) {}
+    : arrayHeight(h)
+    , arrayWidth(w)
+    , currentType(FigureType::NoType)
+    , nextType(FigureType::NoType)
+{
 
+}
 
 void FigureGenerator::generateNew(std::unique_ptr<TetrisFigure> &activeShape){
-    if (nextType != -1)
+    if (nextType != FigureType::NoType)
         currentType = nextType;
     else
-        currentType = generateRandomNumber();
+        currentType = generateRandomType();
     
-    nextType = generateRandomNumber();
+    nextType = generateRandomType();
     switch(currentType){
-        case 0:
+        case FigureType::Type0:
             activeShape.reset(new Type0(arrayHeight, arrayWidth));
             break;
-        case 1:
+        case FigureType::Type1:
             activeShape.reset(new Type1(arrayHeight, arrayWidth));
             break;
-        case 2:
+        case FigureType::Type2:
             activeShape.reset(new Type2(arrayHeight, arrayWidth));
             break;
-        case 3:
+        case FigureType::Type3:
             activeShape.reset(new Type3(arrayHeight, arrayWidth));
             break;
-        case 4:
+        case FigureType::Type4:
             activeShape.reset(new Type4(arrayHeight, arrayWidth));
             break;
-        case 5:
+        case FigureType::Type5:
             activeShape.reset(new Type5(arrayHeight, arrayWidth));
             break;
-        case 6:
+        case FigureType::Type6:
             activeShape.reset(new Type6(arrayHeight, arrayWidth));
             break;
         default:
@@ -38,15 +43,15 @@ void FigureGenerator::generateNew(std::unique_ptr<TetrisFigure> &activeShape){
     }
 }
 
-int FigureGenerator::generateRandomNumber(){
+FigureType FigureGenerator::generateRandomType(){
     srand(time(NULL));
-    return rand() % TypesNum;
+    return static_cast<FigureType>((rand() % TypesNum) + 1 ); // 0 is NoType type
 }
 
-int FigureGenerator::getCurrType() const {
+FigureType FigureGenerator::getCurrType() const {
     return currentType;
 }
 
-int FigureGenerator::getNextType() const {
+FigureType FigureGenerator::getNextType() const {
     return nextType;
 }

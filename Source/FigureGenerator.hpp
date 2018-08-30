@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <memory>
+#include "FigureTypeEnum.hpp"
 
 class TetrisFigure;
 
@@ -11,8 +12,8 @@ class TetrisFigure;
 // todo разобраться с типом фигур
 class FigureGenerator {
 private:
-    int currentType;
-    int nextType;
+    FigureType currentType;
+    FigureType nextType;
     unsigned arrayWidth;
     unsigned arrayHeight;
 
@@ -24,12 +25,12 @@ public:
 
     void generateNew(std::unique_ptr<TetrisFigure> &activeShape);
     
-    int getNextType() const; // возвращают информацию о типах текущей и след фигур
-    int getCurrType() const ; // todo
+    FigureType getNextType() const; // возвращают информацию о типах текущей и след фигур
+    FigureType getCurrType() const ; // todo
 
     
 private:
-    int generateRandomNumber();
+    FigureType generateRandomType();
 };
 
 #include "TetrisFigure.hpp"
