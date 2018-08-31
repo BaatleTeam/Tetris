@@ -79,8 +79,8 @@ std::ostream& operator<<(std::ostream &out, const GameController &gc){
     std::cout << "Color (rgb): " << (int)COLOR.r << " " << (int)COLOR.g << " " << (int)COLOR.b << "\n";
     for (const auto &elem : gc.activeShape->getCurCoordinates())
         out << "x = " << elem.x << " y = " <<  elem.y << "\n";
-    // out << "Current type: " << gc.figureGenerator.getCurrType() << "\n";
-    // out << "Next type: " << gc.figureGenerator.getNextType() << "\n";
+    out << "Current type: " << gc.figureGenerator.getCurrType() << "\n";
+    out << "Next type: " << gc.figureGenerator.getNextType() << "\n";
     out << "\n\n" << std::endl;
     return out;
 }
