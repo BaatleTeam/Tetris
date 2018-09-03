@@ -1,13 +1,16 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame()
+ScreenGame::ScreenGame(const Settings &s) : gameController(s)
 {
+	std::cout << "COnstructor of ScreenGame begin" << std::endl;
 	movement_step = 5;
 	posx = 320;
 	posy = 240;
 	//Setting sprite
 	Rectangle.setFillColor(sf::Color(255, 255, 255, 150));
 	Rectangle.setSize({ 10.f, 10.f });
+
+	std::cout << "COnstructor of ScreenGame end" << std::endl;
 }
 
 int ScreenGame::run(sf::RenderWindow &App)
@@ -17,6 +20,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 
 	sf::Event Event;
 	bool isRunning = true;
+
+	sf::Clock clockStep;
+	clockStep.restart();
 
 	while (isRunning)
 	{
@@ -65,13 +71,29 @@ int ScreenGame::run(sf::RenderWindow &App)
 			posy = 0;
 		Rectangle.setPosition({ posx, posy });
 
+		sf::Time elapsedTime = clockStep.getElapsedTime();
+		if (elapsedTime >= sf::seconds(1)){
+			std::cout << elapsedTime.asSeconds() << std::endl;
+			gameController.doStep();
+			std::cout << "Step done" << std::endl;
+			std::cout << gameController;
+			clockStep.restart();
+		}
+		
+
 		//Clearing screen
 		App.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
 		App.draw(Rectangle);
+		drawBackground(App);
 		App.display();
 	}
 
 	//Never reaching this point normally, but just in case, exit the application
 	return -1;
+}
+
+void ScreenGame::drawBackground(sf::RenderWindow &WIN){
+	// screenBackground.Draw(WIN);
+	// gameBackground.Draw(WIN);
 }

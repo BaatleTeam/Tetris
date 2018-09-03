@@ -1,6 +1,10 @@
+#pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
+#include "../Settings.hpp"
+#include "../GameController.hpp"
+
 
 class ScreenGame : public ScreenBase {
 private:
@@ -8,7 +12,10 @@ private:
 	float posx;
 	float posy;
 	sf::RectangleShape Rectangle;
+	GameController gameController;
+	
 public:
-	ScreenGame();
+	ScreenGame(const Settings&);
 	int run(sf::RenderWindow &App) override;
+	void drawBackground(sf::RenderWindow &WIN);
 };
