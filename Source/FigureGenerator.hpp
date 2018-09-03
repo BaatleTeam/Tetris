@@ -12,10 +12,10 @@ class TetrisFigure;
 // todo разобраться с типом фигур
 class FigureGenerator {
 private:
+    unsigned arrayHeight;
+    unsigned arrayWidth;
     FigureType currentType;
     FigureType nextType;
-    unsigned arrayWidth;
-    unsigned arrayHeight;
 
 public:
     static const int TypesNum = 7; //мб потом будет конфигурироваться из настроек, пока и так логично.
