@@ -1,7 +1,7 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(Settings &settings)
-: settings(settings)
+ScreenGame::ScreenGame(const Settings &settings) : gameController(settings), settings(settings)
+
 {
 	movement_step = 5;
 	posx = 320;
@@ -18,6 +18,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 
 	sf::Event Event;
 	bool isRunning = true;
+
+	sf::Clock clockStep;
+	clockStep.restart();
 
 	while (isRunning)
 	{
@@ -66,13 +69,29 @@ int ScreenGame::run(sf::RenderWindow &App)
 			posy = 0;
 		Rectangle.setPosition({ posx, posy });
 
+		sf::Time elapsedTime = clockStep.getElapsedTime();
+		if (elapsedTime >= sf::seconds(1)){
+			std::cout << elapsedTime.asSeconds() << std::endl;
+			gameController.doStep();
+			std::cout << "Step done" << std::endl;
+			std::cout << gameController;
+			clockStep.restart();
+		}
+		
+
 		//Clearing screen
 		App.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
 		App.draw(Rectangle);
+		drawBackground(App);
 		App.display();
 	}
 
 	//Never reaching this point normally, but just in case, exit the application
 	return -1;
+}
+
+void ScreenGame::drawBackground(sf::RenderWindow &WIN){
+	// screenBackground.Draw(WIN);
+	// gameBackground.Draw(WIN);
 }

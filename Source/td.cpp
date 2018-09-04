@@ -6,6 +6,7 @@
 int main()
 {
 	//Applications variables
+	Settings settings;
 	std::vector<std::unique_ptr<ScreenBase>> Screens;
 	Settings settings;
 	Screens.reserve(4);
