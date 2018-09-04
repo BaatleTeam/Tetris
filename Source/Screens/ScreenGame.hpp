@@ -19,5 +19,5 @@ public:
 	void drawBackground(sf::RenderWindow &WIN);
   
   protected:
-    Settings &settings;
+    const Settings &settings;
 };
