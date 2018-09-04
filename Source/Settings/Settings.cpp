@@ -7,12 +7,9 @@ Settings::Settings()
     App.requestFocus();
 
     screenSizes = {
-                sf::Vector2u(1920,1080),
                 sf::Vector2u(1366, 768),
                 sf::Vector2u(1280, 768),
-                sf::Vector2u(1280, 720),
-                sf::Vector2u(1024, 600),
-                sf::Vector2u(800 , 600) };
+                sf::Vector2u(1280, 720) };
     
     fieldSizes = { 
                 sf::Vector2u(10, 20),

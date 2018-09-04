@@ -17,12 +17,10 @@ int main()
 		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings)));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
 	}
-	catch(...){
+	catch(...) {
 		std::cout << "Program has been terminated.";
 		exit(-1);
 	}
-
-	
 
 	//Main loop
 	while (screen >= 0)
