@@ -10,8 +10,8 @@ class TetrisFigure;
 
 class GameField {
 private:
-    unsigned width; 
     unsigned height;
+    unsigned width; 
     std::vector <std::vector <ArrayCell> > gameField; // выделить поле в отдельный класс? думаю, да
 
 public:

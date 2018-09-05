@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 3.3)
 
 # set(EXECUTABLE_OUTPUT_PATH "Build")
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
 
 project(Tetris)
    
 # Adding source files
-file(GLOB srcMain Source/*.cpp)
-file(GLOB srcScreens Source/Screens/*.cpp)
-file(GLOB srcButtons Source/Buttons/*.cpp)
-file(GLOB srcSettings Source/Settings/*.cpp)
+file(GLOB_RECURSE srcMain Source/*.cpp)
+# file(GLOB srcScreens Source/Screens/*.cpp)
+# file(GLOB srcButtons Source/Buttons/*.cpp)
+# file(GLOB srcSettings Source/Settings/*.cpp)
    
 # Adding dependencies
 find_package(OpenGL 3.3 REQUIRED) # Or 3.2?
