@@ -66,7 +66,8 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					}
 				}
 				default:
-				break;
+					// other events do not handle (just now)
+					break;
 			}
 		}
 
