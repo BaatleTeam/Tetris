@@ -8,12 +8,10 @@
 
 class ScreenMenu : public ScreenBase {
 private:
-	sf::Font font;
 	ButtonList buttonList;
 public:
-	// ScreenMenu();
 	ScreenMenu(Settings &settings);
 	int run(sf::RenderWindow &App);
 protected:
-    // Settings &settings;
+    Settings &settings;
 };

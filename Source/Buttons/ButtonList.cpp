@@ -69,7 +69,7 @@ void ButtonList::updateScale(sf::Vector2u &resolution)
     scale.y = (float)resolution.y/B_DEF_RESOLUTION_HEIGHT;
 }
 
-void ButtonList::updateResolution(const sf::Vector2u &resolution)
+void ButtonList::updateResolution(sf::Vector2u &resolution)
 {
     for(auto &button : buttonList)
         button->setRealPosition(resolution);
