@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <memory>
-#include "FigureTypeEnum.hpp"
+#include "../FigureTypeEnum.hpp"
 
 class TetrisFigure;
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef BUTTON_LIST_HPP_INCLUDED
 #define BUTTON_LIST_HPP_INCLUDED
 
@@ -35,7 +36,7 @@ public:
     void updateScale(sf::Vector2u &resolution);
 
     // Update position of all buttons in list
-    void updateResolution(sf::Vector2u &resolution);
+    void updateResolution(const sf::Vector2u &resolution);
 
     // Update buttons positions, their scale and set current button highlighted but now with proper scale
     void update(sf::Vector2u resolution);

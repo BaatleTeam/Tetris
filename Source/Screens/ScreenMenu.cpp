@@ -1,28 +1,37 @@
-#include "Screens.hpp"
+#include "Screens.hpp" // из-за Resourses_path
+#include "../Buttons/Button.hpp"
 #include "../Buttons/ButtonList.hpp"
 
-ScreenMenu::ScreenMenu(Settings &newSettings)
-: settings(newSettings)
+ScreenMenu::ScreenMenu(Settings &settings)
 {
-	auto callNewGame = 	[]() -> int { return 1; };
-	auto callSettings = []() -> int { return 2; };
-	auto callScore = 	[]() -> int { return 3; };
-	
-	sf::Font &font = settings.getFont();
-
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, callSettings);
-	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
+	if (!font.loadFromFile(RESOURCES_PATH_PREFIX + "Fonts/SIMPLIFICA Typeface.ttf"))
+	{
+		std::cout << "Font didn't load!" << std::endl;
+		throw;
+	}
 }
+
 int ScreenMenu::run(sf::RenderWindow &App)
 {
 	sf::Event Event;
 	bool isRunning = true;
-	
-	buttonList.update(App.getSize());
+	ButtonList buttonList {};
+	//std::cout << App.getSize().x << App.getSize().y << std::endl;
+	int screenNumberToReturn = 0;
+	static int NumOfcurrentHighlightedButton = 0;
 
 	//Mouse cursor no more visible
 	App.setMouseCursorVisible(true);
+
+	auto callNewGame = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 1; };
+	auto callSettings = [&screenNumberToReturn]() -> int { return screenNumberToReturn = 2; };
+	auto callScore = 	[&screenNumberToReturn]() -> int { return screenNumberToReturn = 3; };
+	
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, 	callNewGame);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, 	callSettings);
+	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
+
+	buttonList.updateHighlightedButton(NumOfcurrentHighlightedButton);
 
 	while (isRunning)
 	{
@@ -41,7 +50,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
                     
                     //sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
                     App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
-					buttonList.update(App.getSize());
+					buttonList.updateResolution(App.getSize());
                     break;
 
 				//Key pressed
@@ -50,7 +59,9 @@ int ScreenMenu::run(sf::RenderWindow &App)
 					switch (Event.key.code)
 					{
 						case sf::Keyboard::Enter:
-							return buttonList.callCBFunction();
+							buttonList.callCBFunction();
+							NumOfcurrentHighlightedButton = buttonList.getCurrentButtonNumber();
+							return screenNumberToReturn;
 							break;
 						case sf::Keyboard::Escape:
 							return -1;
@@ -65,6 +76,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 							break;
 					}
 				}
+
 				default:
 					// other events do not handle (just now)
 					break;
@@ -72,7 +84,7 @@ int ScreenMenu::run(sf::RenderWindow &App)
 		}
 
 		//Clearing screen
-		App.clear(sf::Color(0, 191, 255, 128));
+		App.clear();
 
 		//Drawing
 		App.draw(buttonList);

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ScreenBase.hpp"
 #include "../Settings/Settings.hpp"
-#include "../GameController.hpp"
+#include "../GameController/GameController.hpp"
 
 class ScreenGame : public ScreenBase {
 private:
