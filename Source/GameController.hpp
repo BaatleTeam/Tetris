@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
-#include "Settings.hpp"
+#include "Settings/Settings.hpp"
 #include "FigureGenerator.hpp"
 #include "TetrisFigure.hpp"
 #include "GameField.hpp"

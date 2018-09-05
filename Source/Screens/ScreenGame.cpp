@@ -1,16 +1,14 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings &s) : gameController(s)
+ScreenGame::ScreenGame(const Settings &settings) : gameController(settings), settings(settings)
+
 {
-	std::cout << "COnstructor of ScreenGame begin" << std::endl;
 	movement_step = 5;
 	posx = 320;
 	posy = 240;
 	//Setting sprite
 	Rectangle.setFillColor(sf::Color(255, 255, 255, 150));
 	Rectangle.setSize({ 10.f, 10.f });
-
-	std::cout << "COnstructor of ScreenGame end" << std::endl;
 }
 
 int ScreenGame::run(sf::RenderWindow &App)
