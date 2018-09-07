@@ -31,6 +31,8 @@ public:
     void moveFigureRight();
     void rotateFigure();
 
+    const std::vector <std::vector <ArrayCell>>& getGameArray() const;
+
 private:
     bool canMoveActiveFigureDown() const;
     void displayActiveFigure();

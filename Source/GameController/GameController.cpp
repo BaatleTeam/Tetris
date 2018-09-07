@@ -54,6 +54,11 @@ void GameController::rotateFigure(){
     displayActiveFigure();
 }
 
+const std::vector <std::vector <ArrayCell>>& GameController::getGameArray() const {
+    return gameField.getGameField();
+}
+
+
 
 
 

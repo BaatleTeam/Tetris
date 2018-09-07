@@ -6,6 +6,10 @@ GameField::GameField(unsigned h, unsigned w) : height(h), width(w) {
         gameField.push_back(std::vector<ArrayCell>(width));
 }
 
+const std::vector <std::vector <ArrayCell>>& GameField::getGameField() const {
+    return gameField;
+}
+
 void GameField::paintFigure(const TetrisFigure *figure){
     for (auto const &curShapeCoord : figure->getCurCoordinates()){
         gameField[curShapeCoord.y][curShapeCoord.x].makePainted();

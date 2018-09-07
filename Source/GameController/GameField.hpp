@@ -16,6 +16,7 @@ private:
 
 public:
     GameField(unsigned height, unsigned width);
+    const std::vector <std::vector <ArrayCell>>& getGameField() const;
 
     void paintFigure(const TetrisFigure *figure);
     void unpaintFigure(const TetrisFigure *figure);

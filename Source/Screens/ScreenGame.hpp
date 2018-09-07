@@ -18,6 +18,9 @@ private:
 public:
 	ScreenGame(const Settings&, const ResourceManager&);
 	int run(sf::RenderWindow &App) override;
+
+private:
+	void drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField);
 	void drawBackground(sf::RenderWindow &WIN);
   
   protected:

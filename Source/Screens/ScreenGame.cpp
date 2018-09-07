@@ -87,7 +87,7 @@ int ScreenGame::run(sf::RenderWindow &App)
 		//Drawing
 		App.draw(Rectangle);
 
-		App.draw(resourceManager.getSpriteBlock());
+		drawGameField(App, gameController.getGameArray());
 
 		drawBackground(App);
 		App.display();
@@ -100,4 +100,10 @@ int ScreenGame::run(sf::RenderWindow &App)
 void ScreenGame::drawBackground(sf::RenderWindow &WIN){
 	// screenBackground.Draw(WIN);
 	// gameBackground.Draw(WIN);
+}
+
+
+
+void ScreenGame::drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField){
+	App.draw(resourceManager.getSpriteBlock());
 }
