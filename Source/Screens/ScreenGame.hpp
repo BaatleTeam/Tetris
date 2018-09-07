@@ -4,6 +4,7 @@
 #include "ScreenBase.hpp"
 #include "../Settings/Settings.hpp"
 #include "../GameController/GameController.hpp"
+#include "../ResourceManager.hpp"
 
 class ScreenGame : public ScreenBase {
 private:
@@ -11,10 +12,11 @@ private:
 	float posx;
 	float posy;
 	sf::RectangleShape Rectangle;
+	const ResourceManager& resourceManager;
 	GameController gameController;
 	
 public:
-	ScreenGame(const Settings&);
+	ScreenGame(const Settings&, const ResourceManager&);
 	int run(sf::RenderWindow &App) override;
 	void drawBackground(sf::RenderWindow &WIN);
   

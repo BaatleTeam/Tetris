@@ -2,20 +2,22 @@
 #include <memory>
 #include "Screens/Screens.hpp"
 #include "Settings/Settings.hpp"
+#include "ResourceManager.hpp"
 
 int main()
 {
 	//Applications variables
 	Settings settings;
+	ResourceManager resourceManager{};
 	std::vector<std::unique_ptr<ScreenBase>> Screens;
 	Screens.reserve(4);
 	int screen = 0;
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings)));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
 		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings)));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings)));
+		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
 	}
 	catch(...) {
 		std::cout << "Program has been terminated.";

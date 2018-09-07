@@ -1,6 +1,9 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings &settings) : gameController(settings), settings(settings)
+ScreenGame::ScreenGame(const Settings &settings, const ResourceManager &rM)
+ : 	resourceManager(rM)
+ , gameController(settings)
+ , settings(settings)
 
 {
 	movement_step = 5;
@@ -83,6 +86,9 @@ int ScreenGame::run(sf::RenderWindow &App)
 		App.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
 		App.draw(Rectangle);
+
+		App.draw(resourceManager.getSpriteBlock());
+
 		drawBackground(App);
 		App.display();
 	}
