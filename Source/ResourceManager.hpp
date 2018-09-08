@@ -9,5 +9,6 @@ private:
 public:
     ResourceManager();
 
-    const sf::Sprite& getSpriteBlock() const;
+    sf::Sprite& getSpriteBlock();
+    sf::Texture& getTextureBlock();
 };

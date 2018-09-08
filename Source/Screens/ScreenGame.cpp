@@ -1,11 +1,32 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings &settings, const ResourceManager &rM)
- : 	resourceManager(rM)
+ScreenGame::ScreenGame(const Settings &settings, ResourceManager &rM)
+ : resourceManager(rM)
  , gameController(settings)
  , settings(settings)
 
-{
+{	
+	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
+	gameFieldSpites.reserve(arraySize);
+
+	const sf::Texture& cellTexture = resourceManager.getTextureBlock();
+	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
+	float currX = defaultX;
+	float currY = 50;
+	for (unsigned i = 0; i < arraySize; i++){
+		gameFieldSpites.emplace_back(sf::Sprite{});
+		gameFieldSpites.back().setTexture(cellTexture);
+		gameFieldSpites.back().setColor(sf::Color::Red);
+		gameFieldSpites.back().setPosition({ currX, currY });
+		gameFieldSpites.back().setScale({0.25, 0.25});
+		currX += 55;
+		if (currX >= defaultX + 55 * settings.getFieldSize().x){
+			currY += 55;
+			currX = defaultX;
+		}
+	}
+
+
 	movement_step = 5;
 	posx = 320;
 	posy = 240;
@@ -105,5 +126,18 @@ void ScreenGame::drawBackground(sf::RenderWindow &WIN){
 
 
 void ScreenGame::drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField){
-	App.draw(resourceManager.getSpriteBlock());
+	// for (const auto str : gameField){
+	// 	for (const auto cell : str){
+	// 		if ()
+	// 	}
+		
+	// }
+	int num = 0;
+	for (auto it = gameFieldSpites.begin(); it != gameFieldSpites.end(); it++){
+		App.draw(*it);
+		std::cout << "draw sprite number " << num << "\n";
+		std::cout << "Pos x: " << it->getPosition().x << " y: " << it->getPosition().y << "\n";
+		num++;
+	}		
+	// App.draw(resourceManager.getSpriteBlock());
 }

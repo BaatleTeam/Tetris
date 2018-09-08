@@ -6,6 +6,7 @@ ResourceManager::ResourceManager(){
             throw "Texture load failed";
         
         blockSprite.setTexture(blockTexture);
+        blockSprite.setColor(sf::Color::Red);
     }
     catch (const char* message){
         std::cout << message << std::endl;
@@ -13,6 +14,10 @@ ResourceManager::ResourceManager(){
     }
 }
 
-const sf::Sprite& ResourceManager::getSpriteBlock() const {
+sf::Sprite& ResourceManager::getSpriteBlock() {
     return blockSprite;
+}
+
+sf::Texture& ResourceManager::getTextureBlock() {
+    return blockTexture;
 }
