@@ -6,7 +6,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings)
 : settings(newSettings)
 {
 	auto callChangeResolution = [this]() -> int {
-		settings.nextScreenSize(); 
+		settings.nextScreenSize();
 		float screenWidth = settings.getScreenSize().x;
 		float screenHeigth = settings.getScreenSize().y;
 
@@ -19,7 +19,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings)
 		return 0;
 	};
 
-	auto callChangeFieldSize  = [this]() -> int { 
+	auto callChangeFieldSize  = [this]() -> int {
 		settings.nextFieldSize();
 		//float width = settings.getFieldSize().x;
 		//float heigth = settings.getFieldSize().y;
@@ -44,65 +44,74 @@ ScreenSettings::ScreenSettings(Settings &newSettings)
 	buttonList.update(settings.getRenderWindow().getSize());
 }
 
-int ScreenSettings::run(sf::RenderWindow &App)
+int ScreenSettings::run(sf::RenderWindow &window)
 {
-	sf::Event Event;
+	sf::Event event;
 	bool isRunning = true;
 
 	while (isRunning)
 	{
 		//Verifying events
-		while (App.pollEvent(Event))
+		while (window.pollEvent(event))
 		{
-			switch(Event.type)
-			{
-				// Window closed
-				case sf::Event::Closed:
-					return -1;
-					break;
-
-				case sf::Event::Resized:
-                    std::cout << "Resize catched! New size [ " << Event.size.width << ", " << Event.size.height << "]" << std::endl;
-                    
-                    App.setView(sf::View(sf::FloatRect(0, 0, Event.size.width, Event.size.height)));
-					buttonList.update(App.getSize());
-                    break;
-
-				//Key pressed
-				case sf::Event::KeyPressed:
-				{
-					switch (Event.key.code)
-					{
-						case sf::Keyboard::Enter:
-							buttonList.callCBFunction();
-							break;
-						case sf::Keyboard::Escape:
-							return 0;
-							break;
-						case sf::Keyboard::Down:
-							buttonList.nextButton();
-							break;
-						case sf::Keyboard::Up:
-							buttonList.prevButton();
-							break;
-						default:
-							break;
-					}
-				}
-				default:
-					break;
+			int result = processEvent(event);
+			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+				return result;
 			}
 		}
 
 		//Clearing screen
-		App.clear();
+		window.clear();
 
 		//Drawing
-		App.draw(buttonList);
-		
-		App.display();
+		window.draw(buttonList);
+
+		window.display();
 	}
 
-	//Never reaching this point normally, but just in case, exit the application
+	//Never reaching this point normally, but just in case, exit the windowlication
 	return (-1);
+}
+
+int ScreenSettings::processEvent(const sf::Event &event) {
+	sf::RenderWindow &window = settings.getRenderWindow();
+	switch(event.type)
+	{
+		// Window closed
+		case sf::Event::Closed:
+			return -1;
+			break;
+
+		case sf::Event::Resized:
+				  std::cout << "Resize catched! New size [ " << event.size.width << ", " << event.size.height << "]" << std::endl;
+
+				  window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+			buttonList.update(window.getSize());
+				  break;
+
+		//Key pressed
+		case sf::Event::KeyPressed:
+		{
+			switch (event.key.code)
+			{
+				case sf::Keyboard::Enter:
+					buttonList.callCBFunction();
+					break;
+				case sf::Keyboard::Escape:
+					return 0;
+					break;
+				case sf::Keyboard::Down:
+					buttonList.nextButton();
+					break;
+				case sf::Keyboard::Up:
+					buttonList.prevButton();
+					break;
+				default:
+					break;
+			}
+		}
+		default:
+			break;
+	}
+	return SCREEN_BASE_NOT_CHANGING_SCREEN;
 }

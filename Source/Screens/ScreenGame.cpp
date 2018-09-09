@@ -1,7 +1,8 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings &settings) : gameController(settings), settings(settings)
-
+ScreenGame::ScreenGame(Settings &settings)
+	: gameController(settings),
+		settings(settings)
 {
 	movement_step = 5;
 	posx = 320;
@@ -11,12 +12,12 @@ ScreenGame::ScreenGame(const Settings &settings) : gameController(settings), set
 	Rectangle.setSize({ 10.f, 10.f });
 }
 
-int ScreenGame::run(sf::RenderWindow &App)
+int ScreenGame::run(sf::RenderWindow &window)
 {
 	//Mouse cursor no more visible
-	App.setMouseCursorVisible(true);
+	window.setMouseCursorVisible(true);
 
-	sf::Event Event;
+	sf::Event event;
 	bool isRunning = true;
 
 	sf::Clock clockStep;
@@ -25,36 +26,11 @@ int ScreenGame::run(sf::RenderWindow &App)
 	while (isRunning)
 	{
 		//Verifying events
-		while (App.pollEvent(Event))
+		while (window.pollEvent(event))
 		{
-			// Window closed
-			if (Event.type == sf::Event::Closed)
-			{
-				return (-1);
-			}
-			//Key pressed
-			if (Event.type == sf::Event::KeyPressed)
-			{
-				switch (Event.key.code)
-				{
-				case sf::Keyboard::Escape:
-					return (0);
-					break;
-				case sf::Keyboard::Up:
-					posy -= movement_step;
-					break;
-				case sf::Keyboard::Down:
-					posy += movement_step;
-					break;
-				case sf::Keyboard::Left:
-					posx -= movement_step;
-					break;
-				case sf::Keyboard::Right:
-					posx += movement_step;
-					break;
-				default:
-					break;
-				}
+			int result = processEvent(event);
+			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+				return result;
 			}
 		}
 
@@ -77,21 +53,54 @@ int ScreenGame::run(sf::RenderWindow &App)
 			std::cout << gameController;
 			clockStep.restart();
 		}
-		
+
 
 		//Clearing screen
-		App.clear(sf::Color(0, 0, 0, 0));
+		window.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
-		App.draw(Rectangle);
-		drawBackground(App);
-		App.display();
+		window.draw(Rectangle);
+		drawBackground(window);
+		window.display();
 	}
 
-	//Never reaching this point normally, but just in case, exit the application
+	//Never reaching this point normally, but just in case, exit the windowlication
 	return -1;
 }
 
 void ScreenGame::drawBackground(sf::RenderWindow &WIN){
 	// screenBackground.Draw(WIN);
 	// gameBackground.Draw(WIN);
+}
+
+int ScreenGame::processEvent(const sf::Event &event) {
+	// Window closed
+	if (event.type == sf::Event::Closed)
+	{
+		return (-1);
+	}
+	//Key pressed
+	if (event.type == sf::Event::KeyPressed)
+	{
+		switch (event.key.code)
+		{
+		case sf::Keyboard::Escape:
+			return (0);
+			break;
+		case sf::Keyboard::Up:
+			posy -= movement_step;
+			break;
+		case sf::Keyboard::Down:
+			posy += movement_step;
+			break;
+		case sf::Keyboard::Left:
+			posx -= movement_step;
+			break;
+		case sf::Keyboard::Right:
+			posx += movement_step;
+			break;
+		default:
+			break;
+		}
+	}
+	return SCREEN_BASE_NOT_CHANGING_SCREEN;
 }
