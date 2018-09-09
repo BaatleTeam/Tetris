@@ -27,6 +27,8 @@ public:
 private:
 	void drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField);
 	void drawBackground(sf::RenderWindow &WIN);
+	void updateGameField(const std::vector <std::vector <ArrayCell>>& gameField);
+	int convertIndexes(int i, int j) const;
   
   protected:
     const Settings &settings;

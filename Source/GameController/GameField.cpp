@@ -4,6 +4,7 @@ GameField::GameField(unsigned h, unsigned w) : height(h), width(w) {
     gameField.reserve(height);
     for (unsigned i = 0; i < height; i++)
         gameField.push_back(std::vector<ArrayCell>(width));
+    
 }
 
 const std::vector <std::vector <ArrayCell>>& GameField::getGameField() const {
@@ -70,9 +71,9 @@ bool GameField::isCellPainted(sf::Vector2u coord) const {
 
 std::ostream& operator<<(std::ostream &out, const GameField &field){
     for (unsigned i = 0; i < field.height; i++){
-        out << std::setw(3) << field.height -1 - i << "| ";
+        out << std::setw(3) << field.height - 1 - i << "| ";
         for (unsigned j = 0; j < field.width; j++)
-            out << field.gameField[field.height -1 - i][j].isPainted() << " ";
+            out << field.gameField[field.height - 1 - i][j].isPainted() << " ";
         out << "\n";
     }
     out << std::setw(4);

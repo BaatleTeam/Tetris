@@ -126,18 +126,20 @@ void ScreenGame::drawBackground(sf::RenderWindow &WIN){
 
 
 void ScreenGame::drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField){
-	// for (const auto str : gameField){
-	// 	for (const auto cell : str){
-	// 		if ()
-	// 	}
-		
-	// }
-	int num = 0;
-	for (auto it = gameFieldSpites.begin(); it != gameFieldSpites.end(); it++){
-		App.draw(*it);
-		std::cout << "draw sprite number " << num << "\n";
-		std::cout << "Pos x: " << it->getPosition().x << " y: " << it->getPosition().y << "\n";
-		num++;
-	}		
-	// App.draw(resourceManager.getSpriteBlock());
+	updateGameField(gameField);
+	for (auto blockSprite : gameFieldSpites)
+		App.draw(blockSprite);		
+}
+
+void ScreenGame::updateGameField(const std::vector <std::vector <ArrayCell>>& gameField){
+	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
+		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
+			if (gameField[i][j].getColor() != gameFieldSpites[convertIndexes(i,j)].getColor())
+				gameFieldSpites[convertIndexes(i,j)].setColor(gameField[i][j].getColor());
+			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
+		}
+}
+
+int ScreenGame::convertIndexes(int i, int j) const {
+	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
 }
