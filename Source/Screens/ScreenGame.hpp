@@ -9,7 +9,6 @@
 
 class ScreenGame : public ScreenBase {
 private:
-	sf::RectangleShape Rectangle;
 	ResourceManager& resourceManager;
 	GameController gameController;
 
