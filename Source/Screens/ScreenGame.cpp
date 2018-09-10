@@ -9,7 +9,7 @@ ScreenGame::ScreenGame(const Settings &settings, ResourceManager &rM)
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
 
-	const sf::Texture& cellTexture = resourceManager.getTextureBlock();
+	const sf::Texture& cellTexture = resourceManager.getCellTexture();
 	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
 	float currX = defaultX;
 	float currY = 50;

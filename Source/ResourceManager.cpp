@@ -2,11 +2,8 @@
 
 ResourceManager::ResourceManager(){
     try {
-        if (!blockTexture.loadFromFile("Resources/Pictures/testSprite.png"))
+        if (!cellTexture.loadFromFile("Resources/Pictures/testSprite.png"))
             throw "Texture load failed";
-        
-        blockSprite.setTexture(blockTexture);
-        blockSprite.setColor(sf::Color::Red);
     }
     catch (const char* message){
         std::cout << message << std::endl;
@@ -14,10 +11,6 @@ ResourceManager::ResourceManager(){
     }
 }
 
-sf::Sprite& ResourceManager::getSpriteBlock() {
-    return blockSprite;
-}
-
-sf::Texture& ResourceManager::getTextureBlock() {
-    return blockTexture;
+sf::Texture& ResourceManager::getCellTexture() {
+    return cellTexture;
 }

@@ -4,11 +4,9 @@
 
 class ResourceManager {
 private:
-    sf::Texture blockTexture;
-    sf::Sprite blockSprite;
+    sf::Texture cellTexture;
 public:
     ResourceManager();
 
-    sf::Sprite& getSpriteBlock();
-    sf::Texture& getTextureBlock();
+    sf::Texture& getCellTexture();
 };
