@@ -68,6 +68,10 @@ bool GameField::isCellPainted(sf::Vector2u coord) const {
     return gameField[coord.y][coord.x].isPainted();
 }
 
+sf::Color GameField::getCellColor(sf::Vector2u coord) const {
+    return gameField[coord.y][coord.x].getColor();  
+}
+
 
 std::ostream& operator<<(std::ostream &out, const GameField &field){
     for (unsigned i = 0; i < field.height; i++){

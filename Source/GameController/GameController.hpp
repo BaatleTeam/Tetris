@@ -31,7 +31,8 @@ public:
     void moveFigureRight();
     void rotateFigure();
 
-    const std::vector <std::vector <ArrayCell>>& getGameArray() const;
+
+    sf::Color getCellColor(sf::Vector2u coord) const;
 
 private:
     bool canMoveActiveFigureDown() const;

@@ -54,8 +54,8 @@ void GameController::rotateFigure(){
     displayActiveFigure();
 }
 
-const std::vector <std::vector <ArrayCell>>& GameController::getGameArray() const {
-    return gameField.getGameField();
+sf::Color GameController::getCellColor(sf::Vector2u coord) const {
+    return gameField.getCellColor(coord);
 }
 
 

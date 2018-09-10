@@ -90,7 +90,7 @@ int ScreenGame::run(sf::RenderWindow &App)
 		App.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
 
-		drawGameField(App, gameController.getGameArray());
+		drawGameField(App);
 
 		drawBackground(App);
 		App.display();
@@ -107,17 +107,17 @@ void ScreenGame::drawBackground(sf::RenderWindow &WIN){
 
 
 
-void ScreenGame::drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField){
-	updateGameField(gameField);
+void ScreenGame::drawGameField(sf::RenderWindow &App){
+	updateGameField();
 	for (auto blockSprite : gameFieldSpites)
 		App.draw(blockSprite);		
 }
 
-void ScreenGame::updateGameField(const std::vector <std::vector <ArrayCell>>& gameField){
+void ScreenGame::updateGameField(){
 	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
 		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
-			if (gameField[i][j].getColor() != gameFieldSpites[convertIndexes(i,j)].getColor())
-				gameFieldSpites[convertIndexes(i,j)].setColor(gameField[i][j].getColor());
+			if (gameController.getCellColor({j,i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
+				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({j,i}));
 			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
 		}
 }

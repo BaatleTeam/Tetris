@@ -24,9 +24,9 @@ public:
 	int run(sf::RenderWindow &App) override;
 
 private:
-	void drawGameField(sf::RenderWindow &App, const std::vector <std::vector <ArrayCell>>& gameField);
+	void drawGameField(sf::RenderWindow &App);
 	void drawBackground(sf::RenderWindow &WIN);
-	void updateGameField(const std::vector <std::vector <ArrayCell>>& gameField);
+	void updateGameField();
 	int convertIndexes(int i, int j) const;
   
   protected:
