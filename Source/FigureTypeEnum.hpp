@@ -4,9 +4,9 @@
 enum class FigureType {
     NoType = 0,
     Type0,
-    Type1, 
-    Type2, 
-    Type3, 
+    Type1,
+    Type2,
+    Type3,
     Type4,
     Type5,
     Type6,
@@ -41,5 +41,5 @@ inline std::ostream& operator<<(std::ostream& out, FigureType ft){
         default:
             throw "Try to handle no-exist type of figure. operator<<\n";
     }
-    return out; 
+    return out;
 }
