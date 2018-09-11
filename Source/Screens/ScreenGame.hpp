@@ -20,7 +20,7 @@ public:
 	// TODO:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?
 	// Can't we use settings.getRenderWindow() instead?(@Denmey)
-	ScreenGame(const Settings&, ResourceManager&);
+	ScreenGame(Settings&, ResourceManager&);
 	int run(sf::RenderWindow &window) override;
 
 private:

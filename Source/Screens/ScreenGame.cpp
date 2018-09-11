@@ -1,6 +1,6 @@
 #include "ScreenGame.hpp"
 
-ScreenGame::ScreenGame(const Settings &settings, ResourceManager &rM)
+ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
  : resourceManager(rM)
  , gameController(settings)
  , settings(settings)
@@ -102,14 +102,14 @@ int ScreenGame::convertIndexes(int i, int j) const {
 
 int ScreenGame::processEvent(const sf::Event &event) {
 			// Window closed
-			if (Event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed)
 			{
 				return (-1);
 			}
 			//Key pressed
-			if (Event.type == sf::Event::KeyPressed)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				switch (Event.key.code)
+				switch (event.key.code)
 				{
 				case sf::Keyboard::Escape:
 					return (0);
@@ -129,5 +129,6 @@ int ScreenGame::processEvent(const sf::Event &event) {
 				default:
 					break;
 				}
+			}
 	return SCREEN_BASE_NOT_CHANGING_SCREEN;
 }
