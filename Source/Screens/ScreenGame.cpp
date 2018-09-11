@@ -101,34 +101,36 @@ int ScreenGame::convertIndexes(int i, int j) const {
 }
 
 int ScreenGame::processEvent(const sf::Event &event) {
-			// Window closed
-			if (event.type == sf::Event::Closed)
-			{
-				return (-1);
-			}
-			//Key pressed
-			if (event.type == sf::Event::KeyPressed)
-			{
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Escape:
-					return (0);
-					break;
-				case sf::Keyboard::Up:
+	// Window closed
+	if (event.type == sf::Event::Closed)
+	{
+		return (-1);
+	}
+	//Key pressed
+	if (event.type == sf::Event::KeyPressed)
+	{
+		switch (event.key.code)
+		{
+		case sf::Keyboard::Escape:
+			return (0);
+			break;
 		
-					break;
-				case sf::Keyboard::Down:
-					
-					break;
-				case sf::Keyboard::Left:
-					
-					break;
-				case sf::Keyboard::Right:
-					
-					break;
-				default:
-					break;
-				}
-			}
+		case sf::Keyboard::Up:
+
+			break;
+		case sf::Keyboard::Down:
+			
+			break;
+		case sf::Keyboard::Left:
+			gameController.moveFigureLeft();
+			break;
+		
+		case sf::Keyboard::Right:
+			gameController.moveFigureRight();	
+			break;
+		default:
+			break;
+		}
+	}
 	return SCREEN_BASE_NOT_CHANGING_SCREEN;
 }
