@@ -27,12 +27,12 @@ ScreenGame::ScreenGame(const Settings &settings, ResourceManager &rM)
 	}
 }
 
-int ScreenGame::run(sf::RenderWindow &App)
+int ScreenGame::run(sf::RenderWindow &window)
 {
 	//Mouse cursor no more visible
-	App.setMouseCursorVisible(true);
+	window.setMouseCursorVisible(true);
 
-	sf::Event Event;
+	sf::Event event;
 	bool isRunning = true;
 
 	sf::Clock clockStep;
@@ -41,8 +41,66 @@ int ScreenGame::run(sf::RenderWindow &App)
 	while (isRunning)
 	{
 		//Verifying events
-		while (App.pollEvent(Event))
+		while (window.pollEvent(event))
 		{
+			int result = processEvent(event);
+			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+				return result;
+			}
+		}
+
+		//Updating
+
+		sf::Time elapsedTime = clockStep.getElapsedTime();
+		if (elapsedTime >= sf::seconds(1)){
+			std::cout << elapsedTime.asSeconds() << std::endl;
+			gameController.doStep();
+			std::cout << "Step done" << std::endl;
+			std::cout << gameController;
+			clockStep.restart();
+		}
+
+
+		//Clearing screen
+		window.clear(sf::Color(0, 0, 0, 0));
+		//Drawing
+    
+		drawGameField(window);
+
+		drawBackground(window);
+		window.display();
+	}
+
+	//Never reaching this point normally, but just in case, exit the windowlication
+	return -1;
+}
+
+void ScreenGame::drawBackground(sf::RenderWindow &WIN){
+	// screenBackground.Draw(WIN);
+	// gameBackground.Draw(WIN);
+}
+
+
+void ScreenGame::drawGameField(sf::RenderWindow &App){
+	updateGameField();
+	for (auto blockSprite : gameFieldSpites)
+		App.draw(blockSprite);		
+}
+
+void ScreenGame::updateGameField(){
+	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
+		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
+			if (gameController.getCellColor({j,i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
+				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({j,i}));
+			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
+		}
+}
+
+int ScreenGame::convertIndexes(int i, int j) const {
+	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
+}
+
+int ScreenGame::processEvent(const sf::Event &event) {
 			// Window closed
 			if (Event.type == sf::Event::Closed)
 			{
@@ -71,57 +129,5 @@ int ScreenGame::run(sf::RenderWindow &App)
 				default:
 					break;
 				}
-			}
-		}
-
-		//Updating
-
-		sf::Time elapsedTime = clockStep.getElapsedTime();
-		if (elapsedTime >= sf::seconds(1)){
-			std::cout << elapsedTime.asSeconds() << std::endl;
-			gameController.doStep();
-			std::cout << "Step done" << std::endl;
-			std::cout << gameController;
-			clockStep.restart();
-		}
-		
-
-		//Clearing screen
-		App.clear(sf::Color(0, 0, 0, 0));
-		//Drawing
-
-		drawGameField(App);
-
-		drawBackground(App);
-		App.display();
-	}
-
-	//Never reaching this point normally, but just in case, exit the application
-	return -1;
-}
-
-void ScreenGame::drawBackground(sf::RenderWindow &WIN){
-	// screenBackground.Draw(WIN);
-	// gameBackground.Draw(WIN);
-}
-
-
-
-void ScreenGame::drawGameField(sf::RenderWindow &App){
-	updateGameField();
-	for (auto blockSprite : gameFieldSpites)
-		App.draw(blockSprite);		
-}
-
-void ScreenGame::updateGameField(){
-	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
-		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
-			if (gameController.getCellColor({j,i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
-				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({j,i}));
-			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
-		}
-}
-
-int ScreenGame::convertIndexes(int i, int j) const {
-	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
+	return SCREEN_BASE_NOT_CHANGING_SCREEN;
 }
