@@ -41,11 +41,13 @@ const sf::Color& TetrisFigure::getColor() const {
 }
 
 sf::Color TetrisFigure::generateColor(){
-    // check randomizze
-    // try to do universal reference
-    unsigned int r = rand() % 2;
-    unsigned int g = rand() % 2;
-    unsigned int b = rand() % 2;
+    unsigned r, g, b;
+    do {
+        r = rand() % 2;
+        g = rand() % 2;
+        b = rand() % 2;
+    }
+    while ((r + g + b) == 0 || (r + g + b) == 3); // neither whitw nor black
     return sf::Color(r * 255, g * 255, b * 255);
 }
 
