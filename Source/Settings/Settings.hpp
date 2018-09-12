@@ -28,15 +28,18 @@ private:
     int windowStyle;
     std::string windowName;
     sf::Font font;
-    sf::RenderWindow App; 
+    sf::RenderWindow window; 
 
 public:
+    static const int StandartWidth = 1280; // затем умножается на коэфициенты
     Settings();
     ~Settings() = default;
 
-    static const int StandartWidth = 1280; // затем умножается на коэфициенты
-    std::map<std::string, int&> vars;
-    std::map<std::string, std::string&> strings;
+    void nextScreenSize();
+    void nextFieldSize();
+
+    int getConfigurationVar(const std::string&) const;
+    const std::string& getConfigurationString(const std::string&) const; 
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
@@ -44,11 +47,14 @@ public:
     sf::RenderWindow &getRenderWindow();
     void printVars() const;
 
+private:
+    std::map<std::string, int&> vars;
+    std::map<std::string, std::string&> strings;
+
+
     void setScreenSize(unsigned int index);
     void setFieldSize(unsigned int index);
     
-    void nextScreenSize();
-    void nextFieldSize();
 };
 
 #endif
