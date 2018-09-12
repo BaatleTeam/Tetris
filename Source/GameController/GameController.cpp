@@ -54,6 +54,11 @@ void GameController::rotateFigure(){
     displayActiveFigure();
 }
 
+sf::Color GameController::getCellColor(sf::Vector2u coord) const {
+    return gameField.getCellColor(coord);
+}
+
+
 
 
 

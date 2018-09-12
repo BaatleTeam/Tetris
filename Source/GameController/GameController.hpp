@@ -31,6 +31,9 @@ public:
     void moveFigureRight();
     void rotateFigure();
 
+
+    sf::Color getCellColor(sf::Vector2u coord) const;
+
 private:
     bool canMoveActiveFigureDown() const;
     void displayActiveFigure();
