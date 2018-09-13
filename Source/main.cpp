@@ -3,32 +3,18 @@
 #include "Screens/Screens.hpp"
 #include "Settings/Settings.hpp"
 #include "ResourceManager.hpp"
+#include "ScreenManager.hpp"
 
 int main()
 {
 	//Applications variables
 	Settings settings;
 	ResourceManager resourceManager{};
-	std::vector<std::unique_ptr<ScreenBase>> Screens;
-	Screens.reserve(4);
-	int screen = 0;
+	ScreenManager screenManager(settings, resourceManager);
 
-	try {
-		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings, resourceManager)));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
-		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings, resourceManager)));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
-	}
-	catch(...) {
-		std::cout << "Program has been terminated.";
-		exit(-1);
-	}
-
-	//Main loop
-	while (screen >= 0)
-	{
-		screen = Screens[screen]->run(settings.getRenderWindow());
-	}
+    std::cout << "[GameInit] Launching game..." << std::endl;
+    screenManager.start();
+    std::cout << "[GameInit] Exiting the game..." << std::endl;
 
 	return EXIT_SUCCESS;
 }

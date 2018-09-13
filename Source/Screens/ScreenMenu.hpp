@@ -5,17 +5,18 @@
 #include "../Settings/Settings.hpp"
 #include "../Buttons/ButtonList.hpp"
 
+class ButtonList;
 
 class ScreenMenu : public ScreenBase {
 private:
 	ButtonList buttonList;
-	virtual int processEvent(const sf::Event &event) override;
+	virtual ScreenType processEvent(const sf::Event &event) override;
 public:
 	ScreenMenu(Settings &settings, ResourceManager&);
 	// TODO:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?
 	// Can't we use settings.getRenderWindow() instead?(@Denmey)
-	int run(sf::RenderWindow &window);
+	ScreenType run(sf::RenderWindow &window) override;
 	void resizeSprites() override;
 protected:
     Settings &settings;

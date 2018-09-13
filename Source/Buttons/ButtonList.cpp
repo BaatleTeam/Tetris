@@ -6,7 +6,7 @@ ButtonList::ButtonList()
 : currentButtonNumber(0)
 {}
 
-void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function)
+void ButtonList::addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<ScreenType()> function)
 {
     buttonList.push_back(std::unique_ptr<Button>(new Button(relativePosition, message, font, function, scale)));    
     buttonList.back()->setRealPosition(sf::Vector2u(B_DEF_RESOLUTION_WIDTH, B_DEF_RESOLUTION_HEIGHT));
@@ -53,7 +53,7 @@ void ButtonList::nextButton()
     updateHighlightedButton(nextButtonNumber);
 }
 
-int ButtonList::callCBFunction()
+ScreenType ButtonList::callCBFunction()
 {
     return buttonList[currentButtonNumber].get()->callHBFunction();
 }

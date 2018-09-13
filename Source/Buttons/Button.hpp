@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include "../ScreenTypeEnum.hpp"
 
 // Predefined constants for default resolution
 #define B_DEF_CHAR_SIZE 52
@@ -18,7 +19,7 @@
 class Button : public sf::Drawable, public sf::Transformable
 {
 public:
-    Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function, sf::Vector2f &scale);
+    Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<ScreenType()> function, sf::Vector2f &scale);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -26,7 +27,7 @@ public:
     void setHighlight(bool isHighlighted);
 
     // Call the lambda-function, which you set in constructor 
-    int callHBFunction(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
+    ScreenType callHBFunction(); // int потому что число можно игнорировать, а из войда даже капельку информации не получишь
 
     // Change the button position based on their relative position
     void setRealPosition(sf::Vector2u currentResolution);
@@ -47,7 +48,7 @@ private:
     //   |-------
     //   1-------
     //   y
-    std::function<int()> function; // The function, which you could call on action
+    std::function<ScreenType()> function; // The function, which you could call on action
     sf::Vector2f &scale; // All constants are set for resolution 1366x768,
     // for good look in other resolutions we have this variable
 };

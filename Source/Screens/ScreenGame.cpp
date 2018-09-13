@@ -24,7 +24,7 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 	configGameFieldSpitesPositions();
 }
 
-int ScreenGame::run(sf::RenderWindow &window)
+ScreenType ScreenGame::run(sf::RenderWindow &window)
 {
 	//Mouse cursor no more visible
 	window.setMouseCursorVisible(true);
@@ -40,8 +40,8 @@ int ScreenGame::run(sf::RenderWindow &window)
 		//Verifying events
 		while (window.pollEvent(event))
 		{
-			int result = processEvent(event);
-			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+			ScreenType result = processEvent(event);
+			if (result != ScreenType::NotChange) {
 				return result;
 			}
 		}
@@ -69,7 +69,7 @@ int ScreenGame::run(sf::RenderWindow &window)
 	}
 
 	//Never reaching this point normally, but just in case, exit the windowlication
-	return -1;
+	return ScreenType::Error;
 }
 
 void ScreenGame::resizeSprites() {
@@ -103,11 +103,11 @@ int ScreenGame::convertIndexes(int i, int j) const {
 	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
 }
 
-int ScreenGame::processEvent(const sf::Event &event) {
+ScreenType ScreenGame::processEvent(const sf::Event &event) {
 	// Window closed
 	if (event.type == sf::Event::Closed)
 	{
-		return (-1);
+		return (ScreenType::Error);
 	}
 	//Key pressed
 	if (event.type == sf::Event::KeyPressed)
@@ -115,7 +115,7 @@ int ScreenGame::processEvent(const sf::Event &event) {
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Escape:
-			return (0);
+			return ScreenType::Menu;
 			break;
 		
 		case sf::Keyboard::Up:
@@ -135,7 +135,7 @@ int ScreenGame::processEvent(const sf::Event &event) {
 			break;
 		}
 	}
-	return SCREEN_BASE_NOT_CHANGING_SCREEN;
+	return ScreenType::NotChange;
 }
 
 float ScreenGame::calcBackgroundScaleKF() const {

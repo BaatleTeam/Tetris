@@ -20,7 +20,7 @@ public:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?
 	// Can't we use settings.getRenderWindow() instead?(@Denmey)
 	ScreenGame(Settings&, ResourceManager&);
-	int run(sf::RenderWindow &window) override;
+	ScreenType run(sf::RenderWindow &window) override;
 	void resizeSprites() override;
 
 private:
@@ -28,7 +28,7 @@ private:
 	void drawBackground(sf::RenderWindow &WIN);
 	void updateGameField();
 	int convertIndexes(int i, int j) const;
-	virtual int processEvent(const sf::Event &event) override;
+	virtual ScreenType processEvent(const sf::Event &event) override;
 
 	void configGameFieldSpitesPositions();
 	float calcBackgroundScaleKF() const ;

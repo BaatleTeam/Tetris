@@ -6,7 +6,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
 	: ScreenBase(r_m)
 	, settings(newSettings)
 {
-	auto callChangeResolution = [this]() -> int {
+	auto callChangeResolution = [this]() -> ScreenType {
 		settings.nextScreenSize();
 		auto screenWidth = settings.getScreenSize().x;
 		auto screenHeigth = settings.getScreenSize().y;
@@ -17,22 +17,22 @@ ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
 
 		buttonList.update({screenWidth, screenHeigth});
 
-		return 0;
+		return ScreenType::Menu;
 	};
 
-	auto callChangeFieldSize  = [this]() -> int {
+	auto callChangeFieldSize  = [this]() -> ScreenType {
 		settings.nextFieldSize();
-		return 0;
+		return ScreenType::Menu;
 	};
 
-	auto callToggleFullScreen = [this]() -> int {
+	auto callToggleFullScreen = [this]() -> ScreenType {
 		// settings.vars.find("windowStyle")->second ^= sf::Style::Fullscreen;
 		// sf::Vector2u windowSize = settings.getRenderWindow().getSize();
 
 		// settings.getRenderWindow().create(sf::VideoMode(windowSize.x, windowSize.y, 32)
 		// 	, settings.strings.find("windowName")->second
 		// 	, settings.vars.find("windowStyle")->second);
-		return 0;
+		return ScreenType::Menu;
 	};
 
 	sf::Font &font = resourceManager.getFont();
@@ -42,7 +42,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
 	buttonList.update(settings.getRenderWindow().getSize());
 }
 
-int ScreenSettings::run(sf::RenderWindow &window)
+ScreenType ScreenSettings::run(sf::RenderWindow &window)
 {
 	sf::Event event;
 	bool isRunning = true;
@@ -52,8 +52,8 @@ int ScreenSettings::run(sf::RenderWindow &window)
 		//Verifying events
 		while (window.pollEvent(event))
 		{
-			int result = processEvent(event);
-			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+			auto result = processEvent(event);
+			if (result != ScreenType::NotChange) {
 				return result;
 			}
 		}
@@ -68,20 +68,20 @@ int ScreenSettings::run(sf::RenderWindow &window)
 	}
 
 	//Never reaching this point normally, but just in case, exit the windowlication
-	return (-1);
+	return ScreenType::Error;
 }
 
 void ScreenSettings::resizeSprites() {
 	
 }
 
-int ScreenSettings::processEvent(const sf::Event &event) {
+ScreenType ScreenSettings::processEvent(const sf::Event &event) {
 	sf::RenderWindow &window = settings.getRenderWindow();
 	switch(event.type)
 	{
 		// Window closed
 		case sf::Event::Closed:
-			return -1;
+			return ScreenType::Exit;
 			break;
 
 		case sf::Event::Resized:
@@ -100,7 +100,7 @@ int ScreenSettings::processEvent(const sf::Event &event) {
 					buttonList.callCBFunction();
 					break;
 				case sf::Keyboard::Escape:
-					return 0;
+					return ScreenType::Menu;
 					break;
 				case sf::Keyboard::Down:
 					buttonList.nextButton();
@@ -115,5 +115,5 @@ int ScreenSettings::processEvent(const sf::Event &event) {
 		default:
 			break;
 	}
-	return SCREEN_BASE_NOT_CHANGING_SCREEN;
+	return ScreenType::NotChange;
 }

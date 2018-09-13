@@ -5,9 +5,9 @@ ScreenMenu::ScreenMenu(Settings &newSettings, ResourceManager& r_m)
  : ScreenBase(r_m)
  , settings(newSettings)
 {
-	auto callNewGame = 	[]() -> int { return 1; };
-	auto callSettings = []() -> int { return 2; };
-	auto callScore = 	[]() -> int { return 3; };
+	auto callNewGame = 	[]() -> ScreenType { return ScreenType::Game; };
+	auto callSettings = []() -> ScreenType { return ScreenType::Settings; };
+	auto callScore = 	[]() -> ScreenType { return ScreenType::Menu; };
 
 	sf::Font &font = resourceManager.getFont();
 
@@ -16,7 +16,7 @@ ScreenMenu::ScreenMenu(Settings &newSettings, ResourceManager& r_m)
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Score", 	 font, 	callScore);
 }
 
-int ScreenMenu::run(sf::RenderWindow &window)
+ScreenType ScreenMenu::run(sf::RenderWindow &window)
 {
 	sf::Event event;
 	bool isRunning = true;
@@ -31,8 +31,8 @@ int ScreenMenu::run(sf::RenderWindow &window)
 		//Verifying events
 		while (window.pollEvent(event))
 		{
-			int result = processEvent(event);
-			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+			auto result = processEvent(event);
+			if (result != ScreenType::NotChange) {
 				return result;
 			}
 		}
@@ -47,20 +47,20 @@ int ScreenMenu::run(sf::RenderWindow &window)
 	}
 
 	//Never reaching this point normally, but just in case, exit the windowlication
-	return (-1);
+	return ScreenType::Error;
 }
 
 void ScreenMenu::resizeSprites() {
 	
 }
 
-int ScreenMenu::processEvent(const sf::Event &event) {
+ScreenType ScreenMenu::processEvent(const sf::Event &event) {
 	sf::RenderWindow &window = settings.getRenderWindow();
 	switch(event.type)
 	{
 		// Window closed
 		case sf::Event::Closed:
-			return -1;
+			return ScreenType::Exit;
 			break;
 		case sf::Event::Resized:
 			std::cout << "Resize catched! New size [ " << event.size.width << ", " << event.size.height << "]" << std::endl;
@@ -77,7 +77,7 @@ int ScreenMenu::processEvent(const sf::Event &event) {
 					return buttonList.callCBFunction();
 					break;
 				case sf::Keyboard::Escape:
-					return -1;
+					return ScreenType::Exit;
 					break;
 				case sf::Keyboard::Down:
 					buttonList.nextButton();
@@ -93,5 +93,5 @@ int ScreenMenu::processEvent(const sf::Event &event) {
 			// other events do not handle (just now)
 			break;
 	}
-	return SCREEN_BASE_NOT_CHANGING_SCREEN;
+	return ScreenType::NotChange;
 }

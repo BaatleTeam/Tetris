@@ -1,7 +1,7 @@
 #include "Button.hpp"
 #include <iostream>
 
-Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<int()> function, sf::Vector2f &scale)
+Button::Button(sf::Vector2f &pos, std::string &message, sf::Font &font, std::function<ScreenType()> function, sf::Vector2f &scale)
 : relativePosition(pos)
 , function(function)
 , scale(scale)
@@ -63,7 +63,7 @@ void Button::setHighlight(bool isHighlighted)
     }
 }
 
-int Button::callHBFunction()
+ScreenType Button::callHBFunction()
 {
     return function();
 }
