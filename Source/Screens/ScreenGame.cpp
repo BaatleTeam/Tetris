@@ -1,7 +1,7 @@
 #include "ScreenGame.hpp"
 
 ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
- : resourceManager(rM)
+ : ScreenBase(rM)
  , gameController(settings)
  , settings(settings)
 

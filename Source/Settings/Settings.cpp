@@ -2,40 +2,46 @@
 #include <iostream>
 
 Settings::Settings()
-: App()
+: window()
 {
-    App.requestFocus();
+    window.requestFocus();
 
     screenSizes = {
-                sf::Vector2u(1366, 768),
-                sf::Vector2u(1280, 768),
-                sf::Vector2u(1280, 720) };
+                sf::Vector2u(1000, 800),
+                sf::Vector2u(900, 720),
+                sf::Vector2u(800, 640),
+                sf::Vector2u(700, 560),
+                sf::Vector2u(600, 480) };
     
     fieldSizes = { 
                 sf::Vector2u(10, 20),
                 sf::Vector2u(5, 10)    };
     
-    indexScreenSize = 1;
+    indexScreenSize = 0;
     indexFieldSize = 1;
-    windowName = "!!Mega Tetris!!";
-    windowStyle = 1 | 2 | 4; // 1 - sf::Style::Titlebar, 2- sf::Style::Resize,
+    windowName = "Tetris (beta 0.1)";
+    windowStyle = 4; // 1 - sf::Style::Titlebar, 2- sf::Style::Resize,
                              //4 - sf::Style::Close, 8 sf::Style::Fullscreen
 
     vars.emplace("indexScreenSize", indexScreenSize);
     vars.emplace("indexFieldSize", indexFieldSize);
     vars.emplace("windowStyle", windowStyle);
+
     strings.emplace("windowName", windowName);
 
-    if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf")) {
-		std::cout << "Font didn't load!" << std::endl;
-		throw;
-	}
-
-    App.create(sf::VideoMode(1366, 768, 32)
+    window.create(sf::VideoMode(screenSizes[0].x, screenSizes[0].y, 32)
         , strings.find("windowName")->second
 	    , vars.find("windowStyle")->second);
 
-    App.requestFocus();
+    window.requestFocus();
+}
+
+int Settings::getConfigurationVar(const std::string& var_name) const {
+    return vars.find(var_name)->second;
+}
+
+const std::string& Settings::getConfigurationString(const std::string& string_name) const {
+    return strings.find(string_name)->second;
 }
 
 void Settings::printVars() const {
@@ -56,13 +62,9 @@ sf::Vector2u Settings::getFieldSize() const {
     return fieldSizes[indexFieldSize];
 }
 
-sf::Font &Settings::getFont(){
-    return font;
-}
-
 sf::RenderWindow &Settings::getRenderWindow()
 {
-    return App;
+    return window;
 }
 
 void Settings::setScreenSize(unsigned int new_index) {

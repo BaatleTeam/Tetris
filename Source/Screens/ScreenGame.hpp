@@ -9,9 +9,7 @@
 
 class ScreenGame : public ScreenBase {
 private:
-	ResourceManager& resourceManager;
 	GameController gameController;
-
 	std::vector <sf::Sprite> gameFieldSpites;
 	int border; // in pixels between cells in gameField
 
