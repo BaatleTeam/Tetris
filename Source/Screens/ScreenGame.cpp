@@ -15,21 +15,13 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 
 	const sf::Texture& cellTexture = resourceManager.getCellTexture();
 
-	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
-	float currX = defaultX;
-	float currY = 50;
 	for (unsigned i = 0; i < arraySize; i++){
 		gameFieldSpites.emplace_back(sf::Sprite{});
 		gameFieldSpites.back().setTexture(cellTexture);
 		gameFieldSpites.back().setColor(sf::Color::Red);
-		gameFieldSpites.back().setPosition({ currX, currY });
 		gameFieldSpites.back().setScale({0.25, 0.25});
-		currX += 55;
-		if (currX >= defaultX + 55 * settings.getFieldSize().x){
-			currY += 55;
-			currX = defaultX;
-		}
 	}
+	configGameFieldSpitesPositions();
 }
 
 int ScreenGame::run(sf::RenderWindow &window)
@@ -150,4 +142,20 @@ float ScreenGame::calcBackgroundScaleKF() const {
 	auto kf = 1000.0 / Settings::gameBackGroundWidth; // 1280 -> 1000
 	kf *= settings.getScreenSize().x / 1000;
 	return kf;
+}
+
+void ScreenGame::configGameFieldSpitesPositions() {
+	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
+	float currX = defaultX;
+	float currY = 50;
+
+	for (auto &sprite : gameFieldSpites){
+		sprite.setPosition({ currX, currY });
+		currX += 55;
+		if (currX >= defaultX + 55 * settings.getFieldSize().x){
+			currY += 55;
+			currX = defaultX;
+		}
+	}
+
 }

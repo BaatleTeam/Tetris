@@ -30,6 +30,7 @@ private:
 	int convertIndexes(int i, int j) const;
 	virtual int processEvent(const sf::Event &event) override;
 
+	void configGameFieldSpitesPositions();
 	float calcBackgroundScaleKF() const ;
 
   protected:
