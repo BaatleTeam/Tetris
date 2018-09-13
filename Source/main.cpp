@@ -14,9 +14,9 @@ int main()
 	int screen = 0;
 
 	try {
-		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings)));
+		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings, resourceManager)));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
-		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings)));
+		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings, resourceManager)));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
 	}
 	catch(...) {

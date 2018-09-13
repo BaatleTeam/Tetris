@@ -2,13 +2,17 @@
 #define SCREEN_BASE_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
+#include "../ResourceManager.hpp"
 
 const int SCREEN_BASE_NOT_CHANGING_SCREEN = -10;
 
 class ScreenBase {
 public:
     virtual int run (sf::RenderWindow &window) = 0;
+	ScreenBase(ResourceManager& r_m) : resourceManager(r_m) {} ;
     virtual ~ScreenBase() {};
+protected:
+	ResourceManager &resourceManager;
 private:
 	// TODO:
 	// Returning SCREEN_BASE_NOT_CHANGING_SCREEN if everything is okay? There's return statements in older

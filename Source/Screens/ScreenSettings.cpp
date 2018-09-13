@@ -2,8 +2,9 @@
 #include "../Settings/Settings.hpp"
 #include "../Buttons/ButtonList.hpp"
 
-ScreenSettings::ScreenSettings(Settings &newSettings)
-: settings(newSettings)
+ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
+	: ScreenBase(r_m)
+	, settings(newSettings)
 {
 	auto callChangeResolution = [this]() -> int {
 		settings.nextScreenSize();

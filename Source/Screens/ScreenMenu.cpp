@@ -1,8 +1,9 @@
 #include "Screens.hpp"
 #include "../Buttons/ButtonList.hpp"
 
-ScreenMenu::ScreenMenu(Settings &newSettings)
-: settings(newSettings)
+ScreenMenu::ScreenMenu(Settings &newSettings, ResourceManager& r_m)
+ : ScreenBase(r_m)
+ , settings(newSettings)
 {
 	auto callNewGame = 	[]() -> int { return 1; };
 	auto callSettings = []() -> int { return 2; };
