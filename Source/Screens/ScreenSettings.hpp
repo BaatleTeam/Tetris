@@ -14,6 +14,7 @@ public:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?
 	// Can't we use settings.getRenderWindow() instead?(@Denmey)
 	int run(sf::RenderWindow &window);
+	void resizeSprites() override;
 protected:
     Settings &settings;
 

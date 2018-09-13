@@ -21,6 +21,7 @@ public:
 	// Can't we use settings.getRenderWindow() instead?(@Denmey)
 	ScreenGame(Settings&, ResourceManager&);
 	int run(sf::RenderWindow &window) override;
+	void resizeSprites() override;
 
 private:
 	void drawGameField(sf::RenderWindow &App);
@@ -28,6 +29,8 @@ private:
 	void updateGameField();
 	int convertIndexes(int i, int j) const;
 	virtual int processEvent(const sf::Event &event) override;
+
+	float calcBackgroundScaleKF() const ;
 
   protected:
     Settings &settings; // Deleted const qualifier to be able to use .getRenderWindow() function in processEvent(...).(@Denmey)

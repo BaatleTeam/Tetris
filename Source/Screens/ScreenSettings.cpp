@@ -71,6 +71,10 @@ int ScreenSettings::run(sf::RenderWindow &window)
 	return (-1);
 }
 
+void ScreenSettings::resizeSprites() {
+	
+}
+
 int ScreenSettings::processEvent(const sf::Event &event) {
 	sf::RenderWindow &window = settings.getRenderWindow();
 	switch(event.type)

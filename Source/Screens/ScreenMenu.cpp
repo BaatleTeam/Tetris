@@ -50,6 +50,10 @@ int ScreenMenu::run(sf::RenderWindow &window)
 	return (-1);
 }
 
+void ScreenMenu::resizeSprites() {
+	
+}
+
 int ScreenMenu::processEvent(const sf::Event &event) {
 	sf::RenderWindow &window = settings.getRenderWindow();
 	switch(event.type)

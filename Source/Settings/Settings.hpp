@@ -30,7 +30,8 @@ private:
     sf::RenderWindow window; 
 
 public:
-    static const int StandartWidth = 1280; // затем умножается на коэфициенты
+    static const int gameBackGroundWidth = 1280; // затем умножается на коэфициенты
+    static const int gameBackGroundHeight = 1024;
     Settings();
     ~Settings() = default;
 

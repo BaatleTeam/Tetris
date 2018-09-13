@@ -7,6 +7,8 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 
 {	
 	gameBackground.setTexture(resourceManager.getBackground("todo"));
+	auto backgroundScaleKF = calcBackgroundScaleKF();
+	gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
 
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
@@ -78,6 +80,13 @@ int ScreenGame::run(sf::RenderWindow &window)
 	return -1;
 }
 
+void ScreenGame::resizeSprites() {
+	// gameBackground.setTexture(resourceManager.getBackground("todo"));
+	// auto backgroundScaleKF = calcBackgroundScaleKF();
+	// gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
+
+}
+
 void ScreenGame::drawBackground(sf::RenderWindow &window){
 	window.draw(gameBackground);
 }
@@ -135,4 +144,10 @@ int ScreenGame::processEvent(const sf::Event &event) {
 		}
 	}
 	return SCREEN_BASE_NOT_CHANGING_SCREEN;
+}
+
+float ScreenGame::calcBackgroundScaleKF() const {
+	auto kf = 1000.0 / Settings::gameBackGroundWidth; // 1280 -> 1000
+	kf *= settings.getScreenSize().x / 1000;
+	return kf;
 }
