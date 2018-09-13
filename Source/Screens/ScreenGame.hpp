@@ -11,6 +11,7 @@ class ScreenGame : public ScreenBase {
 private:
 	GameController gameController;
 	std::vector <sf::Sprite> gameFieldSpites;
+	sf::Sprite gameBackground;
 	int border; // in pixels between cells in gameField
 
 	

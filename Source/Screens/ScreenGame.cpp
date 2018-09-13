@@ -6,10 +6,13 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
  , settings(settings)
 
 {	
+	gameBackground.setTexture(resourceManager.getBackground("todo"));
+
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
 
 	const sf::Texture& cellTexture = resourceManager.getCellTexture();
+
 	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
 	float currX = defaultX;
 	float currY = 50;
@@ -64,10 +67,10 @@ int ScreenGame::run(sf::RenderWindow &window)
 		//Clearing screen
 		window.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
+		drawBackground(window);
     
 		drawGameField(window);
 
-		drawBackground(window);
 		window.display();
 	}
 
@@ -75,16 +78,15 @@ int ScreenGame::run(sf::RenderWindow &window)
 	return -1;
 }
 
-void ScreenGame::drawBackground(sf::RenderWindow &WIN){
-	// screenBackground.Draw(WIN);
-	// gameBackground.Draw(WIN);
+void ScreenGame::drawBackground(sf::RenderWindow &window){
+	window.draw(gameBackground);
 }
 
 
-void ScreenGame::drawGameField(sf::RenderWindow &App){
+void ScreenGame::drawGameField(sf::RenderWindow &window){
 	updateGameField();
 	for (auto blockSprite : gameFieldSpites)
-		App.draw(blockSprite);		
+		window.draw(blockSprite);		
 }
 
 void ScreenGame::updateGameField(){
