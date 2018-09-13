@@ -35,7 +35,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
 		return 0;
 	};
 
-	sf::Font &font = settings.getFont();
+	sf::Font &font = resourceManager.getFont();
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "Resolution",	font, callChangeResolution);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Field size", font, callChangeFieldSize);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*8), "Fullscreen", font, callToggleFullScreen);

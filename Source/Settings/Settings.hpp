@@ -27,7 +27,6 @@ private:
 
     int windowStyle;
     std::string windowName;
-    sf::Font font;
     sf::RenderWindow window; 
 
 public:
@@ -43,7 +42,6 @@ public:
 
     sf::Vector2u getScreenSize() const;
     sf::Vector2u getFieldSize() const;
-    sf::Font &getFont();
     sf::RenderWindow &getRenderWindow();
     void printVars() const;
 

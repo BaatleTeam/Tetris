@@ -9,7 +9,7 @@ ScreenMenu::ScreenMenu(Settings &newSettings, ResourceManager& r_m)
 	auto callSettings = []() -> int { return 2; };
 	auto callScore = 	[]() -> int { return 3; };
 
-	sf::Font &font = settings.getFont();
+	sf::Font &font = resourceManager.getFont();
 
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*4), "New game", font, callNewGame);
 	buttonList.addButton(sf::Vector2f(1.0f/2, 1.0f/12*6), "Settings", font, callSettings);

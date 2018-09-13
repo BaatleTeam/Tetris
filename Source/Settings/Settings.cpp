@@ -29,11 +29,6 @@ Settings::Settings()
 
     strings.emplace("windowName", windowName);
 
-    if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf")) {
-		std::cout << "Font didn't load!" << std::endl;
-		throw;
-	}
-
     window.create(sf::VideoMode(screenSizes[0].x, screenSizes[0].y, 32)
         , strings.find("windowName")->second
 	    , vars.find("windowStyle")->second);
@@ -65,10 +60,6 @@ sf::Vector2u Settings::getScreenSize() const {
 
 sf::Vector2u Settings::getFieldSize() const {
     return fieldSizes[indexFieldSize];
-}
-
-sf::Font &Settings::getFont(){
-    return font;
 }
 
 sf::RenderWindow &Settings::getRenderWindow()
