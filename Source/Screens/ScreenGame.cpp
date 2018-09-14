@@ -107,7 +107,7 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 	// Window closed
 	if (event.type == sf::Event::Closed)
 	{
-		return (ScreenType::Error);
+		return (ScreenType::Exit);
 	}
 	//Key pressed
 	if (event.type == sf::Event::KeyPressed)

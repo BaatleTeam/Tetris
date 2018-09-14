@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-enum class ScreenType { Menu, Settings, Game, Exit, Error , NotChange };
+enum class ScreenType { Menu, Game, Settings, Exit, Error , NotChange };
 
 // inline std::ostream& operator<<(std::ostream& out, FigureType ft){
 //     switch (ft){

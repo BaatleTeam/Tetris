@@ -10,7 +10,7 @@ ScreenManager::ScreenManager(Settings &settings, ResourceManager &resourceManage
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings, resourceManager)));
 		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
 		Screens.push_back(std::unique_ptr<ScreenSettings>(new ScreenSettings(settings, resourceManager)));
-		Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
+		// Screens.push_back(std::unique_ptr<ScreenGame>(new ScreenGame(settings, resourceManager)));
 	}
 	catch(...) {
 		std::cout << "Fail to load screens";
