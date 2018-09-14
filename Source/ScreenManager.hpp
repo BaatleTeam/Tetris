@@ -9,9 +9,13 @@ private:
     Settings &settings;
     // sf::RenderWindow window;
     std::vector<std::unique_ptr<ScreenBase>> Screens;
+
+    bool isResolutionChanged;
     
 public:
     ScreenManager(Settings &settings, ResourceManager&);
     // ~ScreenManager();
     void start();
+    void resizeAllSprites();
+    void setResolutionChanged();
 };

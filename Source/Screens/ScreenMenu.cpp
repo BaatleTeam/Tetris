@@ -51,7 +51,7 @@ ScreenType ScreenMenu::run(sf::RenderWindow &window)
 }
 
 void ScreenMenu::resizeSprites() {
-	
+	std::cout << "resizeMenu" << std::endl;
 }
 
 ScreenType ScreenMenu::processEvent(const sf::Event &event) {

@@ -1,9 +1,11 @@
 #include "Screens.hpp"
 #include "../Settings/Settings.hpp"
 #include "../Buttons/ButtonList.hpp"
+#include "../ScreenManager.hpp"
 
-ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
+ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager &r_m, ScreenManager &s_m)
 	: ScreenBase(r_m)
+	, screenManager(s_m)
 	, settings(newSettings)
 {
 	auto callChangeResolution = [this]() -> ScreenType {
@@ -16,6 +18,7 @@ ScreenSettings::ScreenSettings(Settings &newSettings, ResourceManager& r_m)
 			, settings.getConfigurationVar("windowStyle"));
 
 		buttonList.update({screenWidth, screenHeigth});
+		screenManager.resizeAllSprites();
 
 		return ScreenType::Menu;
 	};
@@ -72,7 +75,7 @@ ScreenType ScreenSettings::run(sf::RenderWindow &window)
 }
 
 void ScreenSettings::resizeSprites() {
-	
+	std::cout << "resizeSettings" << std::endl;
 }
 
 ScreenType ScreenSettings::processEvent(const sf::Event &event) {

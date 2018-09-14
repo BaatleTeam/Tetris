@@ -10,14 +10,13 @@ const int SCREEN_BASE_NOT_CHANGING_SCREEN = -10;
 
 class ScreenBase {
 public:
-	ScreenBase(ResourceManager& r_m) : resourceManager(r_m), isResolutionChanged(false) {} ;
+	ScreenBase(ResourceManager& r_m) : resourceManager(r_m) {} ;
     virtual ~ScreenBase() {};
 
     virtual ScreenType run (sf::RenderWindow &window) = 0;
 	virtual void resizeSprites() = 0;
 protected:
 	ResourceManager &resourceManager;
-	bool isResolutionChanged;
 private:
 	// TODO:
 	// Returning SCREEN_BASE_NOT_CHANGING_SCREEN if everything is okay? There's return statements in older

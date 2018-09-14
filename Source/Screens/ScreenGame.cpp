@@ -7,8 +7,8 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 
 {	
 	gameBackground.setTexture(resourceManager.getBackground("todo"));
-	auto backgroundScaleKF = calcBackgroundScaleKF();
-	gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
+	// auto backgroundScaleKF = calcBackgroundScaleKF();
+	// gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
 
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
@@ -26,6 +26,10 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 
 ScreenType ScreenGame::run(sf::RenderWindow &window)
 {
+	// if (isResolutionChanged) {
+	// 	resizeSprites();
+	// 	isResolutionChanged = false;
+	// }
 	//Mouse cursor no more visible
 	window.setMouseCursorVisible(true);
 
@@ -73,10 +77,9 @@ ScreenType ScreenGame::run(sf::RenderWindow &window)
 }
 
 void ScreenGame::resizeSprites() {
-	// gameBackground.setTexture(resourceManager.getBackground("todo"));
-	// auto backgroundScaleKF = calcBackgroundScaleKF();
-	// gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
-
+	std::cout << "resizeGame" << std::endl;
+	auto backgroundScaleKF = calcBackgroundScaleKF();
+	gameBackground.setScale({backgroundScaleKF, backgroundScaleKF});
 }
 
 void ScreenGame::drawBackground(sf::RenderWindow &window){
@@ -140,7 +143,7 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 
 float ScreenGame::calcBackgroundScaleKF() const {
 	auto kf = 1000.0 / Settings::gameBackGroundWidth; // 1280 -> 1000
-	kf *= settings.getScreenSize().x / 1000;
+	kf *= (float)settings.getScreenSize().x / 1000.0;
 	return kf;
 }
 
