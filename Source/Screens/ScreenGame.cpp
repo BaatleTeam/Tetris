@@ -6,29 +6,30 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
  , settings(settings)
 
 {	
+	gameBackground.setTexture(resourceManager.getBackground("todo"));
+	// auto backgroundScaleKF = calcBackgroundScaleKF();
+	// gameBackground.scale({backgroundScaleKF, backgroundScaleKF});
+
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
 
 	const sf::Texture& cellTexture = resourceManager.getCellTexture();
-	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
-	float currX = defaultX;
-	float currY = 50;
+
 	for (unsigned i = 0; i < arraySize; i++){
 		gameFieldSpites.emplace_back(sf::Sprite{});
 		gameFieldSpites.back().setTexture(cellTexture);
 		gameFieldSpites.back().setColor(sf::Color::Red);
-		gameFieldSpites.back().setPosition({ currX, currY });
 		gameFieldSpites.back().setScale({0.25, 0.25});
-		currX += 55;
-		if (currX >= defaultX + 55 * settings.getFieldSize().x){
-			currY += 55;
-			currX = defaultX;
-		}
 	}
+	configGameFieldSpitesPositions();
 }
 
-int ScreenGame::run(sf::RenderWindow &window)
+ScreenType ScreenGame::run(sf::RenderWindow &window)
 {
+	// if (isResolutionChanged) {
+	// 	resizeSprites();
+	// 	isResolutionChanged = false;
+	// }
 	//Mouse cursor no more visible
 	window.setMouseCursorVisible(true);
 
@@ -43,8 +44,8 @@ int ScreenGame::run(sf::RenderWindow &window)
 		//Verifying events
 		while (window.pollEvent(event))
 		{
-			int result = processEvent(event);
-			if (result != SCREEN_BASE_NOT_CHANGING_SCREEN) {
+			ScreenType result = processEvent(event);
+			if (result != ScreenType::NotChange) {
 				return result;
 			}
 		}
@@ -64,27 +65,32 @@ int ScreenGame::run(sf::RenderWindow &window)
 		//Clearing screen
 		window.clear(sf::Color(0, 0, 0, 0));
 		//Drawing
+		drawBackground(window);
     
 		drawGameField(window);
 
-		drawBackground(window);
 		window.display();
 	}
 
 	//Never reaching this point normally, but just in case, exit the windowlication
-	return -1;
+	return ScreenType::Error;
 }
 
-void ScreenGame::drawBackground(sf::RenderWindow &WIN){
-	// screenBackground.Draw(WIN);
-	// gameBackground.Draw(WIN);
+void ScreenGame::resizeSprites() {
+	std::cout << "resizeGame" << std::endl;
+	auto backgroundScaleKF = calcBackgroundScaleKF();
+	gameBackground.setScale({backgroundScaleKF, backgroundScaleKF});
+}
+
+void ScreenGame::drawBackground(sf::RenderWindow &window){
+	window.draw(gameBackground);
 }
 
 
-void ScreenGame::drawGameField(sf::RenderWindow &App){
+void ScreenGame::drawGameField(sf::RenderWindow &window){
 	updateGameField();
 	for (auto blockSprite : gameFieldSpites)
-		App.draw(blockSprite);		
+		window.draw(blockSprite);		
 }
 
 void ScreenGame::updateGameField(){
@@ -100,11 +106,11 @@ int ScreenGame::convertIndexes(int i, int j) const {
 	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
 }
 
-int ScreenGame::processEvent(const sf::Event &event) {
+ScreenType ScreenGame::processEvent(const sf::Event &event) {
 	// Window closed
 	if (event.type == sf::Event::Closed)
 	{
-		return (-1);
+		return (ScreenType::Exit);
 	}
 	//Key pressed
 	if (event.type == sf::Event::KeyPressed)
@@ -112,7 +118,7 @@ int ScreenGame::processEvent(const sf::Event &event) {
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Escape:
-			return (0);
+			return ScreenType::Menu;
 			break;
 		
 		case sf::Keyboard::Up:
@@ -132,5 +138,27 @@ int ScreenGame::processEvent(const sf::Event &event) {
 			break;
 		}
 	}
-	return SCREEN_BASE_NOT_CHANGING_SCREEN;
+	return ScreenType::NotChange;
+}
+
+float ScreenGame::calcBackgroundScaleKF() const {
+	auto kf = 1000.0 / Settings::gameBackGroundWidth; // 1280 -> 1000
+	kf *= (float)settings.getScreenSize().x / 1000.0;
+	return kf;
+}
+
+void ScreenGame::configGameFieldSpitesPositions() {
+	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
+	float currX = defaultX;
+	float currY = 50;
+
+	for (auto &sprite : gameFieldSpites){
+		sprite.setPosition({ currX, currY });
+		currX += 55;
+		if (currX >= defaultX + 55 * settings.getFieldSize().x){
+			currY += 55;
+			currX = defaultX;
+		}
+	}
+
 }

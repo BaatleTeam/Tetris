@@ -18,7 +18,7 @@ Settings::Settings()
                 sf::Vector2u(5, 10)    };
     
     indexScreenSize = 0;
-    indexFieldSize = 1;
+    indexFieldSize = 0;
     windowName = "Tetris (beta 0.1)";
     windowStyle = 4; // 1 - sf::Style::Titlebar, 2- sf::Style::Resize,
                              //4 - sf::Style::Close, 8 sf::Style::Fullscreen

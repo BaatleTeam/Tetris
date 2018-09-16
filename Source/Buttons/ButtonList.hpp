@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.hpp"
 
+class Button;
 // Class for list of buttons
 // Mean to use even for one button
 class ButtonList : public sf::Drawable, public sf::Transformable
@@ -12,7 +13,7 @@ public:
     ButtonList();
 
     // Add button in list 
-    void addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<int()> function);
+    void addButton(sf::Vector2f relativePosition, std::string message, sf::Font &font, std::function<ScreenType()> function);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -26,7 +27,7 @@ public:
     void nextButton();
 
     // Call lambda-function of current button
-    int callCBFunction();
+    ScreenType callCBFunction();
 
     // Return number of current button (index) in buttonList vector
     int getCurrentButtonNumber();
