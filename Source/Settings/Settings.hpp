@@ -30,8 +30,9 @@ private:
     sf::RenderWindow window; 
 
 public:
-    static const int gameBackGroundWidth = 1280; // затем умножается на коэфициенты
-    static const int gameBackGroundHeight = 1024;
+    static const int RenderWindowMaxWidth = 1000; // затем умножается на коэфициенты
+    static const int RenderWindowMaxHeight = 800;
+    static const int SpriteBlockOriginalWidth = 204;
     Settings();
     ~Settings() = default;
 

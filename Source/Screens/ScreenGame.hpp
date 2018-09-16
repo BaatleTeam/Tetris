@@ -14,7 +14,6 @@ private:
 	sf::Sprite gameBackground;
 	int border; // in pixels between cells in gameField
 
-	
 public:
 	// TODO:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?
@@ -24,14 +23,15 @@ public:
 	void resizeSprites() override;
 
 private:
-	void drawGameField(sf::RenderWindow &App);
-	void drawBackground(sf::RenderWindow &WIN);
+	void drawGameField(sf::RenderWindow&);
+	void resizeGameField();
 	void updateGameField();
 	int convertIndexes(int i, int j) const;
-	virtual ScreenType processEvent(const sf::Event &event) override;
 
-	void configGameFieldSpitesPositions();
-	float calcBackgroundScaleKF() const ;
+	void drawBackground(sf::RenderWindow&);
+	void resizeBackground();
+	
+	virtual ScreenType processEvent(const sf::Event &event) override;
 
   protected:
     Settings &settings; // Deleted const qualifier to be able to use .getRenderWindow() function in processEvent(...).(@Denmey)
