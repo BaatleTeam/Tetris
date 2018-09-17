@@ -91,8 +91,8 @@ void ScreenGame::drawGameField(sf::RenderWindow &window){
 }
 
 void ScreenGame::resizeGameField() {
-	double KF = 0.2;
-	KF *= (double)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
+	float KF = 0.2;
+	KF *= (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
 	
 	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
 	float currX = defaultX;
@@ -112,8 +112,8 @@ void ScreenGame::resizeGameField() {
 void ScreenGame::updateGameField(){
 	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
 		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
-			if (gameController.getCellColor({j,i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
-				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({j,i}));
+			if (gameController.getCellColor({(unsigned)j, (unsigned)i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
+				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({(unsigned)j, (unsigned)i}));
 			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
 		}
 }
@@ -130,7 +130,7 @@ void ScreenGame::drawBackground(sf::RenderWindow &window){
 }
 
 void ScreenGame::resizeBackground() {
-	auto scaleKF = (double)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
+	auto scaleKF = (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
 	gameBackground.setScale({scaleKF, scaleKF});
 }
 

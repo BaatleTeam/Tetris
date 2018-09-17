@@ -4,7 +4,6 @@ ScreenManager::ScreenManager(Settings &settings, ResourceManager &resourceManage
     : settings(settings), isResolutionChanged(true)
 {
 	Screens.reserve(4);
-	int screen = 0;
 
 	try {
 		Screens.push_back(std::unique_ptr<ScreenMenu>(new ScreenMenu(settings, resourceManager)));
@@ -47,7 +46,8 @@ void ScreenManager::start()
                 std::cout << "[SM] Settings!!!" << std::endl;
                 break;
 
-            case ScreenType::Exit:
+            case ScreenType::Exit: [[fallthrough]]
+            case ScreenType::NotChange: 
                 std::cout << "[SM] Return value \"Exit\" catched! Exiting" << std::endl;
                 return;
                 break;
