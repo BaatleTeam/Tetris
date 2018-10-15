@@ -91,21 +91,27 @@ void ScreenGame::drawGameField(sf::RenderWindow &window){
 }
 
 void ScreenGame::resizeGameField() {
-	float KF = 0.2;
-	KF *= (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
+	float spriteKF = 0.15;
+	float windowKF = (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
+	spriteKF *= windowKF;
 	
-	auto defaultX = settings.getScreenSize().x / 2 - settings.getFieldSize().x/2 * 50;
-	float currX = defaultX;
-	float currY = 50;
+	auto beginX = 350 * windowKF;
+	float currX = beginX;
+	float currY = 30 * windowKF;
+	float spriteSize = Settings::SpriteBlockOriginalWidth * spriteKF;
+	float indent = 3;
 
+	unsigned numberInRow = 1;
 	for (auto &sprite : gameFieldSpites){
-		sprite.setScale({KF, KF});
+		sprite.setScale({spriteKF, spriteKF});
+		currX += spriteSize + indent;
 		sprite.setPosition({ currX, currY });
-		currX += 45;
-		if (currX >= defaultX + 45 * settings.getFieldSize().x){
-			currY += 45;
-			currX = defaultX;
+		if (numberInRow >= settings.getFieldSize().x){
+			currY += spriteSize + indent;
+			currX = beginX;
+			numberInRow = 0;
 		}
+		numberInRow++;
 	}
 }
 
