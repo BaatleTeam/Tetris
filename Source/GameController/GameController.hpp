@@ -30,6 +30,7 @@ public:
     void moveFigureLeft();
     void moveFigureRight();
     void rotateFigure();
+    void dropFigure();
 
 
     sf::Color getCellColor(sf::Vector2u coord) const;
