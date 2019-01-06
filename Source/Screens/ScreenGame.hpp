@@ -12,7 +12,10 @@ private:
 	GameController gameController;
 	std::vector <sf::Sprite> gameFieldSpites;
 	sf::Sprite gameBackground;
-	int border; // in pixels between cells in gameField
+	float SpriteKF = 0.15; // due to size of spite -> can used in settings instead
+	float beginGameField_X = 300;
+	float beginGameField_Y = 70;
+	float indentBetweenCells = 3; // in pixels in gameField
 
 public:
 	// TODO:

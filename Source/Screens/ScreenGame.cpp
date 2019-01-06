@@ -16,16 +16,12 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 	for (unsigned i = 0; i < arraySize; i++){
 		gameFieldSpites.emplace_back(sf::Sprite{});
 		gameFieldSpites.back().setTexture(cellTexture);
-		gameFieldSpites.back().setColor(sf::Color::Red);
+		gameFieldSpites.back().setColor(sf::Color::Red); // why red?
 	}
 }
 
 ScreenType ScreenGame::run(sf::RenderWindow &window)
 {
-	// if (isResolutionChanged) {
-	// 	resizeSprites();
-	// 	isResolutionChanged = false;
-	// }
 	//Mouse cursor no more visible
 	window.setMouseCursorVisible(true);
 
@@ -91,30 +87,30 @@ void ScreenGame::drawGameField(sf::RenderWindow &window){
 }
 
 void ScreenGame::resizeGameField() {
-	float spriteKF = 0.15;
+	float currSpriteKF = SpriteKF;
 	float windowKF = (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
-	spriteKF *= windowKF;
+	currSpriteKF *= windowKF;
 	
-	auto beginX = 350 * windowKF;
-	float currX = beginX;
-	float currY = 30 * windowKF;
-	float spriteSize = Settings::SpriteBlockOriginalWidth * spriteKF;
-	float indent = 3;
+	float currX = beginGameField_X * windowKF;
+	float currY = beginGameField_Y * windowKF;
+	float spriteSize = Settings::SpriteBlockOriginalWidth * currSpriteKF;
+	float indent = indentBetweenCells * windowKF;
 
 	unsigned numberInRow = 1;
 	for (auto &sprite : gameFieldSpites){
-		sprite.setScale({spriteKF, spriteKF});
+		sprite.setScale({currSpriteKF, currSpriteKF});
 		currX += spriteSize + indent;
 		sprite.setPosition({ currX, currY });
 		if (numberInRow >= settings.getFieldSize().x){
 			currY += spriteSize + indent;
-			currX = beginX;
+			currX = beginGameField_X * windowKF;
 			numberInRow = 0;
 		}
 		numberInRow++;
 	}
 }
 
+// change color of changed sprites
 void ScreenGame::updateGameField(){
 	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
 		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
