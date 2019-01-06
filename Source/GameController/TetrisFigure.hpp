@@ -17,6 +17,7 @@ private:
     unsigned curY;
     matrix figureMatrix;
     sf::Color color;
+    mutable std::vector <sf::Vector2u> coordinates;
 
 public:
     TetrisFigure(FigureType type, int fieldHeight, int fieldWidth);
@@ -35,4 +36,5 @@ public:
 
 private:
     sf::Color generateColor();
+    void transformMatrixInCoordinates() const ;
 };

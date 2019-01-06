@@ -25,6 +25,7 @@ TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
             break;
     }
     color = generateColor();
+    transformMatrixInCoordinates();
 }
 
 void TetrisFigure::moveDown(){
@@ -48,19 +49,7 @@ const matrix& TetrisFigure::getFigureMatrix() const {
 }
 
 std::vector <sf::Vector2u> TetrisFigure::getCurCoordinates() const {
-    std::vector <sf::Vector2u> coordinates;
-    unsigned currRow = 0;
-    for (auto &row: figureMatrix){
-        unsigned currCol = 0;
-        for (auto &cell: row){
-            if (cell != 0){
-                std::cout << "Conversation: " << curX << " " << currCol << " " << curY << " " << currRow << "\n";
-                coordinates.push_back({curX + currCol, curY - currRow});
-            }
-            currCol++;
-        }
-        currRow++;
-    }
+    transformMatrixInCoordinates();
     return coordinates;
 }
 
@@ -82,4 +71,20 @@ sf::Color TetrisFigure::generateColor(){
     }
     while ((r + g + b) == 0 || (r + g + b) == 3); // neither whitw nor black
     return sf::Color(r * 255, g * 255, b * 255);
+}
+
+void TetrisFigure::transformMatrixInCoordinates() const {
+    coordinates.clear();
+    unsigned currRow = 0;
+    for (const auto &row: figureMatrix){
+        unsigned currCol = 0;
+        for (const auto &cell: row){
+            if (cell != 0){
+                std::cout << "Conversation in getCurCoord: " << curX << " " << currCol << " " << curY << " " << currRow << "\n";
+                coordinates.push_back({curX + currCol, curY - currRow});
+            }
+            currCol++;
+        }
+        currRow++;
+    }
 }
