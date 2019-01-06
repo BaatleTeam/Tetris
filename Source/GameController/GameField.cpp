@@ -16,6 +16,7 @@ void GameField::paintFigure(const TetrisFigure *figure){
 
 void GameField::unpaintFigure(const TetrisFigure *figure){
     for (auto const &curShapeCoord : figure->getCurCoordinates()){
+        std::cout << "Sas: " << curShapeCoord.y << " " << curShapeCoord.x << std::endl;
         gameField[curShapeCoord.y][curShapeCoord.x].makeUnpainted();
         gameField[curShapeCoord.y][curShapeCoord.x].setDefaultColor();
     }
