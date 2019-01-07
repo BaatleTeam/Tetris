@@ -48,6 +48,13 @@ void GameController::moveFigureRight(){
     displayActiveFigure();
 }
 
+void GameController::moveFigureDown(){
+    removeActiveFigure();
+    if (gameField.checkFigureMoveDown(activeShape.get()))
+        activeShape->moveDown();
+    displayActiveFigure();
+}
+
 void GameController::rotateFigure(){
     removeActiveFigure();
     if (gameField.checkFigureRotate(activeShape.get()))
@@ -55,11 +62,15 @@ void GameController::rotateFigure(){
     displayActiveFigure();
 }
 
-void GameController::moveFigureDown(){
+void GameController::dropFigure(){
     removeActiveFigure();
-    if (gameField.checkFigureMoveDown(activeShape.get()))
+    while (canMoveActiveFigureDown())
         activeShape->moveDown();
     displayActiveFigure();
+}
+
+bool GameController::checkFurtherMoving() const {
+    return canMoveActiveFigureDown();
 }
 
 sf::Color GameController::getCellColor(sf::Vector2u coord) const {
