@@ -50,7 +50,8 @@ void GameController::moveFigureRight(){
 
 void GameController::rotateFigure(){
     removeActiveFigure();
-    // activeShape->rotate(gameField);
+    if (gameField.checkFigureRotate(activeShape.get()))
+        activeShape->rotate();
     displayActiveFigure();
 }
 

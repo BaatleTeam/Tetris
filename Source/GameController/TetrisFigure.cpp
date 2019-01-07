@@ -9,6 +9,13 @@ TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
             curY = fieldHeight - 3;
             break;
         case FigureType::Type1:
+            figureMatrix = {{0,0,0,0},
+                            {1,1,1,1},
+                            {0,0,0,0},
+                            {0,0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 2;
+            curY = fieldHeight - 3;
             break;
         case FigureType::Type2:
             break;
@@ -41,14 +48,48 @@ void TetrisFigure::moveRight(){
 }
 
 void TetrisFigure::rotate(){
-    // todo 
+    // std::cout << "Figure Matrix before rotate:\n";
+    // for (unsigned i = 0; i <  figureMatrix.size(); i++){
+    //     for (unsigned j = 0; j < figureMatrix[0].size(); j++)
+    //         std::cout << figureMatrix[i][j] << " ";
+    //     std::cout << "\n";
+    // }
+
+    figureMatrix = getMatrixAfterRotate();
+    
+    // std::cout << "Figure Matrix after rotate:\n";
+    // for (unsigned i = 0; i <  figureMatrix.size(); i++){
+    //     for (unsigned j = 0; j < figureMatrix[0].size(); j++)
+    //         std::cout << figureMatrix[i][j] << " ";
+    //     std::cout << "\n";
+    // }
 }
 
-const matrix& TetrisFigure::getFigureMatrix() const {
+Matrix TetrisFigure::getMatrixAfterRotate(){
+    Matrix newMatrix;
+    for (unsigned i = 0; i < figureMatrix[0].size(); i++){
+        newMatrix.emplace_back(std::vector<int>{});
+        newMatrix.back().assign(figureMatrix.size(), 0);
+    }
+
+    for (unsigned i = 0; i < figureMatrix.size(); i++){
+        for (unsigned j = 0; j < figureMatrix[i].size(); j++){
+            newMatrix[j][figureMatrix.size()-i-1] = figureMatrix[i][j];
+        };
+    };  
+
+    return newMatrix;
+}
+
+FieldCoordinates TetrisFigure::getCoordintaesAfterRotate() const {
+    
+}
+
+const Matrix& TetrisFigure::getFigureMatrix() const {
     return figureMatrix;
 }
 
-std::vector <sf::Vector2u> TetrisFigure::getCurCoordinates() const {
+FieldCoordinates TetrisFigure::getCurCoordinates() const {
     transformMatrixInCoordinates();
     return coordinates;
 }

@@ -61,6 +61,11 @@ bool GameField::checkFigureMoveRight(const TetrisFigure *figure) const {
     }
 }
 
+bool GameField::checkFigureRotate(const TetrisFigure *figure) const {
+    // todo checking rotate
+    return true;
+}
+
 bool GameField::isCellPainted(sf::Vector2u coord) const {
     return gameField[coord.y][coord.x].isPainted();
 }

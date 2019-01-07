@@ -23,7 +23,7 @@ public:
     bool checkFigureMoveDown(const TetrisFigure *figure) const;
     bool checkFigureMoveLeft(const TetrisFigure *figure) const;
     bool checkFigureMoveRight(const TetrisFigure *figure) const;
-    bool checkFigureRotate() const; // new func
+    bool checkFigureRotate(const TetrisFigure *figure) const;
     bool isCellPainted(sf::Vector2u coord) const;
     sf::Color getCellColor(sf::Vector2u coord) const;
 

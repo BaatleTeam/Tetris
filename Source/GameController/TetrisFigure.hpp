@@ -9,15 +9,16 @@ class GameField;
 
 // Базовый класс для различных типов фигур
 // Хранит координаты каждой клеточки фигуры и кол-во вариантов поворота
-using matrix = std::vector<std::vector <int>>;
+using Matrix = std::vector<std::vector <int>>;
+using FieldCoordinates = std::vector <sf::Vector2u>;
 
 class TetrisFigure {
 private:
     unsigned curX;
     unsigned curY;
-    matrix figureMatrix;
+    Matrix figureMatrix;
     sf::Color color;
-    mutable std::vector <sf::Vector2u> coordinates;
+    mutable FieldCoordinates coordinates;
 
 public:
     TetrisFigure(FigureType type, int fieldHeight, int fieldWidth);
@@ -28,9 +29,12 @@ public:
     void moveLeft();
     void moveRight();
     void rotate();
+
+    Matrix getMatrixAfterRotate();
     
-    std::vector <sf::Vector2u> getCurCoordinates() const;
-    const matrix& getFigureMatrix() const;
+    FieldCoordinates getCoordintaesAfterRotate() const;
+    FieldCoordinates getCurCoordinates() const;
+    const Matrix& getFigureMatrix() const;
     unsigned int getCellsNum() const;
     const sf::Color& getColor() const; 
 
