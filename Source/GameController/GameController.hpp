@@ -32,7 +32,7 @@ public:
     void rotateFigure();
     void moveFigureDown();
 
-
+    bool checkFurtherMoving() const;
     sf::Color getCellColor(sf::Vector2u coord) const;
 
 private:

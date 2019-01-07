@@ -62,6 +62,10 @@ void GameController::moveFigureDown(){
     displayActiveFigure();
 }
 
+bool GameController::checkFurtherMoving() const{
+    return gameField.checkFigureMoveDown(activeShape.get());
+}
+
 sf::Color GameController::getCellColor(sf::Vector2u coord) const {
     return gameField.getCellColor(coord);
 }

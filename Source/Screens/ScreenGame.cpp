@@ -157,6 +157,8 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 
 			case sf::Keyboard::Down:
 				gameController.moveFigureDown();
+				if (!gameController.checkFurtherMoving())
+					gameController.doStep();
 				break;
 
 			case sf::Keyboard::Left:
