@@ -32,7 +32,7 @@ TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
             break;
     }
     color = generateColor();
-    transformMatrixInCoordinates();
+    transformMatrixInCoordinates(figureMatrix);
 }
 
 void TetrisFigure::moveDown(){
@@ -65,7 +65,7 @@ void TetrisFigure::rotate(){
     // }
 }
 
-Matrix TetrisFigure::getMatrixAfterRotate(){
+Matrix TetrisFigure::getMatrixAfterRotate() const {
     Matrix newMatrix;
     for (unsigned i = 0; i < figureMatrix[0].size(); i++){
         newMatrix.emplace_back(std::vector<int>{});
@@ -78,11 +78,11 @@ Matrix TetrisFigure::getMatrixAfterRotate(){
         };
     };  
 
-    return newMatrix;
+    return std::move(newMatrix);
 }
 
-FieldCoordinates TetrisFigure::getCoordintaesAfterRotate() const {
-    
+FieldCoordinates TetrisFigure::getCoordinatesAfterRotate() const {
+    return std::move(transformMatrixInCoordinates(getMatrixAfterRotate()));
 }
 
 const Matrix& TetrisFigure::getFigureMatrix() const {
@@ -90,13 +90,13 @@ const Matrix& TetrisFigure::getFigureMatrix() const {
 }
 
 FieldCoordinates TetrisFigure::getCurCoordinates() const {
-    transformMatrixInCoordinates();
+    coordinates.clear();
+    coordinates = transformMatrixInCoordinates(figureMatrix);
     return coordinates;
 }
 
 unsigned int TetrisFigure::getCellsNum() const {
-    // return coordinates.size();
-    return 0; // kill me 
+    return coordinates.size();
 }
 
 const sf::Color& TetrisFigure::getColor() const {
@@ -110,22 +110,23 @@ sf::Color TetrisFigure::generateColor(){
         g = rand() % 2;
         b = rand() % 2;
     }
-    while ((r + g + b) == 0 || (r + g + b) == 3); // neither whitw nor black
+    while ((r + g + b) == 0 || (r + g + b) == 3); // neither white nor black
     return sf::Color(r * 255, g * 255, b * 255);
 }
 
-void TetrisFigure::transformMatrixInCoordinates() const {
-    coordinates.clear();
+FieldCoordinates TetrisFigure::transformMatrixInCoordinates(const Matrix& matrix) const {
+    FieldCoordinates newCoord{};
     unsigned currRow = 0;
-    for (const auto &row: figureMatrix){
+    for (const auto &row: matrix){
         unsigned currCol = 0;
         for (const auto &cell: row){
             if (cell != 0){
-                std::cout << "Conversation in getCurCoord: " << curX << " " << currCol << " " << curY << " " << currRow << "\n";
-                coordinates.push_back({curX + currCol, curY - currRow});
+                // std::cout << "Conversation in getCurCoord: " << curX << " " << currCol << " " << curY << " " << currRow << "\n";
+                newCoord.push_back({curX + currCol, curY - currRow});
             }
             currCol++;
         }
         currRow++;
     }
+    return std::move(newCoord);
 }

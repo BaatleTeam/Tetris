@@ -30,9 +30,9 @@ public:
     void moveRight();
     void rotate();
 
-    Matrix getMatrixAfterRotate();
+    Matrix getMatrixAfterRotate() const;
     
-    FieldCoordinates getCoordintaesAfterRotate() const;
+    FieldCoordinates getCoordinatesAfterRotate() const;
     FieldCoordinates getCurCoordinates() const;
     const Matrix& getFigureMatrix() const;
     unsigned int getCellsNum() const;
@@ -40,5 +40,5 @@ public:
 
 private:
     sf::Color generateColor();
-    void transformMatrixInCoordinates() const ;
+    FieldCoordinates transformMatrixInCoordinates(const Matrix& matrix) const ;
 };
