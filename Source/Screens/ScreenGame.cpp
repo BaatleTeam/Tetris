@@ -168,6 +168,11 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 			case sf::Keyboard::Right:
 				gameController.moveFigureRight();	
 				break;
+
+			case sf::Keyboard::Space:
+				gameController.dropFigure();
+				gameController.doStep();
+				break;
 			
 			default:
 				break;

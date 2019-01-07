@@ -29,8 +29,9 @@ public:
 
     void moveFigureLeft();
     void moveFigureRight();
-    void rotateFigure();
     void moveFigureDown();
+    void rotateFigure();
+    void dropFigure();
 
     bool checkFurtherMoving() const;
     sf::Color getCellColor(sf::Vector2u coord) const;
