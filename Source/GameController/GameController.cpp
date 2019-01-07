@@ -23,6 +23,7 @@ void GameController::doStep(){
     }
     else {
         displayActiveFigure();
+        removeFilledLinesAndAddScore();
         generateNewActiveFigure();
         if (canMoveActiveFigureDown()){
             activeShape->moveDown();
@@ -64,6 +65,11 @@ void GameController::moveFigureDown(){
 
 sf::Color GameController::getCellColor(sf::Vector2u coord) const {
     return gameField.getCellColor(coord);
+}
+
+void GameController::removeFilledLinesAndAddScore(){
+    int numberOfRowsDeleted = gameField.removeFilledLines();
+    std::cout << "Rows deleted: " << numberOfRowsDeleted << "\n";
 }
 
 

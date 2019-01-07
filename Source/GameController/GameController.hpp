@@ -32,6 +32,8 @@ public:
     void rotateFigure();
     void moveFigureDown();
 
+    void removeFilledLinesAndAddScore();
+
 
     sf::Color getCellColor(sf::Vector2u coord) const;
 
