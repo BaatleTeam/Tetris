@@ -8,6 +8,7 @@ TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
             curX = fieldWidth / 2 - figureMatrix.size() + 1;
             curY = fieldHeight - 3;
             break;
+        
         case FigureType::Type1:
             figureMatrix = {{0,0,0,0},
                             {1,1,1,1},
@@ -17,15 +18,49 @@ TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
             curX = fieldWidth / 2 - figureMatrix.size() + 2;
             curY = fieldHeight - 3;
             break;
+        
         case FigureType::Type2:
+            figureMatrix = {{1,0,0},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
             break;
+
         case FigureType::Type3:
+            figureMatrix = {{0,1,0},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
             break;
+
         case FigureType::Type4:
+            figureMatrix = {{0,0,1},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
             break;
+
         case FigureType::Type5:
+            figureMatrix = {{1,1,0},
+                            {0,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
             break;
         case FigureType::Type6:
+            figureMatrix = {{0,1,1},
+                            {1,1,0},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
             break;
         default:
             std::cout << "Error: undefinded type of figure in tetris figure constructor!\n";
