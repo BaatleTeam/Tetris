@@ -16,8 +16,7 @@ void FigureGenerator::generateNew(std::unique_ptr<TetrisFigure> &activeShape){
         currentType = generateRandomType();
     
     nextType = generateRandomType();
-    // activeShape.reset(new TetrisFigure(currentType, arrayHeight, arrayWidth));
-    activeShape.reset(new TetrisFigure(FigureType::Type5, arrayHeight, arrayWidth));
+    activeShape.reset(new TetrisFigure(currentType, arrayHeight, arrayWidth));
 }
 
 FigureType FigureGenerator::generateRandomType(){
