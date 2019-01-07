@@ -156,7 +156,7 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 				break;
 
 			case sf::Keyboard::Down:
-				gameController.dropFigure();
+				gameController.moveFigureDown();
 				break;
 
 			case sf::Keyboard::Left:
