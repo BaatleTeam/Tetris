@@ -142,31 +142,35 @@ ScreenType ScreenGame::processEvent(const sf::Event &event) {
 	{
 		return (ScreenType::Exit);
 	}
+
 	//Key pressed
 	if (event.type == sf::Event::KeyPressed)
 	{
-		switch (event.key.code)
-		{
-		case sf::Keyboard::Escape:
-			return ScreenType::Menu;
-			break;
-		
-		case sf::Keyboard::Up:
-
-			break;
-		case sf::Keyboard::Down:
+		switch (event.key.code){
+			case sf::Keyboard::Escape:
+				return ScreenType::Menu;
+				break;
 			
-			break;
-		case sf::Keyboard::Left:
-			gameController.moveFigureLeft();
-			break;
-		
-		case sf::Keyboard::Right:
-			gameController.moveFigureRight();	
-			break;
-		default:
-			break;
+			case sf::Keyboard::Up:
+				gameController.rotateFigure();
+				break;
+
+			case sf::Keyboard::Down:
+				gameController.dropFigure();
+				break;
+
+			case sf::Keyboard::Left:
+				gameController.moveFigureLeft();
+				break;
+			
+			case sf::Keyboard::Right:
+				gameController.moveFigureRight();	
+				break;
+			
+			default:
+				break;
 		}
 	}
+	
 	return ScreenType::NotChange;
 }

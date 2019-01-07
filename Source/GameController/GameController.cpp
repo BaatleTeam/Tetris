@@ -50,8 +50,13 @@ void GameController::moveFigureRight(){
 
 void GameController::rotateFigure(){
     removeActiveFigure();
-    activeShape->rotate(gameField);
+    if (gameField.checkFigureRotate(activeShape.get()))
+        activeShape->rotate();
     displayActiveFigure();
+}
+
+void GameController::dropFigure(){
+    
 }
 
 sf::Color GameController::getCellColor(sf::Vector2u coord) const {

@@ -1,34 +1,132 @@
 #include "TetrisFigure.hpp"
 
-TetrisFigure::TetrisFigure()
-    : rotateVariants(1)
-    , nextRotate(0+1) 
-{
-}
+TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
+    switch (type) {
+        case FigureType::Type0:
+            figureMatrix = {{1,1},
+                            {1,1}};
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
+        
+        case FigureType::Type1:
+            figureMatrix = {{0,0,0,0},
+                            {1,1,1,1},
+                            {0,0,0,0},
+                            {0,0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 2;
+            curY = fieldHeight - 3;
+            break;
+        
+        case FigureType::Type2:
+            figureMatrix = {{1,0,0},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
 
-TetrisFigure::TetrisFigure(std::vector<sf::Vector2u> &&coord, int r_Variants){
-    coordinates = coord;
-    shapeColor = generateColor();
-    rotateVariants = r_Variants;
-    nextRotate = 1;
+        case FigureType::Type3:
+            figureMatrix = {{0,1,0},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
+
+        case FigureType::Type4:
+            figureMatrix = {{0,0,1},
+                            {1,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
+
+        case FigureType::Type5:
+            figureMatrix = {{1,1,0},
+                            {0,1,1},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
+        case FigureType::Type6:
+            figureMatrix = {{0,1,1},
+                            {1,1,0},
+                            {0,0,0}
+                            };
+            curX = fieldWidth / 2 - figureMatrix.size() + 1;
+            curY = fieldHeight - 3;
+            break;
+        default:
+            std::cout << "Error: undefinded type of figure in tetris figure constructor!\n";
+            break;
+    }
+    color = generateColor();
+    transformMatrixInCoordinates(figureMatrix);
 }
 
 void TetrisFigure::moveDown(){
-    for (auto &elem : coordinates)
-        elem.y--;
+    curY--;
 }
 
 void TetrisFigure::moveLeft(){
-    for (auto &elem : coordinates)
-        elem.x--;
+    curX--;
 }
 
 void TetrisFigure::moveRight(){
-    for (auto &elem : coordinates)
-        elem.x++;
+    curX++;
 }
 
-std::vector <sf::Vector2u> TetrisFigure::getCurCoordinates() const {
+void TetrisFigure::rotate(){
+    // std::cout << "Figure Matrix before rotate:\n";
+    // for (unsigned i = 0; i <  figureMatrix.size(); i++){
+    //     for (unsigned j = 0; j < figureMatrix[0].size(); j++)
+    //         std::cout << figureMatrix[i][j] << " ";
+    //     std::cout << "\n";
+    // }
+
+    figureMatrix = getMatrixAfterRotate();
+    
+    // std::cout << "Figure Matrix after rotate:\n";
+    // for (unsigned i = 0; i <  figureMatrix.size(); i++){
+    //     for (unsigned j = 0; j < figureMatrix[0].size(); j++)
+    //         std::cout << figureMatrix[i][j] << " ";
+    //     std::cout << "\n";
+    // }
+}
+
+Matrix TetrisFigure::getMatrixAfterRotate() const {
+    Matrix newMatrix;
+    for (unsigned i = 0; i < figureMatrix[0].size(); i++){
+        newMatrix.emplace_back(std::vector<int>{});
+        newMatrix.back().assign(figureMatrix.size(), 0);
+    }
+
+    for (unsigned i = 0; i < figureMatrix.size(); i++){
+        for (unsigned j = 0; j < figureMatrix[i].size(); j++){
+            newMatrix[j][figureMatrix.size()-i-1] = figureMatrix[i][j];
+        };
+    };  
+
+    return std::move(newMatrix);
+}
+
+FieldCoordinates TetrisFigure::getCoordinatesAfterRotate() const {
+    return std::move(transformMatrixInCoordinates(getMatrixAfterRotate()));
+}
+
+const Matrix& TetrisFigure::getFigureMatrix() const {
+    return figureMatrix;
+}
+
+FieldCoordinates TetrisFigure::getCurCoordinates() const {
+    coordinates.clear();
+    coordinates = transformMatrixInCoordinates(figureMatrix);
     return coordinates;
 }
 
@@ -37,7 +135,7 @@ unsigned int TetrisFigure::getCellsNum() const {
 }
 
 const sf::Color& TetrisFigure::getColor() const {
-    return shapeColor;
+    return color;
 }
 
 sf::Color TetrisFigure::generateColor(){
@@ -47,310 +145,23 @@ sf::Color TetrisFigure::generateColor(){
         g = rand() % 2;
         b = rand() % 2;
     }
-    while ((r + g + b) == 0 || (r + g + b) == 3); // neither whitw nor black
+    while ((r + g + b) == 0 || (r + g + b) == 3); // neither white nor black
     return sf::Color(r * 255, g * 255, b * 255);
 }
 
-
-// СЛЕВА НАПРАВО
-// СВЕРХУ ВНИЗ
-
-Type0::Type0(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 3 },
-                { width / 2 + 1, height - 3 },
-                { width / 2,     height - 4 },
-                { width / 2 + 1, height - 4 } },
-                1) {}
-
-void Type0::rotate(const GameField& array) {
-    // nothihg
-}
-
-
-
-Type1::Type1(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,  height - 1 },
-                { width / 2,  height - 2 },
-                { width / 2,  height - 3 },
-                { width / 2,  height - 4 } },
-                2) {}
-
-void Type1::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[3].x - 1, coordinates[3].y },
-                { coordinates[3].x,     coordinates[3].y },
-                { coordinates[3].x + 1, coordinates[3].y },
-                { coordinates[3].x + 2, coordinates[3].y }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[1].x, coordinates[1].y + 3 },
-                { coordinates[1].x, coordinates[1].y + 2 },
-                { coordinates[1].x, coordinates[1].y + 1 },
-                { coordinates[1].x, coordinates[1].y     }
-            };
-            break;
-        default:
-            throw "type 1 rotate error";
+FieldCoordinates TetrisFigure::transformMatrixInCoordinates(const Matrix& matrix) const {
+    FieldCoordinates newCoord{};
+    unsigned currRow = 0;
+    for (const auto &row: matrix){
+        unsigned currCol = 0;
+        for (const auto &cell: row){
+            if (cell != 0){
+                // std::cout << "Conversation in getCurCoord: " << curX << " " << currCol << " " << curY << " " << currRow << "\n";
+                newCoord.push_back({curX + currCol, curY - currRow});
+            }
+            currCol++;
+        }
+        currRow++;
     }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
-}
-
-
-
-Type2::Type2(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 3 },
-                { width / 2,     height - 4 },
-                { width / 2 + 1, height - 4 },
-                { width / 2 + 2, height - 4 } },
-                4) {}
-
-void Type2::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y - 1 },
-                { coordinates[1].x + 2, coordinates[1].y - 1 }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[1].x,     coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y     },
-                { coordinates[1].x + 1, coordinates[1].y + 1 },
-            };
-            break;
-        case 2:
-            newCoord = {
-                { coordinates[2].x - 2, coordinates[2].y     },
-                { coordinates[2].x - 1, coordinates[2].y     },
-                { coordinates[2].x,     coordinates[2].y     },
-                { coordinates[2].x,     coordinates[2].y - 1 },
-            };
-            break;
-        case 3:
-            newCoord = {
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-                { coordinates[1].x,     coordinates[1].y - 2 },
-                { coordinates[1].x + 1, coordinates[1].y     },
-            };
-            break;
-        default:
-            throw "type 2 rotate error";
-    }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
-}
-
-
-
-Type3::Type3(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 4 },
-                { width / 2 + 1, height - 3 },
-                { width / 2 + 1, height - 4 },
-                { width / 2 + 2, height - 4 } },
-                4) {}
-
-void Type3::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y - 1 },
-                { coordinates[1].x + 2, coordinates[1].y - 1 }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[2].x,     coordinates[2].y + 1 },
-                { coordinates[2].x,     coordinates[2].y     },
-                { coordinates[2].x,     coordinates[2].y - 1 },
-                { coordinates[2].x + 1, coordinates[2].y     },
-            };
-            break;
-        case 2:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y     },
-            };
-            break;
-        case 3:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y + 1 },
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-            };
-            break;
-        default:
-            throw "type 3 rotate error";
-    }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
-}
-
-
-
-Type4::Type4(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 4 },
-                { width / 2 + 1, height - 4 },
-                { width / 2 + 2, height - 3 },
-                { width / 2 + 2, height - 4 } },
-                4) {}
-
-void Type4::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x + 1, coordinates[1].y - 1 },
-                { coordinates[1].x + 1, coordinates[1].y     }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y + 1 },
-                { coordinates[1].x,     coordinates[1].y + 1 },
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 },
-            };
-            break;
-        case 2:
-            newCoord = {
-                { coordinates[2].x - 1, coordinates[2].y     },
-                { coordinates[2].x - 1, coordinates[2].y - 1 },
-                { coordinates[2].x,     coordinates[2].y     },
-                { coordinates[2].x + 1, coordinates[2].y     },
-            };
-            break;
-        case 3:
-            newCoord = {
-                { coordinates[0].x,     coordinates[0].y + 1 },
-                { coordinates[0].x,     coordinates[0].y     },
-                { coordinates[0].x,     coordinates[0].y - 1 },
-                { coordinates[0].x + 1, coordinates[0].y - 1 },
-            };
-            break;
-        default:
-            throw "type 4 rotate error";
-    }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
-}
-
-
-
-Type5::Type5(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 4 },
-                { width / 2 + 1, height - 3 },
-                { width / 2 + 1, height - 4 },
-                { width / 2 + 2, height - 3 } },
-                2) {}
-
-void Type5::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[3].x - 1, coordinates[3].y     },
-                { coordinates[3].x,     coordinates[3].y     },
-                { coordinates[3].x,     coordinates[3].y - 1 },
-                { coordinates[3].x + 1, coordinates[3].y - 1 }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y     },
-                { coordinates[1].x - 1, coordinates[1].y - 1 },
-                { coordinates[1].x,     coordinates[1].y + 1 },
-                { coordinates[1].x,     coordinates[1].y     }
-            };
-            break;
-        default:
-            throw "type 5 rotate error";
-    }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
-}
-
-
-
-Type6::Type6(unsigned int height, unsigned int width)
-    : TetrisFigure({
-                { width / 2,     height - 3 },
-                { width / 2 + 1, height - 3 },
-                { width / 2 + 1, height - 4 },
-                { width / 2 + 2, height - 4 } },
-                2) {}
-
-void Type6::rotate(const GameField& array) {
-    decltype(coordinates) newCoord;
-    switch (nextRotate){
-        case 0:
-            newCoord = {
-                { coordinates[2].x - 1, coordinates[2].y - 1 },
-                { coordinates[2].x,     coordinates[2].y     },
-                { coordinates[2].x,     coordinates[2].y - 1 },
-                { coordinates[2].x + 1, coordinates[2].y     }
-            };
-            break;
-        case 1:
-            newCoord = {
-                { coordinates[1].x - 1, coordinates[1].y + 1 },
-                { coordinates[1].x - 1, coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y     },
-                { coordinates[1].x,     coordinates[1].y - 1 }
-            };
-            break;
-        default:
-            throw "type 6 rotate error";
-    }
-    for (const auto elem : newCoord)
-        if (array.isCellPainted(elem))
-            return;
-    coordinates.swap(newCoord);
-    nextRotate++;
-    nextRotate %= rotateVariants;
+    return std::move(newCoord);
 }

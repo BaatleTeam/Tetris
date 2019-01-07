@@ -60,6 +60,20 @@ bool GameField::checkFigureMoveRight(const TetrisFigure *figure) const {
     }
 }
 
+bool GameField::checkFigureRotate(const TetrisFigure *figure) const {
+    FieldCoordinates newCoord = figure->getCoordinatesAfterRotate();
+    try {
+        for (const auto &curShapeCoord : newCoord)
+            if (gameField.at(curShapeCoord.y).at(curShapeCoord.x).isPainted())
+                return false;
+        return true;
+    }
+    catch (std::out_of_range){
+        std::cout << "Catched array index out in gameArray.cpp!" << std::endl;
+        return false;
+    }
+}
+
 bool GameField::isCellPainted(sf::Vector2u coord) const {
     return gameField[coord.y][coord.x].isPainted();
 }
