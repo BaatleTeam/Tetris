@@ -111,8 +111,7 @@ bool GameField::checkLineFilled(unsigned row) const {
 
 void GameField::clearRow(unsigned row) {
     for (unsigned i = row; i < height-1; i++){
-        for (unsigned j = 0; j < width; j++)
-            gameField[i][j] = gameField[i+1][j];
+        std::swap(gameField[i], gameField[i+1]);
     }
     for (unsigned j = 0; j < width; j++)
         gameField[height-1][j].makeUnpainted();
