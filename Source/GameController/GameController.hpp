@@ -5,6 +5,7 @@
 #include "FigureGenerator.hpp"
 #include "TetrisFigure.hpp"
 #include "GameField.hpp"
+#include "PlayerStatistics.hpp"
 
 class GameField;
 class ActiveShape;
@@ -21,6 +22,7 @@ private:
     GameField gameField;
     std::unique_ptr<TetrisFigure> activeShape;
     FigureGenerator figureGenerator;
+    PlayerStatistics stats;
     
 public:
     GameController(const Settings&);

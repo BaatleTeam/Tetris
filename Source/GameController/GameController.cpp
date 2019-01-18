@@ -4,7 +4,9 @@ GameController::GameController(const Settings &s)
     : height(s.getFieldSize().y + 4)
     , width(s.getFieldSize().x)
     , gameField(height, width)
-    , figureGenerator(height, width) 
+    , activeShape(nullptr)
+    , figureGenerator(height, width)
+    , stats{}
 {
     // высота увеличивается на 4, т.к. эти первые 4 строки выделяются по буфер
     // в буфере выделяются генерируются фигуры
@@ -81,6 +83,8 @@ sf::Color GameController::getCellColor(sf::Vector2u coord) const {
 void GameController::removeFilledLinesAndAddScore(){
     int numberOfRowsDeleted = gameField.removeFilledLines();
     std::cout << "Rows deleted: " << numberOfRowsDeleted << "\n";
+    stats.addScoreByLines(numberOfRowsDeleted);
+    std::cout << "New score is: " << stats.getCurrentScore() << "\n";
 }
 
 

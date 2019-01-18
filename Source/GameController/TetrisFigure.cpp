@@ -117,7 +117,7 @@ Matrix TetrisFigure::getMatrixAfterRotate() const {
 }
 
 FieldCoordinates TetrisFigure::getCoordinatesAfterRotate() const {
-    return std::move(transformMatrixInCoordinates(getMatrixAfterRotate()));
+    return transformMatrixInCoordinates(getMatrixAfterRotate());
 }
 
 const Matrix& TetrisFigure::getFigureMatrix() const {
