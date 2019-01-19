@@ -82,6 +82,41 @@ sf::Color GameField::getCellColor(sf::Vector2u coord) const {
     return gameField[coord.y][coord.x].getColor();  
 }
 
+int GameField::removeFilledLines(){
+    int number = 0;
+    for (unsigned i = height; i > 0; i--){ // i-1 due to unsigned type overflow when loop check "i = 0--"
+        bool isRowFilled = checkLineFilled(i-1);
+        std::cout << "Check row number " << i-1 << ". Result: " << isRowFilled << "\n";
+        if (isRowFilled){
+            number++;
+            clearRow(i-1);
+        }
+    }
+    return number;
+}
+
+
+
+
+bool GameField::checkLineFilled(unsigned row) const {
+    unsigned filledCellsInRow = 0;
+    
+    for (unsigned col = 0; col < width; col++)
+        if (gameField[row][col].isPainted())
+            filledCellsInRow++;
+    
+    return (filledCellsInRow == width) ? true : false;
+    
+}
+
+void GameField::clearRow(unsigned row) {
+    for (unsigned i = row; i < height-1; i++){
+        std::swap(gameField[i], gameField[i+1]);
+    }
+    for (unsigned j = 0; j < width; j++)
+        gameField[height-1][j].makeUnpainted();
+}
+
 
 std::ostream& operator<<(std::ostream &out, const GameField &field){
     for (unsigned i = 0; i < field.height; i++){

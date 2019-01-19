@@ -5,6 +5,7 @@
 #include "FigureGenerator.hpp"
 #include "TetrisFigure.hpp"
 #include "GameField.hpp"
+#include "PlayerStatistics.hpp"
 
 class GameField;
 class ActiveShape;
@@ -21,6 +22,7 @@ private:
     GameField gameField;
     std::unique_ptr<TetrisFigure> activeShape;
     FigureGenerator figureGenerator;
+    PlayerStatistics stats;
     
 public:
     GameController(const Settings&);
@@ -34,6 +36,7 @@ public:
     void dropFigure();
 
     bool checkFurtherMoving() const;
+    void removeFilledLinesAndAddScore();
     sf::Color getCellColor(sf::Vector2u coord) const;
 
 private:

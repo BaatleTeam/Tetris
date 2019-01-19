@@ -20,6 +20,8 @@ public:
     void paintFigure(const TetrisFigure *figure);
     void unpaintFigure(const TetrisFigure *figure);
 
+    int removeFilledLines();
+
     bool checkFigureMoveDown(const TetrisFigure *figure) const;
     bool checkFigureMoveLeft(const TetrisFigure *figure) const;
     bool checkFigureMoveRight(const TetrisFigure *figure) const;
@@ -28,4 +30,8 @@ public:
     sf::Color getCellColor(sf::Vector2u coord) const;
 
     friend std::ostream& operator<<(std::ostream &out, const GameField &fied);
+
+private:
+    bool checkLineFilled(unsigned num) const;
+    void clearRow(unsigned);
 };
