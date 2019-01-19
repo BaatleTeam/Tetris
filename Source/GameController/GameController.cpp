@@ -84,7 +84,7 @@ void GameController::removeFilledLinesAndAddScore(){
     int numberOfRowsDeleted = gameField.removeFilledLines();
     std::cout << "Rows deleted: " << numberOfRowsDeleted << "\n";
     stats.addScoreByLines(numberOfRowsDeleted);
-    std::cout << "New score is: " << stats.getCurrentScore() << "\n";
+    std::cout << stats;
 }
 
 
