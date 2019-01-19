@@ -8,11 +8,13 @@
 #include <array>
 #include <cassert>
 #include <iostream>
+#include "../FigureTypeEnum.hpp"
 
 class PlayerStatistics {
 private:
     int currentScore = 0;
-    std::array <unsigned, 4> linesRemovedByOnce = {0,0,0,0};
+    std::array <unsigned, 4> linesRemovedByOnce = {0};
+    std::array <unsigned, figures_number> numberOfRemovedFigures = {0};
 
 public:
     PlayerStatistics() = default;
@@ -20,6 +22,7 @@ public:
     int getCurrentScore() const;
 
     void addScoreByLines(int rowsNum);
+    void addRemovedFigure(FigureType type);
 
     friend std::ostream& operator<<(std::ostream &out, const PlayerStatistics &stats);
 };
