@@ -19,12 +19,4 @@ public:
     bool isPainted() const;
     void makePainted();
     void makeUnpainted();
-
-    ArrayCell& operator=(const ArrayCell& arrayCell){
-        if (this == &arrayCell)
-            return *this;
-        _isPainted = arrayCell._isPainted;
-        color = arrayCell.color;
-        return *this;
-    }
 };

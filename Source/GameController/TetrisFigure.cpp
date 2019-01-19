@@ -113,11 +113,11 @@ Matrix TetrisFigure::getMatrixAfterRotate() const {
         };
     };  
 
-    return newMatrix;
+    return std::move(newMatrix);
 }
 
 FieldCoordinates TetrisFigure::getCoordinatesAfterRotate() const {
-    return transformMatrixInCoordinates(getMatrixAfterRotate());
+    return std::move(transformMatrixInCoordinates(getMatrixAfterRotate()));
 }
 
 const Matrix& TetrisFigure::getFigureMatrix() const {
@@ -163,5 +163,5 @@ FieldCoordinates TetrisFigure::transformMatrixInCoordinates(const Matrix& matrix
         }
         currRow++;
     }
-    return newCoord;
+    return std::move(newCoord);
 }
