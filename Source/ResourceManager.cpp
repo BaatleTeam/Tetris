@@ -8,6 +8,11 @@ ResourceManager::ResourceManager(){
 		    throw "Font load failed";
         if (!backgroundGame.loadFromFile("Resources/Pictures/background.png"))
             throw "Gamebackground load failed";
+        
+        if (!figureLanded.loadFromFile("Resources/Sounds/fall.wav"))
+            throw "Audio file 'fall.wav' load failed!";
+        if (!figureLanded.loadFromFile("Resources/Sounds/clear.wav"))
+            throw "Audio file 'clear.wav' load failed!";
     }
     catch (const char* message){
         std::cout << message << std::endl;

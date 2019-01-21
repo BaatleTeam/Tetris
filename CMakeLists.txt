@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3)
 
 # set(EXECUTABLE_OUTPUT_PATH "Build")
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g")
 
 project(Tetris)
@@ -20,5 +20,5 @@ find_package(SFML 2.5 REQUIRED window graphics)
 
 # Compiling
 add_executable(Tetris ${srcMain} ${srcScreens} ${srcButtons} ${srcSettings})
-target_link_libraries(Tetris sfml-window sfml-graphics)
+target_link_libraries(Tetris sfml-window sfml-graphics sfml-audio)
 
