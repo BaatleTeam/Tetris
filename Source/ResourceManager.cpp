@@ -11,7 +11,7 @@ ResourceManager::ResourceManager(){
         
         if (!figureLanded.loadFromFile("Resources/Sounds/fall.wav"))
             throw "Audio file 'fall.wav' load failed!";
-        if (!figureLanded.loadFromFile("Resources/Sounds/clear.wav"))
+        if (!lineCleared.loadFromFile("Resources/Sounds/clear.wav"))
             throw "Audio file 'clear.wav' load failed!";
     }
     catch (const char* message){
