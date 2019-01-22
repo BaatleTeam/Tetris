@@ -12,6 +12,8 @@ enum class FigureType {
     Type6,
 };
 
+constexpr std::size_t figures_number = 7;
+
 inline std::ostream& operator<<(std::ostream& out, FigureType ft){
     switch (ft){
         case FigureType::NoType:

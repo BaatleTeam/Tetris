@@ -16,12 +16,13 @@ class TetrisFigure {
 private:
     unsigned curX;
     unsigned curY;
+    FigureType type;
     Matrix figureMatrix;
     sf::Color color;
     mutable FieldCoordinates coordinates;
 
 public:
-    TetrisFigure(FigureType type, int fieldHeight, int fieldWidth);
+    explicit TetrisFigure(FigureType type, int fieldHeight, int fieldWidth);
     TetrisFigure() = delete;
     virtual ~TetrisFigure() = default;
 
@@ -32,6 +33,7 @@ public:
 
     Matrix getMatrixAfterRotate() const;
     
+    FigureType getType() const;
     FieldCoordinates getCoordinatesAfterRotate() const;
     FieldCoordinates getCurCoordinates() const;
     const Matrix& getFigureMatrix() const;

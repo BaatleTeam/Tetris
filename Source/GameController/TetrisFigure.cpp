@@ -1,6 +1,6 @@
 #include "TetrisFigure.hpp"
 
-TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth){
+TetrisFigure::TetrisFigure(FigureType type, int fieldHeight, int fieldWidth) : type(type) {
     switch (type) {
         case FigureType::Type0:
             figureMatrix = {{1,1},
@@ -98,6 +98,10 @@ void TetrisFigure::rotate(){
     //         std::cout << figureMatrix[i][j] << " ";
     //     std::cout << "\n";
     // }
+}
+
+FigureType TetrisFigure::getType() const {
+    return type;
 }
 
 Matrix TetrisFigure::getMatrixAfterRotate() const {

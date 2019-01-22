@@ -82,8 +82,11 @@ sf::Color GameController::getCellColor(sf::Vector2u coord) const {
 
 void GameController::removeFilledLinesAndAddScore(){
     int numberOfRowsDeleted = gameField.removeFilledLines();
+    FigureType typeOfRemovedFigure = activeShape->getType();
+
     std::cout << "Rows deleted: " << numberOfRowsDeleted << "\n";
     stats.addScoreByLines(numberOfRowsDeleted);
+    stats.addRemovedFigure(typeOfRemovedFigure);
     std::cout << stats;
 }
 
