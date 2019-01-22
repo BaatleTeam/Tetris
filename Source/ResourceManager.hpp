@@ -13,29 +13,56 @@ static constexpr auto textureDirectory = "Pictures";
 static constexpr auto soundDirectory = "Sounds";
 
 static constexpr std::array<const char*, TexturesNumber> textureNames {
-    "clear.wav",
-    "fall.wav",
-};
-static constexpr std::array<const char*, SoundsNumber> soundNames {
     "testSprite.png",
     "background.png",
+};
+static constexpr std::array<const char*, SoundsNumber> soundNames {
+    "clear.wav",
+    "fall.wav",
 };
 
 class ResourceManager {
 private:
     sf::Font font;
-    sf::Texture cellTexture;
-    sf::Texture backgroundGame;
 
-    sf::SoundBuffer figureLanded;
-    sf::SoundBuffer lineCleared;
-
-    std::map <std::string, sf::SoundBuffer> soundsContainer;
     std::map <std::string, sf::Texture> textureContainer;
+    std::map <std::string, sf::SoundBuffer> soundContainer;
 public:
     ResourceManager();
     sf::Font& getFont();
 
     sf::Texture& getCellTexture();
-    sf::Texture& getBackground(std::string bcg_name);
+    sf::Texture& getBackground();
+
+private:
+    std::string removeExtension(const std::string& str) const;
+
+    template <typename... T>
+    auto concatStrings(const std::string &divider, const T&... args) const {
+        std::string result = {};
+        for (const auto& elem : std::initializer_list<std::string>{args...})
+            result = result + elem + divider;
+        return result;
+    };
+
+    template <typename T, std::size_t SIZE>
+    void loadResources(std::map<std::string, T> &container, const std::string &LoadPath, const std::array<const char*, SIZE> &names){
+        for (const auto &fileName : names){
+            try {
+                T currentRes{};
+                if (!currentRes.loadFromFile(concatStrings("", LoadPath, fileName)))
+                    throw concatStrings(" ", "Resource file load failed: ", fileName);
+                
+                container.emplace(
+                    std::move(removeExtension(fileName)),
+                    std::move(currentRes)
+                );
+            }
+            catch (const char* message){
+                std::cout << message << std::endl;
+                exit(-1);
+            }
+        }
+        
+    }
 };

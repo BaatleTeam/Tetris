@@ -1,18 +1,20 @@
 #include "ResourceManager.hpp"
 
 ResourceManager::ResourceManager(){
+    const auto pathT = concatStrings("/", resourceDirectory, textureDirectory);
+    loadResources<sf::Texture, TexturesNumber> (textureContainer, pathT, textureNames);
+
+    const auto pathS = concatStrings("/", resourceDirectory, soundDirectory);
+    loadResources<sf::SoundBuffer, SoundsNumber> (soundContainer, pathS, soundNames);
+
+    // for (auto &elem : textureContainer)
+    //     std::cout << elem.first << " ";
+    // for (auto &elem : soundContainer)
+    //     std::cout << elem.first << " ";
+
     try {
-        if (!cellTexture.loadFromFile("Resources/Pictures/testSprite.png"))
-            throw "Texture load failed";
         if (!font.loadFromFile("Resources/Fonts/SIMPLIFICA Typeface.ttf"))
 		    throw "Font load failed";
-        if (!backgroundGame.loadFromFile("Resources/Pictures/background.png"))
-            throw "Gamebackground load failed";
-        
-        if (!figureLanded.loadFromFile("Resources/Sounds/fall.wav"))
-            throw "Audio file 'fall.wav' load failed!";
-        if (!lineCleared.loadFromFile("Resources/Sounds/clear.wav"))
-            throw "Audio file 'clear.wav' load failed!";
     }
     catch (const char* message){
         std::cout << message << std::endl;
@@ -21,14 +23,20 @@ ResourceManager::ResourceManager(){
 }
 
 sf::Texture& ResourceManager::getCellTexture() {
-    return cellTexture;
+    return textureContainer["testSprite"];
 }
 
 sf::Font& ResourceManager::getFont(){
     return font;
 }
 
-sf::Texture& ResourceManager::getBackground(std::string bcg_name) {
-    // todo set and searching by name
-    return backgroundGame;
+sf::Texture& ResourceManager::getBackground() {
+    return textureContainer["background"];
+}
+
+std::string ResourceManager::removeExtension(const std::string& str) const {
+    char point = '.';
+    const auto begin = str.find_first_not_of(point);
+    const auto end = str.find_first_of(point);
+    return str.substr(begin, end-begin);
 }

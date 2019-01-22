@@ -6,7 +6,7 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
  , settings(settings)
 
 {	
-	gameBackground.setTexture(resourceManager.getBackground("todo"));
+	gameBackground.setTexture(resourceManager.getBackground());
 
 	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
