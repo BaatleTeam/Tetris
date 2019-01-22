@@ -34,6 +34,9 @@ public:
     sf::Texture& getCellTexture();
     sf::Texture& getBackground();
 
+    const sf::SoundBuffer& getRowClearedSound()  ;
+    const sf::SoundBuffer& getFigureLandedSound()  ;
+
 private:
     std::string removeExtension(const std::string& str) const;
 

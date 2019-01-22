@@ -17,6 +17,12 @@ private:
 	float beginGameField_Y = 70;
 	float indentBetweenCells = 3; // in pixels in gameField
 
+	// so it is a temprerory decision, it is needed to create own class for audio managmnet (where?)
+	// reference to this class will be given in Screen-type classes, which will be call required methods to play 
+	// different sounds
+	sf::Sound soundFigureLanded;
+	sf::Sound soundRowCleared;
+
 public:
 	// TODO:
 	// Why do we need to pass sf::RenderWindow here if we have it in settings?

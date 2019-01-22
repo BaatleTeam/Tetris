@@ -34,6 +34,14 @@ sf::Texture& ResourceManager::getBackground() {
     return textureContainer["background"];
 }
 
+const sf::SoundBuffer& ResourceManager::getRowClearedSound() {
+    return soundContainer["clear"];
+}
+
+const sf::SoundBuffer& ResourceManager::getFigureLandedSound() { 
+    return soundContainer["fall"];
+}
+
 std::string ResourceManager::removeExtension(const std::string& str) const {
     char point = '.';
     const auto begin = str.find_first_not_of(point);

@@ -13,6 +13,10 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 
 	const sf::Texture& cellTexture = resourceManager.getCellTexture();
 
+	// temp
+	soundFigureLanded.setBuffer(resourceManager.getFigureLandedSound());
+	soundRowCleared.setBuffer(resourceManager.getRowClearedSound());
+
 	for (unsigned i = 0; i < arraySize; i++){
 		gameFieldSpites.emplace_back(sf::Sprite{});
 		gameFieldSpites.back().setTexture(cellTexture);
