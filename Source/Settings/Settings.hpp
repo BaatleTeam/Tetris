@@ -6,11 +6,6 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics.hpp>
 
-class vector;
-class string;
-
-typedef unsigned int uint; 
-
 // В Settings хрянятся все настраиваемые парметры, их возможные значения и их текущее значение
 // можно инициализироватьь с файла.dat, пока что в консстукторе
 // на основе настроек конфигурируются размеры спрайтов, сложность игры, поля и т.д.
