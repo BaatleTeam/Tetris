@@ -19,14 +19,6 @@ bool ArrayCell::isPainted() const {
     return (this->color == sf::Color::Black) ? false : true;
 }
 
-void ArrayCell::makePainted(){
-    this->_isPainted = true;
-}
-
-void ArrayCell::makeUnpainted(){
-    this->_isPainted = false;
-}
-
 std::ostream& operator<<(std::ostream &out, const ArrayCell &cell){
     int number_Color = 0;
 
