@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
+#include <iostream>
 
 // Ячейка игрового массива
 
@@ -20,11 +21,5 @@ public:
     void makePainted();
     void makeUnpainted();
 
-    ArrayCell& operator=(const ArrayCell& arrayCell){
-        if (this == &arrayCell)
-            return *this;
-        _isPainted = arrayCell._isPainted;
-        color = arrayCell.color;
-        return *this;
-    }
+    friend std::ostream& operator<<(std::ostream &out, const ArrayCell &cell);
 };

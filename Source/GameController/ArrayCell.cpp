@@ -16,7 +16,7 @@ sf::Color ArrayCell::getColor() const {
 }
 
 bool ArrayCell::isPainted() const {
-    return _isPainted;
+    return (this->color == sf::Color::Black) ? false : true;
 }
 
 void ArrayCell::makePainted(){
@@ -25,4 +25,26 @@ void ArrayCell::makePainted(){
 
 void ArrayCell::makeUnpainted(){
     this->_isPainted = false;
+}
+
+std::ostream& operator<<(std::ostream &out, const ArrayCell &cell){
+    int number_Color = 0;
+
+    if (cell.color == sf::Color::Black)
+        number_Color = 0;
+    if (cell.color == sf::Color::Red)
+        number_Color = 1;
+    if (cell.color == sf::Color::Green)
+        number_Color = 2;
+    if (cell.color == sf::Color::Blue)
+        number_Color = 3;
+    if (cell.color == sf::Color::Yellow)
+        number_Color = 4;
+    if (cell.color == sf::Color::Magenta)
+        number_Color = 5;
+    if (cell.color == sf::Color::Cyan)
+        number_Color = 6;
+    
+    out << number_Color;
+    return out;
 }

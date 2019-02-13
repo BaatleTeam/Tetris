@@ -122,7 +122,7 @@ std::ostream& operator<<(std::ostream &out, const GameField &field){
     for (unsigned i = 0; i < field.height; i++){
         out << std::setw(3) << field.height - 1 - i << "| ";
         for (unsigned j = 0; j < field.width; j++)
-            out << field.gameField[field.height - 1 - i][j].isPainted() << " ";
+            out << field.gameField[field.height - 1 - i][j] << " ";
         out << "\n";
     }
     out << std::setw(4);

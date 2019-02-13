@@ -116,8 +116,11 @@ void ScreenGame::resizeGameField() {
 
 // change color of changed sprites
 void ScreenGame::updateGameField(){
-	for (int i = settings.getFieldSize().y-1; i >= 0; i--)
-		for (int j = 0; j < (int)settings.getFieldSize().x; j++){
+	int fieldWidth = (int)settings.getFieldSize().x;
+	int fieldHeight = (int)settings.getFieldSize().y;
+
+	for (int i = fieldHeight-1; i >= 0; i--)
+		for (int j = 0; j < fieldWidth; j++){
 			if (gameController.getCellColor({(unsigned)j, (unsigned)i}) != gameFieldSpites[convertIndexes(i,j)].getColor())
 				gameFieldSpites[convertIndexes(i,j)].setColor(gameController.getCellColor({(unsigned)j, (unsigned)i}));
 			// std::cout << "i = " << i << " j = " << j << " --> [" << convertIndexes(i,j) << "]" << std::endl;
