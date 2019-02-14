@@ -8,17 +8,13 @@ GameField::GameField(unsigned h, unsigned w) : height(h), width(w) {
 }
 
 void GameField::paintFigure(const TetrisFigure *figure){
-    for (auto const &curShapeCoord : figure->getCurCoordinates()){
-        gameField[curShapeCoord.y][curShapeCoord.x].makePainted();
+    for (auto const &curShapeCoord : figure->getCurCoordinates())
         gameField[curShapeCoord.y][curShapeCoord.x].setColor(figure->getColor());
-    }
 }
 
 void GameField::unpaintFigure(const TetrisFigure *figure){
-    for (auto const &curShapeCoord : figure->getCurCoordinates()){
-        gameField[curShapeCoord.y][curShapeCoord.x].makeUnpainted();
+    for (auto const &curShapeCoord : figure->getCurCoordinates())
         gameField[curShapeCoord.y][curShapeCoord.x].setDefaultColor();
-    }
 }
 
 bool GameField::checkFigureMoveDown(const TetrisFigure *figure) const {
@@ -110,11 +106,12 @@ bool GameField::checkLineFilled(unsigned row) const {
 }
 
 void GameField::clearRow(unsigned row) {
-    for (unsigned i = row; i < height-1; i++){
+    for (unsigned i = row; i < height-1; i++)
         std::swap(gameField[i], gameField[i+1]);
-    }
+
     for (unsigned j = 0; j < width; j++)
-        gameField[height-1][j].makeUnpainted();
+        gameField[height-1][j].setDefaultColor();
+        
 }
 
 
@@ -122,7 +119,7 @@ std::ostream& operator<<(std::ostream &out, const GameField &field){
     for (unsigned i = 0; i < field.height; i++){
         out << std::setw(3) << field.height - 1 - i << "| ";
         for (unsigned j = 0; j < field.width; j++)
-            out << field.gameField[field.height - 1 - i][j].isPainted() << " ";
+            out << field.gameField[field.height - 1 - i][j] << " ";
         out << "\n";
     }
     out << std::setw(4);
