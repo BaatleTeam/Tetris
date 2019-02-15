@@ -5,17 +5,13 @@
 #include "../../Settings/Settings.hpp"
 #include "../../GameController/GameController.hpp"
 #include "../../ResourceManager.hpp"
-#include <iostream>
+#include "GameFieldGraphics.hpp"
 
 class ScreenGame : public ScreenBase {
 private:
 	GameController gameController;
-	std::vector <sf::Sprite> gameFieldSpites;
+	GameFieldGraphics gameFieldGraphics;
 	sf::Sprite gameBackground;
-	float SpriteKF = 0.15; // due to size of spite -> can used in settings instead
-	float beginGameField_X = 300;
-	float beginGameField_Y = 70;
-	float indentBetweenCells = 3; // in pixels in gameField
 
 	// so it is a temprerory decision, it is needed to create own class for audio managmnet (where?)
 	// reference to this class will be given in Screen-type classes, which will be call required methods to play 
@@ -33,9 +29,6 @@ public:
 
 private:
 	void drawGameField(sf::RenderWindow&);
-	void resizeGameField();
-	void updateGameField();
-	int convertIndexes(int i, int j) const;
 
 	void drawBackground(sf::RenderWindow&);
 	void resizeBackground();
