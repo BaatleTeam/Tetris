@@ -1,5 +1,5 @@
-#include "Screens.hpp"
-#include "../Buttons/ButtonList.hpp"
+#include "../Screens.hpp"
+#include "../../Buttons/ButtonList.hpp"
 
 ScreenMenu::ScreenMenu(Settings &newSettings, ResourceManager& r_m)
  : ScreenBase(r_m)

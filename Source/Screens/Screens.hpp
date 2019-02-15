@@ -5,7 +5,7 @@
 #include "ScreenBase.hpp"
 
 //Including each screen of application
-#include "ScreenMenu.hpp"
+#include "ScreenMenu/ScreenMenu.hpp"
 #include "ScreenGame.hpp"
 #include "ScreenSettings.hpp"
 #include "../Settings/Settings.hpp"
