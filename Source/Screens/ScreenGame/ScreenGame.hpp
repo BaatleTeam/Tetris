@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "ScreenBase.hpp"
-#include "../Settings/Settings.hpp"
-#include "../GameController/GameController.hpp"
-#include "../ResourceManager.hpp"
+#include "../ScreenBase.hpp"
+#include "../../Settings/Settings.hpp"
+#include "../../GameController/GameController.hpp"
+#include "../../ResourceManager.hpp"
 #include <iostream>
 
 class ScreenGame : public ScreenBase {
