@@ -58,8 +58,12 @@ sf::Vector2u Settings::getScreenSize() const {
     return screenSizes[indexScreenSize];
 }
 
-sf::Vector2u Settings::getFieldSize() const {
+sf::Vector2u Settings::getGameFieldSize() const {
     return fieldSizes[indexFieldSize];
+}
+
+sf::Vector2u Settings::getNextFigureFieldSize() const {
+    return nextFigureFieldSize;
 }
 
 sf::RenderWindow &Settings::getRenderWindow()

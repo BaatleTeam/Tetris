@@ -19,6 +19,7 @@ private:
     
     mutable int indexScreenSize;
     mutable int indexFieldSize;
+    const sf::Vector2u nextFigureFieldSize = {4, 4};
 
     int windowStyle;
     std::string windowName;
@@ -38,7 +39,8 @@ public:
     const std::string& getConfigurationString(const std::string&) const; 
 
     sf::Vector2u getScreenSize() const;
-    sf::Vector2u getFieldSize() const;
+    sf::Vector2u getGameFieldSize() const;
+    sf::Vector2u getNextFigureFieldSize() const;
     sf::RenderWindow &getRenderWindow();
     void printVars() const;
 

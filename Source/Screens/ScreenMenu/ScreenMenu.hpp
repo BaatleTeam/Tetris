@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Screens.hpp"
-#include "../Settings/Settings.hpp"
-#include "../Buttons/ButtonList.hpp"
+#include "../Screens.hpp"
+#include "../../Settings/Settings.hpp"
+#include "../../Buttons/ButtonList.hpp"
 
 class ButtonList;
 
