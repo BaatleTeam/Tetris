@@ -4,6 +4,7 @@ ScreenGame::ScreenGame(Settings &settings, ResourceManager &rM)
 	: ScreenBase(rM)
 	, gameController(settings)
 	, gameFieldGraphics(settings, rM)
+	, nextFigureGraphics(settings, rM)
 	, settings(settings) // ?
 {	
 	gameBackground.setTexture(resourceManager.getBackground());
@@ -53,7 +54,8 @@ ScreenType ScreenGame::run(sf::RenderWindow &window)
 		//Drawing
 		drawBackground(window);
     
-		drawGameField(window);
+		drawGameField();
+		drawNextFigure();
 
 		window.display();
 	}
@@ -65,11 +67,16 @@ ScreenType ScreenGame::run(sf::RenderWindow &window)
 void ScreenGame::resizeSprites() {
 	std::cout << "resizeGame" << std::endl;
 	resizeBackground();
-	gameFieldGraphics.resize();
+	gameFieldGraphics.resize(SpriteKF, indentBetweenCells);
+	nextFigureGraphics.resize(SpriteKF, indentBetweenCells);
 }
 
-void ScreenGame::drawGameField(sf::RenderWindow &window){
+void ScreenGame::drawGameField(){
 	gameFieldGraphics.draw(gameController);	
+}
+
+void ScreenGame::drawNextFigure(){
+	nextFigureGraphics.draw(gameController);
 }
 
 

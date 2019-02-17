@@ -1,5 +1,4 @@
-#ifndef SCREEN_BASE_HPP_INCLUDED
-#define SCREEN_BASE_HPP_INCLUDED
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include "../ResourceManager.hpp"
@@ -24,5 +23,3 @@ private:
 	// Also because of that I can't put while(window.PollEvent(...)) loop in processEvent function.(@Denmey)
 	virtual ScreenType processEvent(const sf::Event &event) = 0;
 };
-
-#endif

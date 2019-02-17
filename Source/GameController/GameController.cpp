@@ -1,8 +1,8 @@
 #include "GameController.hpp"
 
 GameController::GameController(const Settings &s) 
-    : height(s.getFieldSize().y + 4)
-    , width(s.getFieldSize().x)
+    : height(s.getGameFieldSize().y + 4)
+    , width(s.getGameFieldSize().x)
     , gameField(height, width)
     , activeShape(nullptr)
     , figureGenerator(height, width)

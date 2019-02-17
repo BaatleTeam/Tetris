@@ -2,7 +2,7 @@
 
 GameFieldGraphics::GameFieldGraphics(Settings &settings, ResourceManager &resourceManager)
 	: settings(settings) {
-	auto arraySize = settings.getFieldSize().x * settings.getFieldSize().y;
+	auto arraySize = settings.getGameFieldSize().x * settings.getGameFieldSize().y;
 	gameFieldSpites.reserve(arraySize);
 
 	const sf::Texture& cellTexture = resourceManager.getCellTexture();
@@ -19,13 +19,13 @@ void GameFieldGraphics::draw(const GameController &gc){
 		settings.getRenderWindow().draw(blockSprite);	
 }
 
-void GameFieldGraphics::resize() {
+void GameFieldGraphics::resize(float SpriteKF, float indentBetweenCells) {
 	float currSpriteKF = SpriteKF;
 	float windowKF = (float)settings.getScreenSize().x / Settings::RenderWindowMaxWidth;
 	currSpriteKF *= windowKF;
 	
-	float currX = beginGameField_X * windowKF;
-	float currY = beginGameField_Y * windowKF;
+	float currX = beginField_X * windowKF;
+	float currY = beginField_Y * windowKF;
 	float spriteSize = Settings::SpriteBlockOriginalWidth * currSpriteKF;
 	float indent = indentBetweenCells * windowKF;
 
@@ -34,9 +34,9 @@ void GameFieldGraphics::resize() {
 		sprite.setScale({currSpriteKF, currSpriteKF});
 		currX += spriteSize + indent;
 		sprite.setPosition({ currX, currY });
-		if (numberInRow >= settings.getFieldSize().x){
+		if (numberInRow >= settings.getGameFieldSize().x){
 			currY += spriteSize + indent;
-			currX = beginGameField_X * windowKF;
+			currX = beginField_X * windowKF;
 			numberInRow = 0;
 		}
 		numberInRow++;
@@ -45,8 +45,8 @@ void GameFieldGraphics::resize() {
 
 // change color of changed sprites
 void GameFieldGraphics::update(const GameController &gameController){
-	int fieldWidth = (int)settings.getFieldSize().x;
-	int fieldHeight = (int)settings.getFieldSize().y;
+	int fieldWidth = (int)settings.getGameFieldSize().x;
+	int fieldHeight = (int)settings.getGameFieldSize().y;
 
 	for (int i = fieldHeight-1; i >= 0; i--)
 		for (int j = 0; j < fieldWidth; j++){
@@ -60,5 +60,5 @@ void GameFieldGraphics::update(const GameController &gameController){
 
 
 int GameFieldGraphics::convertIndexes(int i, int j) const {
-	return (settings.getFieldSize().y -1 - i)*settings.getFieldSize().x + j;
+	return (settings.getGameFieldSize().y -1 - i)*settings.getGameFieldSize().x + j;
 }
